@@ -7,9 +7,9 @@ import { type Metadata } from "next";
 import { Theme } from "@radix-ui/themes";
 
 export const metadata: Metadata = {
-  title: "PawPoint Clicker",
+  title: "PawPointClicker",
   description:
-    "Paw Point Clicker is a game about making an absurd amount of paw points from scanning your prox. To help you in this endeavor, you will recruit a wide variety of helpful prox scanners.",
+    "PawPointClicker is a game about making an absurd amount of paw points from scanning your prox. To help you in this endeavor, you will recruit a wide variety of helpful prox scanners.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
