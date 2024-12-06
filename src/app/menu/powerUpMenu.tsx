@@ -29,8 +29,8 @@ export default function PowerUpMenu(props: {
   };
 
   const clickMultiplierCost = getScaledCost(5, clickMultiplier);
-  const farmCost = getScaledCost(50, farms);
-  const factoryCost = getScaledCost(200, factories);
+  const farmCost = getScaledCost(5, farms);
+  const factoryCost = getScaledCost(20, factories);
 
   return (
     <Flex

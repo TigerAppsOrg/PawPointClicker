@@ -14,7 +14,7 @@ export default function HomePage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCount((prevCount) => prevCount + farms * 2 + factories * 10);
-    }, 1000);
+    }, 100);
 
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, [farms, factories]);

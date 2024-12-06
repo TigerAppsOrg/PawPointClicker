@@ -31,10 +31,10 @@ export default function ProxButton(props: {
   const buttonRadius = 144; // Button radius in px (from h-72/w-72)
 
   return (
-    <Box className="relative h-full">
+    <Flex justify="center" className="relative h-full w-full flex-col">
       <Flex
         align="center"
-        className="h-48 flex-col bg-red-100 text-5xl font-extrabold"
+        className="mb-12 h-64 flex-col bg-red-100 py-12 text-5xl font-extrabold"
       >
         <Text>Paw Points: </Text>
         <Text
@@ -46,7 +46,8 @@ export default function ProxButton(props: {
           {props.count}
         </Text>
       </Flex>
-      <Flex className="relative">
+
+      <Flex justify="center" className="relative mx-auto">
         {/* Render notifications */}
         {notifications.map((notification) => (
           <Flex
@@ -55,14 +56,13 @@ export default function ProxButton(props: {
             key={notification.id}
             style={{
               position: "absolute",
-              transform: `translate(${notification.offset}px, ${notification.offset * 2}px)`,
+              transform: `translate(${notification.offset * 8}px, ${notification.offset * 2}px)`,
             }}
-            className={`animate-shake right-0 top-0 z-20 h-24 w-24 rounded-full border-2 border-orange-400 bg-orange-100 p-2 text-3xl font-bold text-orange-900 transition duration-75`}
+            className={`animate-shake right-0 top-0 z-20 h-24 w-24 rounded-full border-2 border-orange-400 bg-orange-100 p-2 text-3xl font-bold text-red-600 transition duration-75`}
           >
-            +{1 * props.clickMultiplier}
+            +{props.clickMultiplier}
           </Flex>
         ))}
-
         {/* Container for spinning cards */}
         <div
           className="animate-spinCards absolute inset-0 flex items-center justify-center"
@@ -76,7 +76,7 @@ export default function ProxButton(props: {
                 transform: `rotate(${index * 36}deg) translate(${buttonRadius}px)`,
                 transformOrigin: `center`,
               }}
-              className="h-16 w-16 rounded-md border bg-orange-300"
+              className="h-16 w-16 rounded-lg border bg-orange-400"
             ></Box>
           ))}
         </div>
@@ -104,6 +104,6 @@ export default function ProxButton(props: {
           </Box>
         </button>
       </Flex>
-    </Box>
+    </Flex>
   );
 }

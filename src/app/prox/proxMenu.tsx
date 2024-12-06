@@ -9,11 +9,7 @@ export default function ProxMenu(props: {
   setClickMultiplier: (clickMultiplier: number) => void;
 }) {
   return (
-    <Flex
-      align="center"
-      justify="center"
-      className="h-full w-full overflow-hidden bg-red-200 p-4"
-    >
+    <Flex className="h-full w-full overflow-hidden bg-red-200 p-4">
       <ProxButton
         count={props.count}
         setCount={props.setCount}
