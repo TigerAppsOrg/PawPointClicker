@@ -8,8 +8,14 @@ export default function HomePage() {
   const [count, setCount] = useState(0);
   const [lifeTimeEarnings, setLifetimeEarnings] = useState(0);
   const [clickMultiplier, setClickMultiplier] = useState(1);
+  const [scanner, setScanner] = useState(0);
   const [farms, setFarms] = useState(0); // Number of farms
+  const [mine, setMine] = useState(0);
   const [factories, setFactories] = useState(0); // Number of factories
+  const [bank, setBank] = useState(0);
+  const [lab, setLab] = useState(0);
+  const [temple, setTemple] = useState(0);
+  const [spaceStation, setSpaceStation] = useState(0);
 
   // Ref to track previous count
   const oldCountRef = useRef(count);
@@ -17,18 +23,38 @@ export default function HomePage() {
   // Passive income logic
   useEffect(() => {
     const interval = setInterval(() => {
-      // Update count with passive income logic
-      setCount(
-        (prevCount) => prevCount + clickMultiplier + farms * 5 + factories * 10,
-      );
+      const passiveIncome =
+        clickMultiplier +
+        scanner * 5 +
+        farms * 100 +
+        mine * 200 +
+        factories * 500 +
+        bank * 1000 +
+        lab * 20000 +
+        temple * 500000 +
+        spaceStation * 1000000;
+
+      // Update count and lifetime earnings with the calculated passive income
+      setCount((prevCount) => prevCount + passiveIncome);
       setLifetimeEarnings(
-        (prevLifetimeEarnings) =>
-          prevLifetimeEarnings + clickMultiplier + farms * 5 + factories * 10,
+        (prevLifetimeEarnings) => prevLifetimeEarnings + passiveIncome,
       );
     }, 1000);
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
-  }, [clickMultiplier, farms, factories]);
+    return () => clearInterval(interval); // Cleanup on component unmount
+  }, [
+    clickMultiplier,
+    farms,
+    factories,
+    scanner,
+    mine,
+    bank,
+    lab,
+    temple,
+    spaceStation,
+    setCount,
+    setLifetimeEarnings,
+  ]);
 
   // Track previous count
   useEffect(() => {
@@ -53,10 +79,22 @@ export default function HomePage() {
         lifeTimeEarnings={lifeTimeEarnings}
         clickMultiplier={clickMultiplier}
         setClickMultiplier={setClickMultiplier}
+        scanner={scanner}
+        setScanner={setScanner}
         farms={farms}
         setFarms={setFarms}
+        mine={mine}
+        setMine={setMine}
         factories={factories}
         setFactories={setFactories}
+        bank={bank}
+        setBank={setBank}
+        lab={lab}
+        setLab={setLab}
+        temple={temple}
+        setTemple={setTemple}
+        spaceStation={spaceStation}
+        setSpaceStation={setSpaceStation}
       />
     </Flex>
   );

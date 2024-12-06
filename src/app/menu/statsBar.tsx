@@ -5,19 +5,40 @@ interface StatsBarProps {
   count: number; // Current cookie count
   lifeTimeEarnings: number; // Total cookies earned over time
   clickMultiplier: number; // Current click multiplier
-  farms: number; // Number of farms owned
-  factories: number; // Number of factories owned
+  scanner: number; // Number of scanners
+  farms: number;
+  mine: number;
+  factories: number;
+  bank: number;
+  lab: number;
+  temple: number;
+  spaceStation: number;
 }
 
 export default function StatsBar({
   count,
   lifeTimeEarnings,
   clickMultiplier,
+  scanner,
   farms,
+  mine,
   factories,
+  bank,
+  lab,
+  temple,
+  spaceStation,
 }: StatsBarProps) {
   // Calculations:
-  const passiveIncome = clickMultiplier + farms * 5 + factories * 10; // Passive cookies per second
+  const passiveIncome =
+    clickMultiplier +
+    scanner * 5 +
+    farms * 100 +
+    mine * 200 +
+    factories * 500 +
+    bank * 1000 +
+    lab * 20000 +
+    temple * 500000 +
+    spaceStation * 1000000; // Passive cookies per second
   const totalMultiplier = clickMultiplier; // Total multiplier applied to clicks
 
   return (
