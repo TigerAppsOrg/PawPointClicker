@@ -13,11 +13,16 @@ export default {
       spinCards: "spinCards 6s linear infinite",
       shake: "shake 0.82s cubic-bezier(.36,.07,.19,.97) both",
       wiggle: "wiggle 200ms ease-in-out",
+      bounce: "bounce 1.5s infinite ease-in-out",
     },
     keyframes: {
       spinCards: {
         "0%": { transform: "rotate(0deg)" },
         "100%": { transform: "rotate(360deg)" },
+      },
+      bounce: {
+        "0%, 100%": { transform: "translateY(0)" },
+        "50%": { transform: "translateY(-20px)" },
       },
       wiggle: {
         "0%, 100%": { transform: "rotate(-3deg)" },

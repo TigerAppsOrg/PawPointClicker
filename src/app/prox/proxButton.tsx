@@ -1,24 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Box, Flex, Text } from "@radix-ui/themes";
+import CountUp from "react-countup";
+
+import RenderCards from "./renderCards";
 
 export default function ProxButton(props: {
   count: number;
+  oldCount: number;
   setCount: (count: number) => void;
   clickMultiplier: number;
   setClickMultiplier: (clickMultiplier: number) => void;
+  lifeTimeEarnings: number;
+  setLifetimeEarnings: (lifetimeEarnings: number) => void;
 }) {
   const [effect, setEffect] = useState(true);
   const [notifications, setNotifications] = useState<
     { id: number; offset: number }[]
   >([]);
+  const [isFlashing, setIsFlashing] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsFlashing((prev) => !prev); // Toggle the flashing state every second
+    }, 500); // Flash every second
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, []);
 
   const handleButtonClick = () => {
     const newId = Date.now(); // Unique ID for each notification
     const offset = Math.random() * 20 - 10; // Random horizontal offset for variation
 
+    setIsFlashing(true);
     setNotifications((prev) => [...prev, { id: newId, offset }]);
     props.setCount(props.count + props.clickMultiplier);
+    props.setLifetimeEarnings(props.lifeTimeEarnings + props.clickMultiplier);
 
     // Remove notification after 1 second
     setTimeout(() => {
@@ -28,81 +45,81 @@ export default function ProxButton(props: {
     }, 500);
   };
 
-  const buttonRadius = 144; // Button radius in px (from h-72/w-72)
-
   return (
-    <Flex justify="center" className="relative h-full w-full flex-col">
+    <Flex align="center" className="relative z-40 h-full w-full flex-col">
       <Flex
         align="center"
-        className="mb-12 h-64 flex-col bg-red-100 py-12 text-5xl font-extrabold"
+        className="absolute z-50 w-full flex-col bg-red-100/80 py-6 text-3xl font-extrabold"
       >
         <Text>Paw Points: </Text>
-        <Text
-          className={`${
-            effect &&
-            "animate-wiggle scale-105 text-8xl text-orange-900 transition"
-          } relative text-7xl`}
-        >
-          {props.count}
-        </Text>
+        <Flex align="center" justify="center" className="h-[3rem]">
+          <Text
+            className={`${
+              effect &&
+              "scale-105 animate-wiggle text-6xl text-orange-900 transition"
+            } absolute text-5xl`}
+          >
+            <CountUp start={props.oldCount} end={props.count} duration={1} />
+          </Text>
+        </Flex>
       </Flex>
 
-      <Flex justify="center" className="relative mx-auto">
-        {/* Render notifications */}
-        {notifications.map((notification) => (
-          <Flex
-            justify="center"
-            align="center"
-            key={notification.id}
-            style={{
-              position: "absolute",
-              transform: `translate(${notification.offset * 8}px, ${notification.offset * 2}px)`,
-            }}
-            className={`animate-shake right-0 top-0 z-20 h-24 w-24 rounded-full border-2 border-orange-400 bg-orange-100 p-2 text-3xl font-bold text-red-600 transition duration-75`}
-          >
-            +{props.clickMultiplier}
-          </Flex>
-        ))}
+      <Flex
+        align="center"
+        justify="center"
+        className="relative mx-auto h-full w-full"
+      >
         {/* Container for spinning cards */}
-        <div
-          className="animate-spinCards absolute inset-0 flex items-center justify-center"
-          style={{ height: buttonRadius * 2, width: buttonRadius * 2 }}
-        >
-          {Array.from({ length: props.clickMultiplier }).map((_, index) => (
-            <Box
-              key={index}
+        <RenderCards clickMultiplier={props.clickMultiplier} />
+        <Box className="relative">
+          {/* Render notifications */}
+          {notifications.map((notification) => (
+            <Flex
+              justify="center"
+              align="center"
+              key={notification.id}
               style={{
                 position: "absolute",
-                transform: `rotate(${index * 36}deg) translate(${buttonRadius}px)`,
-                transformOrigin: `center`,
+                transform: `translate(${notification.offset * 8}px, ${notification.offset * 2}px)`,
               }}
-              className="h-16 w-16 rounded-lg border bg-orange-400"
-            ></Box>
+              className={`absolute right-0 top--5 z-50 h-16 w-16 animate-shake select-none rounded-full border-2 border-orange-400 bg-orange-100 text-2xl font-bold text-red-600`}
+            >
+              x{props.clickMultiplier}
+            </Flex>
           ))}
-        </div>
-
-        <button
-          onClick={handleButtonClick}
-          className={`${
-            effect && "bg-orange-100"
-          } hover:animate-wiggle h-72 w-72 rounded-full bg-orange-400 text-white drop-shadow-lg transition ease-in-out`}
-        >
-          <Box className="">
-            <Image
-              src="/images/prox.svg"
-              alt="Prox"
+          <button
+            onClick={handleButtonClick}
+            className={`${
+              effect && "bg-orange-100"
+            } h-48 w-48 rounded-full bg-orange-400 text-white drop-shadow-lg transition ease-in-out hover:animate-wiggle`}
+          >
+            <Flex
+              justify="center"
               className={`${
                 effect && "animate-wiggle"
-              } h-[90%] transition duration-200 ease-in-out hover:scale-105`}
-              onClick={() => {
-                setEffect(true);
-              }}
-              onAnimationEnd={() => setEffect(false)}
-              height={1000}
-              width={1000}
-            />
-          </Box>
-        </button>
+              } transition duration-200 ease-in-out hover:scale-105`}
+            >
+              <Image
+                src="/images/prox.svg"
+                alt="Prox"
+                onClick={() => {
+                  setEffect(true);
+                }}
+                onAnimationEnd={() => setEffect(false)}
+                height={1000}
+                width={1000}
+                className={`${
+                  effect && "animate-wiggle"
+                } h-[90%] transition duration-200 ease-in-out hover:scale-105`}
+              />
+              <Box
+                className={`absolute bottom-[-0.75rem] z-20 h-10 w-10 rounded-full border-2 border-orange-400 transition-colors ${
+                  isFlashing ? "bg-green-500/90" : "bg-orange-300"
+                }`}
+              ></Box>
+            </Flex>
+          </button>
+        </Box>
       </Flex>
     </Flex>
   );
