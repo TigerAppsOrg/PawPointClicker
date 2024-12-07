@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ProxMenu from "./prox/proxMenu";
 import PowerUpMenu from "./menu/powerUpMenu";
-import { ClientOnly } from "./clientOnly";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
 export default function HomePage() {
@@ -109,47 +108,45 @@ export default function HomePage() {
     (1 + prestige); // Prestige multiplier
 
   return (
-    <ClientOnly>
-      <div className="relative grid w-full grid-cols-1 sm:h-screen sm:grid-cols-2 sm:overflow-hidden">
-        <ProxMenu
-          proxName={proxName}
-          setProxName={setProxName}
-          count={count}
-          setCount={setCount}
-          oldCount={oldCountRef.current}
-          clickMultiplier={clickMultiplier}
-          setClickMultiplier={setClickMultiplier}
-          lifeTimeEarnings={lifeTimeEarnings}
-          setLifetimeEarnings={setLifetimeEarnings}
-          passiveIncome={passiveIncome}
-        />
-        <PowerUpMenu
-          count={count}
-          setCount={setCount}
-          lifeTimeEarnings={lifeTimeEarnings}
-          clickMultiplier={clickMultiplier}
-          setClickMultiplier={setClickMultiplier}
-          scanner={scanner}
-          setScanner={setScanner}
-          farms={farms}
-          setFarms={setFarms}
-          mine={mine}
-          setMine={setMine}
-          factories={factories}
-          setFactories={setFactories}
-          bank={bank}
-          setBank={setBank}
-          lab={lab}
-          setLab={setLab}
-          temple={temple}
-          setTemple={setTemple}
-          spaceStation={spaceStation}
-          setSpaceStation={setSpaceStation}
-          prestige={prestige} // Pass Prestige Points
-          handlePrestige={handlePrestige} // Pass Prestige
-          passiveIncome={passiveIncome}
-        />
-      </div>
-    </ClientOnly>
+    <div className="relative grid w-full grid-cols-1 sm:h-screen sm:grid-cols-2 sm:overflow-hidden">
+      <ProxMenu
+        proxName={proxName}
+        setProxName={setProxName}
+        count={count}
+        setCount={setCount}
+        oldCount={oldCountRef.current}
+        clickMultiplier={clickMultiplier}
+        setClickMultiplier={setClickMultiplier}
+        lifeTimeEarnings={lifeTimeEarnings}
+        setLifetimeEarnings={setLifetimeEarnings}
+        passiveIncome={passiveIncome}
+      />
+      <PowerUpMenu
+        count={count}
+        setCount={setCount}
+        lifeTimeEarnings={lifeTimeEarnings}
+        clickMultiplier={clickMultiplier}
+        setClickMultiplier={setClickMultiplier}
+        scanner={scanner}
+        setScanner={setScanner}
+        farms={farms}
+        setFarms={setFarms}
+        mine={mine}
+        setMine={setMine}
+        factories={factories}
+        setFactories={setFactories}
+        bank={bank}
+        setBank={setBank}
+        lab={lab}
+        setLab={setLab}
+        temple={temple}
+        setTemple={setTemple}
+        spaceStation={spaceStation}
+        setSpaceStation={setSpaceStation}
+        prestige={prestige} // Pass Prestige Points
+        handlePrestige={handlePrestige} // Pass Prestige
+        passiveIncome={passiveIncome}
+      />
+    </div>
   );
 }
