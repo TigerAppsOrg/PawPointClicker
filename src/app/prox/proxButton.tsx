@@ -6,6 +6,8 @@ import CountUp from "react-countup";
 import RenderCards from "./renderCards";
 
 export default function ProxButton(props: {
+  proxName: string;
+  setProxName: (proxName: string) => void;
   count: number;
   oldCount: number;
   setCount: (count: number) => void;
@@ -13,6 +15,7 @@ export default function ProxButton(props: {
   setClickMultiplier: (clickMultiplier: number) => void;
   lifeTimeEarnings: number;
   setLifetimeEarnings: (lifetimeEarnings: number) => void;
+  passiveIncome: number;
 }) {
   const [effect, setEffect] = useState(true);
   const [notifications, setNotifications] = useState<
@@ -100,18 +103,33 @@ export default function ProxButton(props: {
     <Flex align="center" className="relative z-40 h-full w-full flex-col">
       <Flex
         align="center"
-        className="absolute z-50 w-full flex-col bg-red-100/80 py-6 text-3xl font-extrabold"
+        className="absolute z-50 w-full flex-col font-extrabold"
       >
-        <Text>Paw Points: </Text>
-        <Flex align="center" justify="center" className="h-[3rem]">
-          <Text
-            className={`${
-              effect &&
-              "scale-105 animate-wiggle text-6xl text-orange-900 transition"
-            } absolute text-5xl`}
-          >
-            <CountUp start={props.oldCount} end={props.count} duration={1} />
-          </Text>
+        {/* Editable Prox Name */}
+        <Flex className="w-full bg-red-300/80">
+          <input
+            type="text"
+            value={props.proxName}
+            onChange={(e) => props.setProxName(e.target.value)}
+            className="mx-8 my-4 w-full rounded-lg border-none bg-gray-800/30 text-center text-2xl font-bold text-white outline-none"
+          />
+        </Flex>
+        <Flex
+          align="center"
+          className="w-full flex-col bg-red-100/80 pb-4 pt-3 text-2xl"
+        >
+          <Text>Paw Points: </Text>
+          <Flex align="center" justify="center" className="h-[3rem]">
+            <Text
+              className={`${
+                effect &&
+                "scale-105 animate-wiggle text-5xl text-orange-900 transition"
+              } absolute text-4xl`}
+            >
+              <CountUp start={props.oldCount} end={props.count} duration={1} />
+            </Text>
+          </Flex>
+          <Text className="text-sm">per second: {props.passiveIncome} </Text>
         </Flex>
       </Flex>
 
@@ -161,11 +179,15 @@ export default function ProxButton(props: {
                   effect && "animate-wiggle"
                 } h-[90%] transition duration-200 ease-in-out hover:scale-105`}
               />
-              <Box
-                className={`absolute bottom-[-0.75rem] z-20 h-10 w-10 rounded-full border-2 border-orange-400 transition-colors ${
-                  isFlashing ? "bg-green-400" : "bg-red-400"
+              <Flex
+                align="center"
+                justify="center"
+                className={`absolute bottom-[-1rem] z-20 h-10 w-10 rounded-full border-4 border-orange-400 font-extrabold text-black transition-colors ${
+                  isFlashing ? "bg-red-400/80" : "bg-green-400/80"
                 }`}
-              ></Box>
+              >
+                x{trueMultiplier}
+              </Flex>
             </Flex>
           </button>
         </Box>

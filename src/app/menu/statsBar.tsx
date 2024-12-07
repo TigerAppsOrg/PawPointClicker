@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Text } from "@radix-ui/themes";
+import { Flex, Text, Box } from "@radix-ui/themes";
 
 interface StatsBarProps {
   count: number; // Current cookie count
@@ -13,7 +13,57 @@ interface StatsBarProps {
   lab: number;
   temple: number;
   spaceStation: number;
+  prestige: number;
+  handlePrestige: () => void;
+  passiveIncome: number; // Passive income per second
 }
+
+// Reusable component for each stat item
+interface StatsItemProps {
+  label: string;
+  value: string | number;
+}
+
+const StatsItem: React.FC<StatsItemProps> = ({ label, value }) => (
+  <Flex
+    direction="column"
+    align="center"
+    justify="center"
+    className="h-full w-full rounded-xl bg-gray-700 p-2 hover:text-green-400"
+  >
+    <Text weight="bold" className="text-center text-sm">
+      {label}
+    </Text>
+    <Text className="text-base">{value}</Text>
+  </Flex>
+);
+
+// Separate Prestige Button component
+interface PrestigeButtonProps {
+  prestige: number;
+  handlePrestige: () => void;
+}
+
+const PrestigeButton: React.FC<PrestigeButtonProps> = ({
+  prestige,
+  handlePrestige,
+}) => (
+  <Flex className="flex-col gap-2 rounded-xl bg-yellow-400 p-2">
+    <Flex
+      justify="center"
+      align="center"
+      className="h-full rounded-xl bg-yellow-500 px-2 py-2 text-sm font-bold"
+    >
+      x{prestige + 1} Points
+    </Flex>
+    <button
+      onClick={handlePrestige}
+      className="rounded-xl bg-red-500 px-3 py-2 text-sm text-white transition hover:bg-red-600"
+    >
+      PRESTIGE
+    </button>
+  </Flex>
+);
 
 export default function StatsBar({
   count,
@@ -27,66 +77,37 @@ export default function StatsBar({
   lab,
   temple,
   spaceStation,
+  prestige,
+  handlePrestige,
+  passiveIncome,
 }: StatsBarProps) {
-  // Calculations:
-  const passiveIncome =
+  // Calculate total power-ups
+  const totalPowerUps =
     clickMultiplier +
-    scanner * 5 +
-    farms * 100 +
-    mine * 200 +
-    factories * 500 +
-    bank * 1000 +
-    lab * 20000 +
-    temple * 500000 +
-    spaceStation * 1000000; // Passive cookies per second
-  const totalMultiplier = clickMultiplier; // Total multiplier applied to clicks
+    scanner +
+    farms +
+    factories +
+    mine +
+    bank +
+    lab +
+    temple +
+    spaceStation;
 
   return (
-    <Flex
-      direction="row"
-      justify="between"
-      align="center"
-      className="w-full rounded-xl bg-gray-800 p-4 text-white shadow-md"
-    >
-      {/* Current Paw Points */}
-      <Flex direction="column" align="center">
-        <Text weight="bold" className="text-base">
-          Paw Points
-        </Text>
-        <Text className="text-xl">{count}</Text>
+    <Flex className="w-full flex-col gap-2 bg-blue-400 p-2 sm:flex-row">
+      <Flex
+        direction="row"
+        justify="between"
+        align="center"
+        className="w-full gap-2 rounded-xl bg-gray-800 p-2 text-white shadow-md"
+      >
+        {/* <StatsItem label="Points" value={count} /> */}
+        <StatsItem label="Lifetime" value={lifeTimeEarnings} />
+        <StatsItem label="Income" value={`${passiveIncome} /sec`} />
+        <StatsItem label="Multiplier" value={`x${clickMultiplier}`} />
+        <StatsItem label="Upgrades" value={totalPowerUps} />
       </Flex>
-
-      {/* Lifetime Earnings */}
-      <Flex direction="column" align="center">
-        <Text weight="bold" className="text-base">
-          Lifetime Earnings
-        </Text>
-        <Text className="text-xl">{lifeTimeEarnings}</Text>
-      </Flex>
-
-      {/* Passive Income */}
-      <Flex direction="column" align="center">
-        <Text weight="bold" className="text-base">
-          Passive Income
-        </Text>
-        <Text className="text-xl">{passiveIncome} / sec</Text>
-      </Flex>
-
-      {/* Click Multiplier */}
-      <Flex direction="column" align="center">
-        <Text weight="bold" className="text-base">
-          Click Multiplier
-        </Text>
-        <Text className="text-xl">x{totalMultiplier}</Text>
-      </Flex>
-
-      {/* Owned Power-Ups */}
-      <Flex direction="column" align="center">
-        <Text weight="bold" className="text-base">
-          Power-Ups
-        </Text>
-        <Text className="text-xl">{clickMultiplier + farms + factories}</Text>
-      </Flex>
+      <PrestigeButton prestige={prestige} handlePrestige={handlePrestige} />
     </Flex>
   );
 }

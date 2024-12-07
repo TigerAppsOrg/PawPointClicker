@@ -1,12 +1,6 @@
 import React from "react";
 import { Flex, Text } from "@radix-ui/themes";
 import PowerUpButton from "./powerUpButton";
-import {
-  PointerIcon,
-  Building2Icon,
-  FactoryIcon,
-  ScanBarcodeIcon,
-} from "lucide-react";
 import StatsBar from "./statsBar";
 
 interface PowerUpMenuProps {
@@ -31,6 +25,9 @@ interface PowerUpMenuProps {
   setTemple: (temple: number) => void;
   spaceStation: number;
   setSpaceStation: (spaceStation: number) => void;
+  prestige: number;
+  handlePrestige: () => void;
+  passiveIncome: number;
 }
 
 export default function PowerUpMenu({
@@ -55,6 +52,9 @@ export default function PowerUpMenu({
   setTemple,
   spaceStation,
   setSpaceStation,
+  prestige,
+  handlePrestige,
+  passiveIncome,
 }: PowerUpMenuProps) {
   // Scaling function to increase costs with each purchase
   const getScaledCost = (baseCost: number, multiplier: number) => {
@@ -88,7 +88,7 @@ export default function PowerUpMenu({
     <Flex
       direction="column"
       align="center"
-      className="h-full w-full overflow-hidden bg-blue-200 p-6"
+      className="relative z-20 h-full w-full overflow-hidden bg-blue-200"
     >
       <StatsBar
         count={count}
@@ -102,21 +102,25 @@ export default function PowerUpMenu({
         lab={lab}
         temple={temple}
         spaceStation={spaceStation}
+        prestige={prestige}
+        handlePrestige={handlePrestige}
+        passiveIncome={passiveIncome}
       />
 
       <Flex
         align="center"
         direction="column"
-        className="mt-4 h-full overflow-y-auto rounded-xl bg-blue-300 p-4"
+        className="relative m-4 h-full overflow-y-auto rounded-xl bg-blue-300 p-4 shadow-inner"
       >
-        <Text weight="bold" className="mb-4 text-2xl">
+        <Text weight="bold" className="z-10 mb-4 text-2xl">
           Paw Point Generators
         </Text>
+
         <Flex
           direction="row"
           wrap="wrap"
           justify="center"
-          className="w-full gap-4"
+          className="z-10 w-full gap-4"
         >
           <PowerUpButton
             label="Prox Multiplier"
