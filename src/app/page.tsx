@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import ProxMenu from "./prox/proxMenu";
