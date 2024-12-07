@@ -38,7 +38,7 @@ export default function PowerUpButton({
         <Text className="font-2xl" weight="bold">
           {label}
         </Text>
-        <Text className="text-sm">Cost: {cost} Paw Points</Text>
+        <Text className="text-sm">Cost: {cost} Points</Text>
         <Text className="text-sm">Owned: {amount}</Text>
         <Text className="text-sm font-semibold">{totalRate} Points/sec</Text>
       </Flex>
