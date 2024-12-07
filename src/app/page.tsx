@@ -3,8 +3,15 @@ import React, { useState, useEffect, useRef } from "react";
 import ProxMenu from "./prox/proxMenu";
 import PowerUpMenu from "./menu/powerUpMenu";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { useIsClient } from "@uidotdev/usehooks";
 
 export default function HomePage() {
+  const isClient = useIsClient();
+
+  if (isClient) {
+    return <div>Loading...</div>;
+  }
+
   const [proxName, setProxName] = useLocalStorage("proxName", "Random Prox");
   const [count, setCount] = useLocalStorage("count", 0);
   const [lifeTimeEarnings, setLifetimeEarnings] = useLocalStorage(
