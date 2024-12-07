@@ -54,7 +54,7 @@ const PrestigeButton: React.FC<PrestigeButtonProps> = ({
       align="center"
       className="h-full rounded-xl bg-yellow-500 px-2 py-2 text-sm font-bold"
     >
-      x{prestige + 1} Points
+      x{prestige} Points
     </Flex>
     <button
       onClick={handlePrestige}

@@ -14,7 +14,7 @@ export default function HomePage() {
     "clickMultiplier",
     1,
   );
-  const [prestige, setPrestige] = useLocalStorage("prestige", 0); // New: Prestige points
+  const [prestige, setPrestige] = useLocalStorage("prestige", 1); // New: Prestige points
   const [prestigeThreshold, setPrestigeThreshold] = useState(1000000); // Set a Prestige threshold (e.g., 1,000,000 lifetime earnings)
 
   const [scanner, setScanner] = useLocalStorage("scanner", 0);
@@ -62,7 +62,7 @@ export default function HomePage() {
           lab * 20000 +
           temple * 500000 +
           spaceStation * 1000000) *
-        (1 + prestige); // Prestige multiplier
+        prestige; // Prestige multiplier
 
       setCount((prevCount: number) => prevCount + passiveIncome);
       setLifetimeEarnings(
@@ -104,7 +104,7 @@ export default function HomePage() {
       lab * 20000 +
       temple * 500000 +
       spaceStation * 1000000) *
-    (1 + prestige); // Prestige multiplier
+    prestige; // Prestige multiplier
 
   return (
     <div className="relative grid w-full grid-cols-1 sm:h-screen sm:grid-cols-2 sm:overflow-hidden">

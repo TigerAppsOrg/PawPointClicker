@@ -135,7 +135,7 @@ export default function PowerUpMenu({
               )
             }
             icon="/images/generators/idcard.svg"
-            rate={1}
+            rate={1 * prestige}
             iconBackground="./images/banners/pointers.jpg"
           />
           <PowerUpButton
@@ -144,7 +144,7 @@ export default function PowerUpMenu({
             count={count}
             amount={scanner}
             onClick={() => handlePurchase(scannerCost, scanner, setScanner)}
-            rate={5}
+            rate={5 * prestige}
             icon="/images/generators/prox_scanner.gif"
             iconBackground="./images/banners/proxscanner.avif"
           />
@@ -155,7 +155,7 @@ export default function PowerUpMenu({
             amount={farms}
             onClick={() => handlePurchase(farmCost, farms, setFarms)}
             icon="/images/generators/farm.png"
-            rate={100}
+            rate={100 * prestige}
             iconBackground="./images/banners/farm.avif"
           />
           <PowerUpButton
@@ -165,7 +165,7 @@ export default function PowerUpMenu({
             amount={mine}
             onClick={() => handlePurchase(mineCost, mine, setMine)}
             icon="/images/generators/mines.webp"
-            rate={200}
+            rate={200 * prestige}
             iconBackground="./images/banners/mines.jpg"
           />
           <PowerUpButton
@@ -175,7 +175,7 @@ export default function PowerUpMenu({
             amount={factories}
             onClick={() => handlePurchase(factoryCost, factories, setFactories)}
             icon="/images/generators/factories.png"
-            rate={500}
+            rate={500 * prestige}
             iconBackground="./images/banners/factory.jpg"
           />
           <PowerUpButton
@@ -185,7 +185,7 @@ export default function PowerUpMenu({
             amount={bank}
             onClick={() => handlePurchase(bankCost, bank, setBank)}
             icon="/images/generators/bank.png"
-            rate={1000}
+            rate={1000 * prestige}
             iconBackground="./images/banners/bank.webp"
           />
           <PowerUpButton
@@ -195,7 +195,7 @@ export default function PowerUpMenu({
             amount={lab}
             onClick={() => handlePurchase(labCost, lab, setLab)}
             icon="/images/generators/lab.png"
-            rate={20000}
+            rate={20000 * prestige}
             iconBackground="./images/banners/lab.avif"
           />
           <PowerUpButton
@@ -205,7 +205,7 @@ export default function PowerUpMenu({
             amount={temple}
             onClick={() => handlePurchase(templeCost, temple, setTemple)}
             icon="/images/generators/temple.png"
-            rate={500000}
+            rate={500000 * prestige}
             iconBackground="./images/banners/forest.jpg"
           />
           <PowerUpButton
@@ -217,7 +217,7 @@ export default function PowerUpMenu({
               handlePurchase(spaceStationCost, spaceStation, setSpaceStation)
             }
             icon="/images/generators/spacestation.png"
-            rate={1000000}
+            rate={1000000 * prestige}
             iconBackground="./images/banners/space.webp"
           />
         </Flex>
