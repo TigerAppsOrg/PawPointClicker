@@ -42,7 +42,12 @@ export default function PowerUpButton({
         </Text>
         <Text className="text-sm">Cost: {cost} Paw Points</Text>
         <Text className="text-sm">Owned: {amount}</Text>
-        <Text className="text-sm">Paw Points/sec: {totalRate}</Text>
+        <Text className="text-sm">
+          Paw Points/sec: {totalRate}{" "}
+          {/* <Text className="text-xs">
+            ({rate} x {amount})
+          </Text> */}
+        </Text>
       </Flex>
 
       {/* Dynamic Icon Display with Background */}
@@ -55,13 +60,16 @@ export default function PowerUpButton({
         }}
       >
         <Box className="absolute left-0 top-0 z-10 h-full w-full bg-orange-200 opacity-70"></Box>
-        <Flex className="ml-auto h-full flex-wrap items-end gap-1 overflow-y-auto p-2 shadow-inner">
+        <Flex
+          justify="center"
+          className="ml-auto h-full flex-wrap gap-1 overflow-y-scroll p-2 shadow-inner"
+        >
           {Array.from({ length: amount }).map((_, index) => (
             <span
               key={index}
-              className="z-20 rounded-full bg-white/30 p-[0.1rem] text-black"
+              className="z-20 h-min overflow-hidden rounded-full bg-white/30 p-[0.1rem] text-black"
             >
-              <img src={icon} className="h-10 w-10" />
+              <img src={icon} className="h-9 w-auto" />
             </span>
           ))}
         </Flex>
@@ -71,7 +79,7 @@ export default function PowerUpButton({
       <button
         onClick={onClick}
         disabled={count < cost}
-        className={`ml-4 h-full text-balance rounded-lg bg-orange-400 p-4 font-bold duration-150 hover:bg-orange-500 ${count < cost ? "opacity-50" : "opacity-100"}`}
+        className={`h-full text-balance rounded-lg bg-orange-400 p-4 font-bold duration-150 hover:bg-orange-500 ${count < cost ? "opacity-50" : "opacity-100"}`}
       >
         Buy
       </button>

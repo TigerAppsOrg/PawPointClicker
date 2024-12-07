@@ -20,24 +20,75 @@ export default function ProxButton(props: {
   >([]);
   const [isFlashing, setIsFlashing] = useState(false);
 
+  //return time interval based on count
+  function timeInterval() {
+    if (props.lifeTimeEarnings < 10) {
+      return 500;
+    } else if (props.lifeTimeEarnings < 100) {
+      return 400;
+    } else if (props.lifeTimeEarnings < 1000) {
+      return 300;
+    } else {
+      return 200;
+    }
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIsFlashing((prev) => !prev); // Toggle the flashing state every second
-    }, 500); // Flash every second
+    }, timeInterval()); // Flash every second
 
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
 
+  // Multiplier state logic
+  const [trueMultiplier, setTrueMultiplier] = useState(1);
+  const [clickQueue, setClickQueue] = useState<number[]>([]);
+
+  const MAX_MULTIPLIER = props.clickMultiplier; // Maximum multiplier value
+  const RESET_DELAY = 1000 + 100 * MAX_MULTIPLIER; // Start at 1000ms but scale with more multipliers purchased. Delay in milliseconds to reset the queue
+
+  // Handle multiplier logic - increases as user spam clicks, resets after a delay. Max multiplier is the amount of click multipliers purchased
+  useEffect(() => {
+    if (clickQueue.length === 0) return;
+
+    const now = Date.now();
+    const lastClickTime = clickQueue[clickQueue.length - 1];
+
+    if (lastClickTime !== undefined && now - lastClickTime > RESET_DELAY) {
+      setClickQueue([]);
+      setTrueMultiplier(1);
+    }
+
+    // Cleanup interval
+    const interval = setInterval(() => {
+      const now = Date.now();
+      const updatedQueue = clickQueue.filter(
+        (time) => now - time <= RESET_DELAY,
+      );
+      setClickQueue(updatedQueue);
+      setTrueMultiplier(updatedQueue.length || 1);
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [clickQueue]);
+
+  // Handle main prox button click
   const handleButtonClick = () => {
-    const newId = Date.now(); // Unique ID for each notification
-    const offset = Math.random() * 20 - 10; // Random horizontal offset for variation
+    const newId = Date.now();
+    const offset = Math.random() * 20 - 10;
 
-    setIsFlashing(true);
+    setClickQueue((prevQueue) => {
+      const now = Date.now();
+      const updatedQueue = [...prevQueue, now].slice(-MAX_MULTIPLIER);
+      setTrueMultiplier(updatedQueue.length);
+      return updatedQueue;
+    });
+
     setNotifications((prev) => [...prev, { id: newId, offset }]);
-    props.setCount(props.count + props.clickMultiplier);
-    props.setLifetimeEarnings(props.lifeTimeEarnings + props.clickMultiplier);
+    props.setCount(props.count + trueMultiplier);
+    props.setLifetimeEarnings(props.lifeTimeEarnings + trueMultiplier);
 
-    // Remove notification after 1 second
     setTimeout(() => {
       setNotifications((prev) =>
         prev.filter((notification) => notification.id !== newId),
@@ -69,10 +120,8 @@ export default function ProxButton(props: {
         justify="center"
         className="relative mx-auto h-full w-full"
       >
-        {/* Container for spinning cards */}
         <RenderCards clickMultiplier={props.clickMultiplier} />
         <Box className="relative">
-          {/* Render notifications */}
           {notifications.map((notification) => (
             <Flex
               justify="center"
@@ -84,7 +133,7 @@ export default function ProxButton(props: {
               }}
               className={`absolute right-0 top--5 z-50 h-16 w-16 animate-shake select-none rounded-full border-2 border-orange-400 bg-orange-100 text-2xl font-bold text-red-600`}
             >
-              x{props.clickMultiplier}
+              x{trueMultiplier}
             </Flex>
           ))}
           <button
@@ -114,7 +163,7 @@ export default function ProxButton(props: {
               />
               <Box
                 className={`absolute bottom-[-0.75rem] z-20 h-10 w-10 rounded-full border-2 border-orange-400 transition-colors ${
-                  isFlashing ? "bg-green-500/90" : "bg-orange-300"
+                  isFlashing ? "bg-green-400" : "bg-red-400"
                 }`}
               ></Box>
             </Flex>

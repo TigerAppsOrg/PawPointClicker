@@ -63,7 +63,7 @@ export default function HomePage() {
   }, [count]); // Only update when `count` changes
 
   return (
-    <Flex className="grid h-screen w-full grid-cols-2">
+    <Flex className="grid h-screen w-full grid-cols-1 sm:grid-cols-2">
       <ProxMenu
         count={count}
         setCount={setCount}

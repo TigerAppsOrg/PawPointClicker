@@ -110,7 +110,7 @@ export default function PowerUpMenu({
         className="mt-4 h-full overflow-y-auto rounded-xl bg-blue-300 p-4"
       >
         <Text weight="bold" className="mb-4 text-2xl">
-          Power-Up Menu
+          Paw Point Generators
         </Text>
         <Flex
           direction="row"
@@ -132,7 +132,7 @@ export default function PowerUpMenu({
             }
             icon="/images/generators/idcard.svg"
             rate={1}
-            iconBackground="./images/banners/pointers.svg"
+            iconBackground="./images/banners/pointers.jpg"
           />
           <PowerUpButton
             label="Prox Scanner"
@@ -142,7 +142,7 @@ export default function PowerUpMenu({
             onClick={() => handlePurchase(scannerCost, scanner, setScanner)}
             rate={5}
             icon="/images/generators/prox_scanner.gif"
-            iconBackground="./images/banners/proxscanner.jpg"
+            iconBackground="./images/banners/proxscanner.avif"
           />
           <PowerUpButton
             label="Point Farm"
