@@ -123,7 +123,7 @@ export default function PowerUpMenu({
           className="z-10 w-full gap-4"
         >
           <PowerUpButton
-            label="Prox Multiplier"
+            label="Click Multiplier"
             cost={clickMultiplierCost}
             count={count}
             amount={clickMultiplier}

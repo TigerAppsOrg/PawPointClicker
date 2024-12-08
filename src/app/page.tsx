@@ -30,7 +30,7 @@ export default function HomePage() {
   const handlePrestige = () => {
     if (lifeTimeEarnings >= prestigeThreshold) {
       setPrestige((prev: number) => prev + 1); // Increment Prestige points
-      setPrestigeThreshold((prev) => prev ^ 1.5); // Double the Prestige threshold
+      setPrestigeThreshold(Math.round(Math.pow(prestigeThreshold, 1.5))); // Double the Prestige threshold
       setCount(0);
       setLifetimeEarnings(0);
       setClickMultiplier(1);
@@ -49,21 +49,22 @@ export default function HomePage() {
     }
   };
 
+  // Calculations:
+  const passiveIncome =
+    (clickMultiplier +
+      scanner * 5 +
+      farms * 100 +
+      mine * 200 +
+      factories * 500 +
+      bank * 1000 +
+      lab * 20000 +
+      temple * 500000 +
+      spaceStation * 1000000) *
+    prestige; // Prestige multiplier
+
   // Passive income logic (includes Prestige multiplier)
   useEffect(() => {
     const interval = setInterval(() => {
-      const passiveIncome =
-        (clickMultiplier +
-          scanner * 5 +
-          farms * 100 +
-          mine * 200 +
-          factories * 500 +
-          bank * 1000 +
-          lab * 20000 +
-          temple * 500000 +
-          spaceStation * 1000000) *
-        prestige; // Prestige multiplier
-
       setCount((prevCount: number) => prevCount + passiveIncome);
       setLifetimeEarnings(
         (prevLifetimeEarnings: number) => prevLifetimeEarnings + passiveIncome,
@@ -92,19 +93,6 @@ export default function HomePage() {
   useEffect(() => {
     oldCountRef.current = count; // Store the previous count
   }, [count]);
-
-  // Calculations:
-  const passiveIncome =
-    (clickMultiplier +
-      scanner * 5 +
-      farms * 100 +
-      mine * 200 +
-      factories * 500 +
-      bank * 1000 +
-      lab * 20000 +
-      temple * 500000 +
-      spaceStation * 1000000) *
-    prestige; // Prestige multiplier
 
   return (
     <div className="relative grid w-full grid-cols-1 sm:h-screen sm:grid-cols-2 sm:overflow-hidden">
