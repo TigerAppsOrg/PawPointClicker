@@ -12,7 +12,10 @@ export default function ProxMenu(props: {
   setClickMultiplier: (clickMultiplier: number) => void;
   lifeTimeEarnings: number;
   setLifetimeEarnings: (lifetimeEarnings: number) => void;
+  totalEarnings: number;
+  setTotalEarnings: (totalEarnings: number) => void;
   passiveIncome: number;
+  prestige: number;
 }) {
   return (
     <Flex
@@ -30,7 +33,10 @@ export default function ProxMenu(props: {
         setClickMultiplier={props.setClickMultiplier}
         lifeTimeEarnings={props.lifeTimeEarnings}
         setLifetimeEarnings={props.setLifetimeEarnings}
+        totalEarnings={props.totalEarnings}
+        setTotalEarnings={props.setTotalEarnings}
         passiveIncome={props.passiveIncome}
+        prestige={props.prestige}
       />
       {/* <img
         src="/images/tiger_jacket.gif"

@@ -4,6 +4,7 @@ import { Box, Flex, Text } from "@radix-ui/themes";
 import CountUp from "react-countup";
 
 import RenderCards from "./renderCards";
+import formatNumberExtended from "../utilities/formatNumberExtended";
 
 export default function ProxButton(props: {
   proxName: string;
@@ -15,12 +16,16 @@ export default function ProxButton(props: {
   setClickMultiplier: (clickMultiplier: number) => void;
   lifeTimeEarnings: number;
   setLifetimeEarnings: (lifetimeEarnings: number) => void;
+  totalEarnings: number;
+  setTotalEarnings: (totalEarnings: number) => void;
   passiveIncome: number;
+  prestige: number;
 }) {
   const [effect, setEffect] = useState(true);
   const [notifications, setNotifications] = useState<
     { id: number; offset: number }[]
   >([]);
+  const [numberStyle, setNumberStyle] = useState(false);
   const [isFlashing, setIsFlashing] = useState(false);
 
   //return time interval based on count
@@ -48,8 +53,10 @@ export default function ProxButton(props: {
   const [trueMultiplier, setTrueMultiplier] = useState(1);
   const [clickQueue, setClickQueue] = useState<number[]>([]);
 
-  const MAX_MULTIPLIER = props.clickMultiplier; // Maximum multiplier value
-  const RESET_DELAY = 1000 + 100 * MAX_MULTIPLIER; // Start at 1000ms but scale with more multipliers purchased. Delay in milliseconds to reset the queue
+  const MAX_MULTIPLIER = Math.round(
+    props.clickMultiplier * Math.pow(1.01, props.prestige),
+  ); // Maximum multiplier value
+  const RESET_DELAY = 1000 + 150 * MAX_MULTIPLIER; // Start at 1000ms but scale with more multipliers purchased. Delay in milliseconds to reset the queue
 
   // Handle multiplier logic - increases as user spam clicks, resets after a delay. Max multiplier is the amount of click multipliers purchased
   useEffect(() => {
@@ -89,8 +96,14 @@ export default function ProxButton(props: {
     });
 
     setNotifications((prev) => [...prev, { id: newId, offset }]);
-    props.setCount(props.count + trueMultiplier);
-    props.setLifetimeEarnings(props.lifeTimeEarnings + trueMultiplier);
+
+    let totalAdjustedMultiplier = Math.round(
+      trueMultiplier * Math.pow(1.01, props.prestige),
+    );
+
+    props.setCount(props.count + totalAdjustedMultiplier);
+    props.setLifetimeEarnings(props.lifeTimeEarnings + totalAdjustedMultiplier);
+    props.setTotalEarnings(props.totalEarnings + totalAdjustedMultiplier);
 
     setTimeout(() => {
       setNotifications((prev) =>
@@ -120,23 +133,38 @@ export default function ProxButton(props: {
         >
           <Text>Paw Points: </Text>
           <Flex align="center" justify="center" className="h-[3rem]">
-            <Text
+            <button
               className={`${
                 effect &&
                 "scale-105 animate-wiggle text-5xl text-orange-900 transition"
               } absolute text-4xl`}
+              onClick={() => setNumberStyle(!numberStyle)}
             >
-              <CountUp start={props.oldCount} end={props.count} duration={1} />
-            </Text>
+              {numberStyle ? (
+                <CountUp
+                  start={props.oldCount}
+                  end={props.count}
+                  duration={1}
+                  separator=","
+                />
+              ) : (
+                formatNumberExtended(props.count, props.oldCount)
+              )}
+            </button>
           </Flex>
-          <Text className="text-sm">per second: {props.passiveIncome} </Text>
+          <Text className="text-sm">
+            per second:{" "}
+            {props.passiveIncome
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          </Text>
         </Flex>
       </Flex>
 
       <Flex
         align="center"
         justify="center"
-        className="relative mx-auto h-full w-full"
+        className="relative mx-auto h-full w-full select-none"
       >
         <RenderCards clickMultiplier={props.clickMultiplier} />
         <Box className="relative">
@@ -151,13 +179,13 @@ export default function ProxButton(props: {
               }}
               className={`absolute right-0 top--5 z-50 h-16 w-16 animate-shake select-none rounded-full border-2 border-orange-400 bg-orange-100 text-2xl font-bold text-red-600`}
             >
-              x{trueMultiplier}
+              +{trueMultiplier}
             </Flex>
           ))}
           <button
             onClick={handleButtonClick}
             className={`${
-              effect && "bg-orange-100"
+              effect && "bg-green-300"
             } h-48 w-48 rounded-full bg-orange-400 text-white drop-shadow-lg transition ease-in-out hover:animate-wiggle`}
           >
             <Flex

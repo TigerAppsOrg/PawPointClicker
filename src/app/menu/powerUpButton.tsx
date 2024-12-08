@@ -1,5 +1,6 @@
 import React from "react";
 import { Flex, Text, Box, Separator } from "@radix-ui/themes";
+import formatNumberGenerators from "../utilities/formatNumberGenerators";
 
 interface PowerUpButtonProps {
   label: string;
@@ -10,6 +11,7 @@ interface PowerUpButtonProps {
   rate: number; // Paw Points/sec for a single power-up
   icon: string; // Icon for each power-up
   iconBackground: string; // Background color for icon
+  prestige: number; // Prestige level
 }
 
 export default function PowerUpButton({
@@ -21,24 +23,29 @@ export default function PowerUpButton({
   icon,
   rate,
   iconBackground,
+  prestige,
 }: PowerUpButtonProps) {
-  const totalRate = amount * rate; // Calculate total Paw Points/sec
+  const totalRate = Math.round(amount * rate * Math.pow(1.01, prestige))
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Calculate total Paw Points/sec
 
   return (
     <Flex
       justify="between"
-      className="w-full flex-col gap-4 rounded-xl border-b border-gray-300 bg-white p-4 shadow-lg sm:h-32 sm:flex-row sm:items-center"
+      className="w-full flex-col gap-3 rounded-xl border-b border-gray-300 bg-white p-4 shadow-lg sm:h-32 sm:flex-row sm:items-center sm:gap-4"
     >
       {/* Power-Up Info Section */}
       <Flex
         direction="column"
         className="sm:w-flex-shrink-0"
-        style={{ minWidth: "160px" }} // Ensures constant size
+        style={{ minWidth: "190px" }} // Ensures constant size
       >
         <Text className="font-2xl" weight="bold">
           {label}
         </Text>
-        <Text className="text-sm">Cost: {cost} Points</Text>
+        <Text className="text-sm">
+          Cost: {formatNumberGenerators(cost)} Points
+        </Text>
         <Text className="text-sm">Owned: {amount}</Text>
         <Text className="text-sm font-semibold">{totalRate} Points/sec</Text>
       </Flex>
@@ -62,7 +69,7 @@ export default function PowerUpButton({
           {Array.from({ length: amount }).map((_, index) => (
             <span
               key={index}
-              className="z-20 h-min overflow-hidden rounded-full bg-white/30 p-[0.1rem] text-black"
+              className="z-20 h-min rounded-full bg-white/30 p-[0.1rem] text-black"
             >
               <img src={icon} className="h-9 w-auto" />
             </span>
@@ -75,7 +82,7 @@ export default function PowerUpButton({
       <button
         onClick={onClick}
         disabled={count < cost}
-        className={`h-auto w-full text-balance rounded-lg bg-orange-400 p-4 font-bold shadow-sm duration-150 hover:bg-orange-500 sm:h-full sm:w-auto ${count < cost ? "opacity-50" : "opacity-100"}`}
+        className={`h-auto w-full text-balance rounded-lg bg-orange-400 p-2 font-bold shadow-sm duration-150 hover:bg-orange-500 sm:h-full sm:w-auto sm:p-4 ${count < cost ? "opacity-50" : "opacity-100"}`}
       >
         Buy
       </button>

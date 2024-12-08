@@ -1,9 +1,10 @@
 import React from "react";
-import { Flex, Text, Box } from "@radix-ui/themes";
+import { Flex, Box, Text } from "@radix-ui/themes";
 
 interface StatsBarProps {
   count: number; // Current cookie count
   lifeTimeEarnings: number; // Total cookies earned over time
+  totalEarnings: number; // Total cookies earned
   clickMultiplier: number; // Current click multiplier
   scanner: number; // Number of scanners
   farms: number;
@@ -29,7 +30,7 @@ const StatsItem: React.FC<StatsItemProps> = ({ label, value }) => (
     direction="column"
     align="center"
     justify="center"
-    className="h-full w-full rounded-xl bg-gray-700 p-2 hover:text-green-400"
+    className="h-full w-full overflow-auto rounded-xl bg-gray-700 p-2 hover:text-green-400"
   >
     <Text weight="bold" className="text-center text-sm">
       {label}
@@ -54,7 +55,7 @@ const PrestigeButton: React.FC<PrestigeButtonProps> = ({
       align="center"
       className="h-full rounded-xl bg-yellow-500 px-2 py-2 text-sm font-bold"
     >
-      x{prestige} Points
+      x{Math.pow(1.01, prestige).toFixed(2)} Pts
     </Flex>
     <button
       onClick={handlePrestige}
@@ -68,6 +69,7 @@ const PrestigeButton: React.FC<PrestigeButtonProps> = ({
 export default function StatsBar({
   count,
   lifeTimeEarnings,
+  totalEarnings,
   clickMultiplier,
   scanner,
   farms,
@@ -82,31 +84,38 @@ export default function StatsBar({
   passiveIncome,
 }: StatsBarProps) {
   // Calculate total power-ups
-  const totalPowerUps =
-    clickMultiplier +
-    scanner +
-    farms +
-    factories +
-    mine +
-    bank +
-    lab +
-    temple +
-    spaceStation;
+  // const totalPowerUps =
+  //   clickMultiplier +
+  //   scanner +
+  //   farms +
+  //   factories +
+  //   mine +
+  //   bank +
+  //   lab +
+  //   temple +
+  //   spaceStation;
 
   return (
     <Flex className="w-full flex-col gap-2 bg-blue-400 p-2 sm:flex-row">
-      <Flex
-        direction="row"
-        justify="between"
-        align="center"
-        className="w-full gap-2 rounded-xl bg-gray-800 p-2 text-white shadow-md"
-      >
+      <div className="grid w-full grid-cols-2 gap-2 overflow-auto rounded-xl bg-gray-800 p-2 text-white shadow-md sm:grid-cols-4">
         {/* <StatsItem label="Points" value={count} /> */}
-        <StatsItem label="Lifetime" value={lifeTimeEarnings} />
-        <StatsItem label="Income" value={`${passiveIncome} /sec`} />
-        <StatsItem label="Multiplier" value={`x${clickMultiplier}`} />
-        <StatsItem label="Upgrades" value={totalPowerUps} />
-      </Flex>
+        <StatsItem
+          label="Total Earnings"
+          value={totalEarnings.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        />
+        <StatsItem
+          label="Lifetime Earnings"
+          value={lifeTimeEarnings
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        />
+        <StatsItem
+          label="Passive Income"
+          value={`${passiveIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} /sec`}
+        />
+        <StatsItem label="Points per Click" value={`x${clickMultiplier}`} />
+        {/* <StatsItem label="Upgrades" value={totalPowerUps} /> */}
+      </div>
       <PrestigeButton prestige={prestige} handlePrestige={handlePrestige} />
     </Flex>
   );

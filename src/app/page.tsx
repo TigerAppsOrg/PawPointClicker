@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 import ProxMenu from "./prox/proxMenu";
 import PowerUpMenu from "./menu/powerUpMenu";
 
+import useLocalStorage from "./utilities/useLocalStorage";
+
 export default function HomePage() {
   const [proxName, setProxName] = useLocalStorage("proxName", "Random Prox");
   const [count, setCount] = useLocalStorage("count", 0);
@@ -14,10 +16,14 @@ export default function HomePage() {
     "clickMultiplier",
     1,
   );
+  const [totalEarnings, setTotalEarnings] = useLocalStorage("totalEarnings", 0);
   const [prestige, setPrestige] = useLocalStorage("prestige", 1); // New: Prestige points
   const [prestigeThreshold, setPrestigeThreshold] = useState(1000000); // Set a Prestige threshold (e.g., 1,000,000 lifetime earnings)
 
+  const [latemeal, setLatemeal] = useLocalStorage("latemeal", 0);
   const [scanner, setScanner] = useLocalStorage("scanner", 0);
+  const [deliveries, setDeliveries] = useLocalStorage("frist", 0);
+  const [resco, setResco] = useLocalStorage("resco", 0);
   const [farms, setFarms] = useLocalStorage("farms", 0);
   const [mine, setMine] = useLocalStorage("mine", 0);
   const [factories, setFactories] = useLocalStorage("factories", 0);
@@ -32,9 +38,12 @@ export default function HomePage() {
       setPrestige((prev: number) => prev + 1); // Increment Prestige points
       setPrestigeThreshold(Math.round(Math.pow(prestigeThreshold, 1.5))); // Double the Prestige threshold
       setCount(0);
-      setLifetimeEarnings(0);
+      setTotalEarnings(0);
       setClickMultiplier(1);
+      setLatemeal(0);
       setScanner(0);
+      setDeliveries(0);
+      setResco(0);
       setFarms(0);
       setMine(0);
       setFactories(0);
@@ -44,23 +53,27 @@ export default function HomePage() {
       setSpaceStation(0);
     } else {
       alert(
-        `You need ${prestigeThreshold - lifeTimeEarnings} more Paw Points to Prestige!`,
+        `You need ${(prestigeThreshold - lifeTimeEarnings).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} more Paw Points to Prestige!`,
       );
     }
   };
 
   // Calculations:
-  const passiveIncome =
+  const passiveIncome = Math.floor(
     (clickMultiplier +
-      scanner * 5 +
-      farms * 100 +
-      mine * 200 +
-      factories * 500 +
-      bank * 1000 +
-      lab * 20000 +
-      temple * 500000 +
-      spaceStation * 1000000) *
-    prestige; // Prestige multiplier
+      latemeal * 2 +
+      scanner * 8 +
+      deliveries * 47 +
+      resco * 260 +
+      farms * 1400 +
+      mine * 7800 +
+      factories * 44000 +
+      bank * 260000 +
+      lab * 1600000 +
+      temple * 10000000 +
+      spaceStation * 65000000) *
+      Math.pow(1.01, prestige),
+  ); // Prestige multiplier
 
   // Passive income logic (includes Prestige multiplier)
   useEffect(() => {
@@ -69,12 +82,18 @@ export default function HomePage() {
       setLifetimeEarnings(
         (prevLifetimeEarnings: number) => prevLifetimeEarnings + passiveIncome,
       );
+      setTotalEarnings(
+        (prevTotalEarnings: number) => prevTotalEarnings + passiveIncome,
+      );
     }, 1000);
 
     return () => clearInterval(interval); // Cleanup on component unmount
   }, [
     clickMultiplier,
+    latemeal,
     farms,
+    deliveries,
+    resco,
     factories,
     scanner,
     mine,
@@ -104,18 +123,28 @@ export default function HomePage() {
         oldCount={oldCountRef.current}
         clickMultiplier={clickMultiplier}
         setClickMultiplier={setClickMultiplier}
+        totalEarnings={totalEarnings}
+        setTotalEarnings={setTotalEarnings}
         lifeTimeEarnings={lifeTimeEarnings}
         setLifetimeEarnings={setLifetimeEarnings}
         passiveIncome={passiveIncome}
+        prestige={prestige}
       />
       <PowerUpMenu
         count={count}
         setCount={setCount}
         lifeTimeEarnings={lifeTimeEarnings}
+        totalEarnings={totalEarnings}
         clickMultiplier={clickMultiplier}
         setClickMultiplier={setClickMultiplier}
+        lateMeal={latemeal}
+        setLateMeal={setLatemeal}
         scanner={scanner}
         setScanner={setScanner}
+        deliveries={deliveries}
+        setDeliveries={setDeliveries}
+        resco={resco}
+        setResco={setResco}
         farms={farms}
         setFarms={setFarms}
         mine={mine}
@@ -137,25 +166,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-const useLocalStorage = (key: string, defaultValue: string | number) => {
-  const [value, setValue] = useState(() => {
-    let currentValue;
-
-    try {
-      currentValue = JSON.parse(
-        localStorage.getItem(key) || String(defaultValue),
-      );
-    } catch (error) {
-      currentValue = defaultValue;
-    }
-
-    return currentValue;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [value, key]);
-
-  return [value, setValue];
-};
