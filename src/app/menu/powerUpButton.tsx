@@ -70,7 +70,7 @@ export default function PowerUpButton({
           {Array.from({ length: amount }).map((_, index) => (
             <span
               key={index}
-              className="z-20 h-min animate-wiggle rounded-full bg-white/30 p-[0.1rem] text-black duration-150 hover:rotate-12"
+              className="z-20 h-min rotate-6 animate-wiggle rounded-full bg-white/30 p-[0.1rem] text-black duration-150 hover:rotate-12"
             >
               <img src={icon} className="h-9 w-auto" />
             </span>

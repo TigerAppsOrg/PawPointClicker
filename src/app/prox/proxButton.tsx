@@ -187,13 +187,13 @@ export default function ProxButton(props: {
             onClick={handleButtonClick}
             className={`${
               effect && "bg-green-300"
-            } h-48 w-48 rounded-full bg-orange-400 text-white drop-shadow-lg transition ease-in-out hover:animate-wiggle`}
+            } h-48 w-48 select-none rounded-full bg-orange-400 text-white drop-shadow-lg transition ease-in-out hover:animate-wiggle`}
           >
             <Flex
               justify="center"
               className={`${
                 effect && "animate-wiggle"
-              } transition duration-200 ease-in-out hover:scale-105`}
+              } select-none transition duration-200 ease-in-out hover:scale-105`}
             >
               <Image
                 src="/images/prox.svg"
@@ -206,7 +206,7 @@ export default function ProxButton(props: {
                 width={1000}
                 className={`${
                   effect && "animate-wiggle"
-                } h-[90%] transition duration-200 ease-in-out hover:scale-105`}
+                } h-[90%] select-none transition duration-200 ease-in-out hover:scale-105`}
               />
               <Flex
                 align="center"
@@ -238,7 +238,7 @@ export default function ProxButton(props: {
                   key={index}
                   src="/images/generators/prox_scanner.gif"
                   alt={`Scanner ${index + 1}`}
-                  className="absolute bottom-[14rem] right-0 h-auto w-auto rotate-12 scale-[5]"
+                  className="absolute bottom-[14rem] right-0 h-auto max-h-[4rem] w-auto rotate-12 scale-[5]"
                 />
               </Flex>
             ),
