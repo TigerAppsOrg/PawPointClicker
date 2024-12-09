@@ -125,20 +125,20 @@ export default function ProxButton(props: {
             type="text"
             value={props.proxName}
             onChange={(e) => props.setProxName(e.target.value)}
-            className="mx-8 my-3 w-full rounded-xl border-none bg-gray-800/30 py-0.5 text-center text-xl font-bold text-white outline-none"
+            className="mx-8 my-3 w-full rounded-xl border-none bg-gray-800/30 py-0.5 text-center text-xl font-semibold text-white outline-none"
           />
         </Flex>
         <Flex
           align="center"
           className="w-full flex-col bg-red-100/80 pb-3 pt-2 text-2xl"
         >
-          <Text>Paw Points: </Text>
+          <Text className="font-bold">Paw Points: </Text>
           <Flex align="center" justify="center" className="h-[3rem]">
             <button
               className={`${
                 effect &&
                 "scale-105 animate-wiggle text-5xl text-orange-900 transition"
-              } absolute text-4xl`}
+              } absolute mt-[-0.4rem] text-4xl`}
               onClick={() => setNumberStyle(!numberStyle)}
             >
               {numberStyle ? (
@@ -153,7 +153,7 @@ export default function ProxButton(props: {
               )}
             </button>
           </Flex>
-          <Text className="text-sm">
+          <Text className="text-sm font-bold">
             per second:{" "}
             {props.passiveIncome
               .toString()
@@ -225,11 +225,11 @@ export default function ProxButton(props: {
       </Flex>
       {/* Prox Scanner */}
       {props.scanner > 0 && (
-        <Flex className="absolute bottom-[-35%] h-[30rem] w-full justify-start">
+        <Flex className="xs:bottom-[-35%] absolute bottom-[-45%] h-[30rem] w-full sm:bottom-[-70%] lg:bottom-[-35%] 2xl:bottom-[-25%]">
           {Array.from({ length: Math.min(props.scanner, 10) }).map(
             (_, index) => (
               <Flex
-                className="relative"
+                className="relative bottom-[-10rem] sm:bottom-[-11rem]"
                 style={{
                   width: `${100 / Math.min(props.scanner, 10)}%`, // Dynamically adjust width to fit all scanners
                 }}
@@ -238,7 +238,7 @@ export default function ProxButton(props: {
                   key={index}
                   src="/images/generators/prox_scanner.gif"
                   alt={`Scanner ${index + 1}`}
-                  className="absolute bottom-[14rem] right-0 h-auto max-h-[4rem] w-auto rotate-12 scale-[5]"
+                  className="absolute h-auto max-h-[4rem] w-auto rotate-12 scale-[5]"
                 />
               </Flex>
             ),

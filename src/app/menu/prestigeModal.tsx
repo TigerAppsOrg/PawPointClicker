@@ -41,7 +41,7 @@ export default function PrestigeModal({
             <AlertDialog.Description className="mt-2 text-orange-900">
               <Box>
                 <Separator orientation="horizontal" size="4" className="mb-4" />
-                <Box className="rounded-lg bg-orange-200 p-4 text-lg font-medium">
+                <Box className="rounded-xl bg-orange-200 p-4 text-lg font-medium">
                   Current Prestige Level:{" "}
                   <span className="text-red-600">
                     {arabToRoman(prestige)}{" "}
@@ -60,7 +60,7 @@ export default function PrestigeModal({
                   </span>
                 </Box>
               </Box>
-              <Box className="mt-3 rounded-lg bg-orange-200 p-4 font-medium sm:mt-4">
+              <Box className="mt-3 rounded-xl bg-orange-200 p-4 font-medium sm:mt-4">
                 <Box className="text-lg">
                   Next Prestige Level:{" "}
                   <span className="text-green-600">
@@ -83,7 +83,7 @@ export default function PrestigeModal({
                   Next %
                 </Flex>
               </Box>
-              <Box className="mt-3 rounded-lg bg-orange-400 p-4 sm:mt-4">
+              <Box className="mt-3 rounded-xl bg-orange-400 p-4 sm:mt-4">
                 <Box className="text-lg font-medium">
                   Your Paw Point Balance:{" "}
                   <span className="text-orange-800">
@@ -122,7 +122,7 @@ export default function PrestigeModal({
                 <Flex
                   align="center"
                   justify="center"
-                  className="cursor-pointer rounded-lg border-red-500/50 bg-red-400 px-4 py-2 font-medium text-red-800 duration-150 hover:bg-red-300 focus:ring-2 focus:ring-red-300"
+                  className="cursor-pointer rounded-xl border-red-500/50 bg-red-400 px-4 py-2 font-medium text-red-800 duration-150 hover:bg-red-300 focus:ring-2 focus:ring-red-300"
                 >
                   CANCEL
                 </Flex>
@@ -136,7 +136,7 @@ export default function PrestigeModal({
                 <button
                   onClick={() => handlePrestige()}
                   disabled={count < prestigeThreshold}
-                  className={`rounded-lg px-4 py-2 font-medium ${
+                  className={`rounded-xl px-4 py-2 font-medium ${
                     count >= prestigeThreshold
                       ? "cursor-pointer border-2 border-orange-500/20 bg-orange-400 text-orange-100 duration-150 hover:bg-orange-600 hover:text-orange-200 focus:ring-2 focus:ring-orange-400"
                       : "cursor-not-allowed border-2 border-gray-400/50 bg-gray-300 text-gray-500"

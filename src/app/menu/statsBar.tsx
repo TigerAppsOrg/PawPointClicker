@@ -61,7 +61,7 @@ const PrestigeButton: React.FC<PrestigeButtonProps> = ({
       align="center"
       className="h-full rounded-xl bg-yellow-500 px-2 py-2 text-sm font-bold"
     >
-      {((Math.pow(1.01, prestige) - 1) * 100).toFixed(2)}% Boost
+      {((Math.pow(1.01, prestige) - 1) * 100).toFixed(1)}% Boost
     </Flex>
     <PrestigeModal
       prestige={prestige}

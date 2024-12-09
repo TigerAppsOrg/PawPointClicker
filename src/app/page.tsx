@@ -114,7 +114,7 @@ export default function HomePage() {
   }, [count]);
 
   return (
-    <div className="relative grid w-full grid-cols-1 sm:h-screen sm:grid-cols-2 sm:overflow-hidden">
+    <div className="relative grid w-full grid-cols-1 font-sans sm:h-screen sm:grid-cols-2 sm:overflow-hidden">
       <ProxMenu
         proxName={proxName}
         setProxName={setProxName}
