@@ -34,6 +34,7 @@ interface PowerUpMenuProps {
   setSpaceStation: (spaceStation: number) => void;
   prestige: number;
   handlePrestige: () => void;
+  prestigeThreshold: number;
   passiveIncome: number;
 }
 
@@ -68,6 +69,7 @@ export default function PowerUpMenu({
   setSpaceStation,
   prestige,
   handlePrestige,
+  prestigeThreshold,
   passiveIncome,
 }: PowerUpMenuProps) {
   // Calculate total power-ups
@@ -152,6 +154,7 @@ export default function PowerUpMenu({
         spaceStation={spaceStation}
         prestige={prestige}
         handlePrestige={handlePrestige}
+        prestigeThreshold={prestigeThreshold}
         passiveIncome={passiveIncome}
       />
 

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@radix-ui/react-alert-dialog':
+    specifier: ^1.1.2
+    version: 1.1.2(@types/react-dom@18.3.2)(@types/react@18.3.14)(react-dom@18.3.1)(react@18.3.1)
   '@radix-ui/themes':
     specifier: ^3.1.6
     version: 3.1.6(@types/react-dom@18.3.2)(@types/react@18.3.14)(react-dom@18.3.1)(react@18.3.1)
@@ -35,6 +38,9 @@ dependencies:
   react-dom:
     specifier: ^18.3.1
     version: 18.3.1(react@18.3.1)
+  roman-numbers:
+    specifier: ^1.0.2
+    version: 1.0.2
   zod:
     specifier: ^3.23.3
     version: 3.23.8
@@ -3879,6 +3885,16 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
+  /ramda-fantasy@0.8.0:
+    resolution: {integrity: sha512-ZA1LVjy2wfCrlAsTJghBc9OxB4U14KTReDzuKJPeQ8aeWm+mRFw+8O0aUD4bibOKHzj5it/GkQcXVbzXmjFcpg==}
+    dependencies:
+      ramda: 0.27.2
+    dev: false
+
+  /ramda@0.27.2:
+    resolution: {integrity: sha512-SbiLPU40JuJniHexQSAgad32hfwd+DRUdwF2PlVuI5RZD0/vahUco7R8vD86J/tcEKKF9vZrUVwgtmGCqlCKyA==}
+    dev: false
+
   /react-countup@6.5.3(react@18.3.1):
     resolution: {integrity: sha512-udnqVQitxC7QWADSPDOxVWULkLvKUWrDapn5i53HE4DPRVgs+Y5rr4bo25qEl8jSh+0l2cToJgGMx+clxPM3+w==}
     peerDependencies:
@@ -4036,6 +4052,13 @@ packages:
     dependencies:
       glob: 7.2.3
     dev: true
+
+  /roman-numbers@1.0.2:
+    resolution: {integrity: sha512-og7DI3Jh/LT9tagbahbqwonvUs6Gru5TS+FVJlPq6UfQScZUDW/Iwm2M0qXQZNdMACX356+WUzcRrF8KW01j4w==}
+    dependencies:
+      ramda: 0.27.2
+      ramda-fantasy: 0.8.0
+    dev: false
 
   /run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}

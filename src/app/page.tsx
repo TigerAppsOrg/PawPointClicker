@@ -53,7 +53,7 @@ export default function HomePage() {
       setSpaceStation(0);
     } else {
       alert(
-        `You need ${(prestigeThreshold - lifeTimeEarnings).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} more Paw Points to Prestige!`,
+        `You need ${(prestigeThreshold - count).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} more Paw Points to Prestige!`,
       );
     }
   };
@@ -161,6 +161,7 @@ export default function HomePage() {
         setSpaceStation={setSpaceStation}
         prestige={prestige} // Pass Prestige Points
         handlePrestige={handlePrestige} // Pass Prestige
+        prestigeThreshold={prestigeThreshold} // Pass Prestige threshold
         passiveIncome={passiveIncome}
       />
     </div>
