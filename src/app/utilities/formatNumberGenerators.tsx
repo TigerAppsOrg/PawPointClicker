@@ -1,31 +1,34 @@
 export default function formatNumberGenerators(count: number): string {
   if (count < 1_000_000) {
-    return count.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return count
+      .toFixed(0)
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
   const suffixes = [
     "",
     "",
-    "million",
-    "billion",
-    "trillion",
-    "quadrillion",
-    "quintillion",
-    "sextillion",
-    "septillion",
-    "octillion",
-    "nonillion",
-    "decillion",
-    "undecillion",
-    "duodecillion",
-    "tredecillion",
-    "quattuordecillion",
-    "quindecillion",
-    "sexdecillion",
-    "septendecillion",
-    "octodecillion",
-    "novemdecillion",
-    "vigintillion",
-    "unvigintillion",
+    "Million",
+    "Billion",
+    "Trillion",
+    "Quadrillion",
+    "Quintillion",
+    "Sextillion",
+    "Septillion",
+    "Octillion",
+    "Nonillion",
+    "Decillion",
+    "Undecillion",
+    "Duodecillion",
+    "Tredecillion",
+    "Quattuordecillion",
+    "Quindecillion",
+    "Sexdecillion",
+    "Septendecillion",
+    "Octodecillion",
+    "Novemdecillion",
+    "Vigintillion",
+    "Unvigintillion",
   ];
 
   let suffixIndex = 0;
@@ -38,5 +41,5 @@ export default function formatNumberGenerators(count: number): string {
   }
 
   // Format the number with two decimals and append the suffix
-  return `${formattedCount} ${suffixes[suffixIndex]}`.trim();
+  return `${Math.round(formattedCount)} ${suffixes[suffixIndex]}`.trim();
 }

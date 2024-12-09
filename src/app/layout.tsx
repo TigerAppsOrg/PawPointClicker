@@ -4,13 +4,13 @@ import "@radix-ui/themes/styles.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
-import { Roboto } from "next/font/google";
+// import { Roboto } from "next/font/google";
 
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
+// const roboto = Roboto({
+//   weight: "400",
+//   subsets: ["latin"],
+//   display: "swap",
+// });
 
 import { Theme } from "@radix-ui/themes";
 
@@ -27,8 +27,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      // className={`${GeistSans.variable}`}
-      className={roboto.className}
+      className={`${GeistSans.variable}`}
+      // className={roboto.className}
     >
       <body>
         <Theme>{children} </Theme>

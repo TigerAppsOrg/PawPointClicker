@@ -36,7 +36,7 @@ export default function HomePage() {
   const handlePrestige = () => {
     if (lifeTimeEarnings >= prestigeThreshold) {
       setPrestige((prev: number) => prev + 1); // Increment Prestige points
-      setPrestigeThreshold(Math.round(Math.pow(prestigeThreshold, 1.5))); // Double the Prestige threshold
+      setPrestigeThreshold(Math.round(Math.pow(prestigeThreshold, 1.15))); // Increase the Prestige threshold by 15%
       setCount(0);
       setTotalEarnings(0);
       setClickMultiplier(1);
@@ -123,6 +123,7 @@ export default function HomePage() {
         oldCount={oldCountRef.current}
         clickMultiplier={clickMultiplier}
         setClickMultiplier={setClickMultiplier}
+        scanner={scanner}
         totalEarnings={totalEarnings}
         setTotalEarnings={setTotalEarnings}
         lifeTimeEarnings={lifeTimeEarnings}

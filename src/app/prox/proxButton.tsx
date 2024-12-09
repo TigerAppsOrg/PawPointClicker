@@ -14,6 +14,7 @@ export default function ProxButton(props: {
   setCount: (count: number) => void;
   clickMultiplier: number;
   setClickMultiplier: (clickMultiplier: number) => void;
+  scanner: number;
   lifeTimeEarnings: number;
   setLifetimeEarnings: (lifetimeEarnings: number) => void;
   totalEarnings: number;
@@ -124,12 +125,12 @@ export default function ProxButton(props: {
             type="text"
             value={props.proxName}
             onChange={(e) => props.setProxName(e.target.value)}
-            className="mx-8 my-4 w-full rounded-lg border-none bg-gray-800/30 text-center text-2xl font-bold text-white outline-none"
+            className="mx-8 my-3 w-full rounded-xl border-none bg-gray-800/30 py-0.5 text-center text-xl font-bold text-white outline-none"
           />
         </Flex>
         <Flex
           align="center"
-          className="w-full flex-col bg-red-100/80 pb-4 pt-3 text-2xl"
+          className="w-full flex-col bg-red-100/80 pb-3 pt-2 text-2xl"
         >
           <Text>Paw Points: </Text>
           <Flex align="center" justify="center" className="h-[3rem]">
@@ -164,7 +165,7 @@ export default function ProxButton(props: {
       <Flex
         align="center"
         justify="center"
-        className="relative mx-auto h-full w-full select-none"
+        className="relative z-20 mx-auto h-full w-full select-none"
       >
         <RenderCards clickMultiplier={props.clickMultiplier} />
         <Box className="relative">
@@ -219,7 +220,31 @@ export default function ProxButton(props: {
             </Flex>
           </button>
         </Box>
+
+        {/* Render multiple prox scanners */}
       </Flex>
+      {/* Prox Scanner */}
+      {props.scanner > 0 && (
+        <Flex className="absolute bottom-[-35%] h-[30rem] w-full justify-start">
+          {Array.from({ length: Math.min(props.scanner, 10) }).map(
+            (_, index) => (
+              <Flex
+                className="relative"
+                style={{
+                  width: `${100 / Math.min(props.scanner, 10)}%`, // Dynamically adjust width to fit all scanners
+                }}
+              >
+                <img
+                  key={index}
+                  src="/images/generators/prox_scanner.gif"
+                  alt={`Scanner ${index + 1}`}
+                  className="absolute bottom-[14rem] right-0 h-auto w-auto rotate-12 scale-[5]"
+                />
+              </Flex>
+            ),
+          )}
+        </Flex>
+      )}
     </Flex>
   );
 }

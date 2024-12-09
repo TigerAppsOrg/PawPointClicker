@@ -5,7 +5,7 @@ export default function RenderCards({
 }) {
   const buttonRadius = 144; // Initial button radius in px
   const baseMaxCardsPerRing = 12; // Base maximum cards per ring
-  const ringSpacing = 100; // Increased spacing between rings
+  const ringSpacing = 90; // Increased spacing between rings
 
   // Dynamically calculate max cards per ring based on total clickMultiplier
   const calculateMaxCardsPerRing = (ringIndex: number) =>

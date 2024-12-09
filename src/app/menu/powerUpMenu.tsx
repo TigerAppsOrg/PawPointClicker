@@ -144,14 +144,14 @@ export default function PowerUpMenu({
         lifeTimeEarnings={lifeTimeEarnings}
         totalEarnings={totalEarnings}
         clickMultiplier={clickMultiplier}
-        scanner={scanner}
-        farms={farms}
-        mine={mine}
-        factories={factories}
-        bank={bank}
-        lab={lab}
-        temple={temple}
-        spaceStation={spaceStation}
+        // scanner={scanner}
+        // farms={farms}
+        // mine={mine}
+        // factories={factories}
+        // bank={bank}
+        // lab={lab}
+        // temple={temple}
+        // spaceStation={spaceStation}
         prestige={prestige}
         handlePrestige={handlePrestige}
         prestigeThreshold={prestigeThreshold}
@@ -161,7 +161,7 @@ export default function PowerUpMenu({
       <Flex
         align="center"
         direction="column"
-        className="relative m-4 h-full overflow-hidden rounded-xl bg-blue-300 shadow-inner"
+        className="relative m-3 h-full overflow-hidden rounded-2xl bg-blue-300 shadow-inner"
       >
         <div className="bg-blue-250 flex w-full flex-col gap-4 bg-blue-400/60 p-4 sm:flex-row">
           <Text weight="bold" className="z-10 text-2xl">

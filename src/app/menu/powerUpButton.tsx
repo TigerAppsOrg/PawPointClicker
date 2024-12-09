@@ -63,13 +63,14 @@ export default function PowerUpButton({
       >
         <Box className="absolute left-0 top-0 z-10 h-full w-full bg-orange-200 opacity-70"></Box>
         <Flex
-          justify="center"
-          className="ml-auto h-24 flex-wrap gap-1 overflow-y-scroll p-2 shadow-inner sm:h-full"
+          justify="start"
+          align="center"
+          className="h-24 w-full flex-wrap gap-1 overflow-y-scroll p-2 shadow-inner sm:h-full"
         >
           {Array.from({ length: amount }).map((_, index) => (
             <span
               key={index}
-              className="z-20 h-min rounded-full bg-white/30 p-[0.1rem] text-black"
+              className="z-20 h-min animate-wiggle rounded-full bg-white/30 p-[0.1rem] text-black duration-150 hover:rotate-12"
             >
               <img src={icon} className="h-9 w-auto" />
             </span>

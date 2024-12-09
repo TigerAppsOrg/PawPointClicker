@@ -10,6 +10,7 @@ export default function ProxMenu(props: {
   setCount: (count: number) => void;
   clickMultiplier: number;
   setClickMultiplier: (clickMultiplier: number) => void;
+  scanner: number;
   lifeTimeEarnings: number;
   setLifetimeEarnings: (lifetimeEarnings: number) => void;
   totalEarnings: number;
@@ -31,6 +32,7 @@ export default function ProxMenu(props: {
         setCount={props.setCount}
         clickMultiplier={props.clickMultiplier}
         setClickMultiplier={props.setClickMultiplier}
+        scanner={props.scanner}
         lifeTimeEarnings={props.lifeTimeEarnings}
         setLifetimeEarnings={props.setLifetimeEarnings}
         totalEarnings={props.totalEarnings}
