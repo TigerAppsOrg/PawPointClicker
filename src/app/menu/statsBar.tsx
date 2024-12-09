@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Text } from "@radix-ui/themes";
+import { Flex, Text, Tooltip } from "@radix-ui/themes";
 import PrestigeModal from "./prestigeModal";
 
 interface StatsBarProps {
@@ -25,20 +25,23 @@ interface StatsBarProps {
 interface StatsItemProps {
   label: string;
   value: string | number;
+  tooltip?: string;
 }
 
-const StatsItem: React.FC<StatsItemProps> = ({ label, value }) => (
-  <Flex
-    direction="column"
-    align="center"
-    justify="center"
-    className="h-full w-full overflow-auto rounded-xl bg-gray-700 p-2 duration-150 hover:text-green-400"
-  >
-    <Text weight="bold" className="text-center text-sm">
-      {label}
-    </Text>
-    <Text className="text-base font-medium">{value}</Text>
-  </Flex>
+const StatsItem: React.FC<StatsItemProps> = ({ label, value, tooltip }) => (
+  <Tooltip content={tooltip}>
+    <Flex
+      direction="column"
+      align="center"
+      justify="center"
+      className="h-full w-full overflow-auto rounded-xl bg-gray-700 p-2 duration-150 hover:text-green-400"
+    >
+      <Text weight="bold" className="select-none text-center text-sm">
+        {label}
+      </Text>
+      <Text className="text-base font-medium">{value}</Text>
+    </Flex>
+  </Tooltip>
 );
 
 // Separate Prestige Button component
@@ -59,7 +62,7 @@ const PrestigeButton: React.FC<PrestigeButtonProps> = ({
     <Flex
       justify="center"
       align="center"
-      className="h-full rounded-xl bg-yellow-500 px-2 py-2 text-sm font-bold"
+      className="h-full text-nowrap rounded-xl bg-yellow-500 px-2 py-2 text-sm font-bold"
     >
       {((Math.pow(1.01, prestige) - 1) * 100).toFixed(1)}% Boost
     </Flex>
@@ -97,20 +100,24 @@ export default function StatsBar({
         <StatsItem
           label="Total Earnings"
           value={totalEarnings.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          tooltip="Total cookies earned for the current prestige level."
         />
         <StatsItem
           label="Lifetime Earnings"
           value={lifeTimeEarnings
             .toString()
             .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          tooltip="Total cookies earned over all prestiges."
         />
         <StatsItem
           label="Passive Income"
           value={`${passiveIncome.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} / sec`}
+          tooltip="Paw Points earned per second from all generators."
         />
         <StatsItem
           label="Points Per Click"
           value={`+${Math.round(clickMultiplier * Math.pow(1.01, prestige))}`}
+          tooltip="Paw Points generated per click."
         />
         {/* <StatsItem label="Upgrades" value={totalPowerUps} /> */}
       </div>

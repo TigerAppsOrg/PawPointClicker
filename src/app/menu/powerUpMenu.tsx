@@ -102,11 +102,6 @@ export default function PowerUpMenu({
     (temple > 0 ? 1 : 0) +
     (spaceStation > 0 ? 1 : 0);
 
-  // Scaling function to increase costs with each purchase
-  const getScaledCost = (baseCost: number, multiplier: number) => {
-    return Math.floor(baseCost * Math.pow(1.15, multiplier)); // Increase by 15% per unit
-  };
-
   // Generic handler for purchasing power-ups
   const handlePurchase = (
     cost: number,
@@ -117,6 +112,11 @@ export default function PowerUpMenu({
       setCount(count - cost);
       setAmount(currentAmount + 1);
     }
+  };
+
+  // Scaling function to increase costs with each purchase
+  const getScaledCost = (baseCost: number, multiplier: number) => {
+    return Math.floor(baseCost * Math.pow(1.15, multiplier)); // Increase by 15% per unit
   };
 
   // Costs for various power-ups
@@ -163,7 +163,7 @@ export default function PowerUpMenu({
         direction="column"
         className="relative m-3 h-full overflow-hidden rounded-2xl bg-blue-300 shadow-inner"
       >
-        <div className="bg-blue-250 flex w-full flex-col gap-4 bg-blue-400/60 p-4 sm:flex-row">
+        <div className="bg-blue-250 flex w-full flex-col gap-4 border-b border-blue-500/40 bg-blue-400/60 p-4 drop-shadow-sm sm:flex-row">
           <Text weight="bold" className="z-10 text-2xl">
             Paw Point Generators
           </Text>
@@ -207,6 +207,7 @@ export default function PowerUpMenu({
             rate={1}
             iconBackground="./images/banners/pointers.jpg"
             prestige={prestige}
+            tooltip="Multiplies Paw Points generated per click AND swipes extra proxes for you!"
           />
           <PowerUpButton
             label="Late Meal Swipe"
@@ -218,6 +219,7 @@ export default function PowerUpMenu({
             rate={2}
             iconBackground="./images/banners/latemeal.jpg"
             prestige={prestige}
+            tooltip="Exchanges your unused Late Meals for Paw Points."
           />
           <PowerUpButton
             label="Prox Scanner"
@@ -229,6 +231,7 @@ export default function PowerUpMenu({
             icon="/images/generators/prox_scanner.gif"
             iconBackground="./images/banners/proxscanner.jpg"
             prestige={prestige}
+            tooltip="Scans Proxes for extra Paw Points."
           />
           <PowerUpButton
             label="Frist Delivery"
@@ -242,6 +245,7 @@ export default function PowerUpMenu({
             rate={47}
             iconBackground="./images/banners/delivery.jpg"
             prestige={prestige}
+            tooltip="Your package TBA123456789123 is ready for collection."
           />
           <PowerUpButton
             label="Residential College"
@@ -253,6 +257,7 @@ export default function PowerUpMenu({
             rate={260}
             iconBackground="./images/banners/resco.jpg"
             prestige={prestige}
+            tooltip="Harvests Paw Points from every dorm."
           />
           <PowerUpButton
             label="Farmer's Market"
@@ -264,6 +269,7 @@ export default function PowerUpMenu({
             rate={1400}
             iconBackground="./images/banners/farm.jpg"
             prestige={prestige}
+            tooltip="Grows Paw Points straight from the fields."
           />
           <PowerUpButton
             label="McCosh Mines"
@@ -275,6 +281,7 @@ export default function PowerUpMenu({
             rate={7800}
             iconBackground="./images/banners/mines.jpg"
             prestige={prestige}
+            tooltip="Digs deep for those hidden Paw Points."
           />
           <PowerUpButton
             label="Prox Factory"
@@ -286,6 +293,7 @@ export default function PowerUpMenu({
             rate={44000}
             iconBackground="./images/banners/factory.jpg"
             prestige={prestige}
+            tooltip="Manufactures Paw Points for the masses."
           />
           <PowerUpButton
             label="Endowment Bank"
@@ -297,6 +305,7 @@ export default function PowerUpMenu({
             rate={260000}
             iconBackground="./images/banners/bank.jpg"
             prestige={prestige}
+            tooltip="Invests your Paw Points for future growth."
           />
           <PowerUpButton
             label="Plasma Physics Lab"
@@ -308,6 +317,7 @@ export default function PowerUpMenu({
             rate={1600000}
             iconBackground="./images/banners/lab.jpg"
             prestige={prestige}
+            tooltip="Conducts experiments to generate Paw Points."
           />
           <PowerUpButton
             label="Prox Temple"
@@ -319,6 +329,7 @@ export default function PowerUpMenu({
             rate={10000000}
             iconBackground="./images/banners/forest.jpg"
             prestige={prestige}
+            tooltip="Worships the Paw Points for blessings."
           />
           <PowerUpButton
             label="Space Station"
@@ -332,6 +343,7 @@ export default function PowerUpMenu({
             rate={65000000}
             iconBackground="./images/banners/space.webp"
             prestige={prestige}
+            tooltip="Orbits the Earth collecting Paw Points."
           />
         </Flex>
       </Flex>

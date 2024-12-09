@@ -9,7 +9,7 @@ export default {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
       },
       screens: {
-        xs: "320px",
+        xs: "500px",
       },
       animation: {
         spinCards: "spinCards 6s linear infinite",

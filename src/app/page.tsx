@@ -17,8 +17,11 @@ export default function HomePage() {
     1,
   );
   const [totalEarnings, setTotalEarnings] = useLocalStorage("totalEarnings", 0);
-  const [prestige, setPrestige] = useLocalStorage("prestige", 1); // New: Prestige points
-  const [prestigeThreshold, setPrestigeThreshold] = useState(1000000); // Set a Prestige threshold (e.g., 1,000,000 lifetime earnings)
+  const [prestige, setPrestige] = useLocalStorage("prestige", 0); // New: Prestige points
+  const [prestigeThreshold, setPrestigeThreshold] = useLocalStorage(
+    "prestigeThreshold",
+    1000000,
+  ); // Set a Prestige threshold (e.g., 1,000,000 lifetime earnings)
 
   const [latemeal, setLatemeal] = useLocalStorage("latemeal", 0);
   const [scanner, setScanner] = useLocalStorage("scanner", 0);
@@ -59,21 +62,31 @@ export default function HomePage() {
   };
 
   // Calculations:
-  const passiveIncome = Math.floor(
-    (clickMultiplier +
-      latemeal * 2 +
-      scanner * 8 +
-      deliveries * 47 +
-      resco * 260 +
-      farms * 1400 +
-      mine * 7800 +
-      factories * 44000 +
-      bank * 260000 +
-      lab * 1600000 +
-      temple * 10000000 +
-      spaceStation * 65000000) *
-      Math.pow(1.01, prestige),
-  ); // Prestige multiplier
+  // Helper function to calculate individual income
+  const calculateIncome = (amount: number, rate: number, prestige: number) =>
+    Math.round(amount * rate * Math.pow(1.01, prestige));
+
+  // Modularized calculation
+  const components = [
+    { amount: clickMultiplier, rate: 1 },
+    { amount: latemeal, rate: 2 },
+    { amount: scanner, rate: 8 },
+    { amount: deliveries, rate: 47 },
+    { amount: resco, rate: 260 },
+    { amount: farms, rate: 1400 },
+    { amount: mine, rate: 7800 },
+    { amount: factories, rate: 44000 },
+    { amount: bank, rate: 260000 },
+    { amount: lab, rate: 1600000 },
+    { amount: temple, rate: 10000000 },
+    { amount: spaceStation, rate: 65000000 },
+  ];
+
+  const passiveIncome = components.reduce(
+    (total, { amount, rate }) =>
+      total + calculateIncome(amount, rate, prestige),
+    0,
+  );
 
   // Passive income logic (includes Prestige multiplier)
   useEffect(() => {

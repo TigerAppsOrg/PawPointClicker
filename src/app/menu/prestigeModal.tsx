@@ -44,7 +44,7 @@ export default function PrestigeModal({
                 <Box className="rounded-xl bg-orange-200 p-4 text-lg font-medium">
                   Current Prestige Level:{" "}
                   <span className="text-red-600">
-                    {arabToRoman(prestige)}{" "}
+                    {prestige != 0 ? arabToRoman(prestige) : "No Prestige"}{" "}
                     <Text className="text-sm">({prestige})</Text>
                   </span>
                   <Flex align="center" className="mt-2 text-sm text-orange-700">
@@ -54,7 +54,8 @@ export default function PrestigeModal({
                   </Flex>
                 </Box>
                 <Box className="mt-3 text-sm sm:mt-4">
-                  Each prestige increases overall point generation by{" "}
+                  Prestiging will reset all your Paw Points and upgrades.
+                  However, each prestige increases overall point generation by{" "}
                   <span className="font-semibold text-blue-600">
                     1% per level.
                   </span>

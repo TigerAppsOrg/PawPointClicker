@@ -230,6 +230,7 @@ export default function ProxButton(props: {
             (_, index) => (
               <Flex
                 className="relative bottom-[-10rem] sm:bottom-[-11rem]"
+                key={"bottomscanner" + index}
                 style={{
                   width: `${100 / Math.min(props.scanner, 10)}%`, // Dynamically adjust width to fit all scanners
                 }}
