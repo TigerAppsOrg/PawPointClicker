@@ -41,5 +41,5 @@ export default function formatNumberGenerators(count: number): string {
   }
 
   // Format the number with two decimals and append the suffix
-  return `${Math.round(formattedCount)} ${suffixes[suffixIndex]}`.trim();
+  return `${formattedCount.toFixed(1)} ${suffixes[suffixIndex]}`.trim();
 }
