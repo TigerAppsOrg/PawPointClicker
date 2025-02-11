@@ -1,11 +1,6 @@
 import React from "react";
 import CountUp from "react-countup";
 
-interface FormatNumberProps {
-  count: number;
-  oldCount: number;
-}
-
 export default function formatNumberExtended(count: number, oldCount: number) {
   const suffixes = [
     "",

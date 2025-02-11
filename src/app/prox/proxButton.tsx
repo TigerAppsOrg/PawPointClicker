@@ -225,7 +225,7 @@ export default function ProxButton(props: {
       </Flex>
       {/* Prox Scanner */}
       {props.scanner > 0 && (
-        <Flex className="xs:bottom-[-35%] absolute bottom-[-45%] h-[30rem] w-full sm:bottom-[-70%] lg:bottom-[-35%] 2xl:bottom-[-25%]">
+        <Flex className="absolute bottom-[-45%] h-[30rem] w-full xs:bottom-[-35%] sm:bottom-[-70%] lg:bottom-[-35%] 2xl:bottom-[-25%]">
           {Array.from({ length: Math.min(props.scanner, 10) }).map(
             (_, index) => (
               <Flex

@@ -1,25 +1,18 @@
 import { useState, useEffect } from "react";
-export default function useLocalStorage(
-  key: string,
-  defaultValue: string | number,
-) {
-  const [value, setValue] = useState(() => {
-    let currentValue;
 
+export default function useLocalStorage<T>(key: string, defaultValue: T) {
+  const [value, setValue] = useState<T>(() => {
     try {
-      currentValue = JSON.parse(
-        localStorage.getItem(key) || String(defaultValue),
-      );
+      const storedValue = localStorage.getItem(key);
+      return storedValue ? JSON.parse(storedValue) : defaultValue;
     } catch (error) {
-      currentValue = defaultValue;
+      return defaultValue;
     }
-
-    return currentValue;
   });
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [value, key]);
 
-  return [value, setValue];
+  return [value, setValue] as const;
 }

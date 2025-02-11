@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/themes": "^3.1.6",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@uidotdev/usehooks": "^2.4.1",
@@ -23,6 +24,7 @@
     "react": "^18.3.1",
     "react-countup": "^6.5.3",
     "react-dom": "^18.3.1",
+    "react-toastify": "^11.0.3",
     "roman-numbers": "^1.0.2",
     "zod": "^3.23.3"
   },

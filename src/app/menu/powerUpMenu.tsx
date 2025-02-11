@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Text } from "@radix-ui/themes";
+import { Flex, Text } from "@radix-ui/themes";
 import PowerUpButton from "./powerUpButton";
 import StatsBar from "./statsBar";
 
