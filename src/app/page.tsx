@@ -7,7 +7,7 @@ import Achievements from "./components/acheivementsModal";
 import FAQ from "./components/faqModal";
 
 import useLocalStorage from "./utilities/useLocalStorage";
-import { Box, Flex } from "@radix-ui/themes";
+import { Box, Flex, Tooltip } from "@radix-ui/themes";
 import {
   GithubIcon,
   InfoIcon,
@@ -57,7 +57,7 @@ export default function HomePage() {
     "achievements",
     false,
   );
-  const [faq, setFaq] = useLocalStorage("faw", false);
+  const [faq, setFaq] = useLocalStorage("faq", false);
 
   // Game start time
   const [gameStartTime, setGameStartTime] = useLocalStorage("time", "");
@@ -309,33 +309,40 @@ export default function HomePage() {
         />
 
         <Box className="h-8 border border-r-[0.025rem] border-black" />
-
-        <button
-          onClick={() => setWelcome(true)}
-          className="rounded-lg border border-orange-500 bg-orange-300 px-2.5 py-2 text-orange-600 hover:scale-[1.02] hover:bg-orange-200"
-        >
-          <InfoIcon />
-        </button>
-        <button
-          onClick={() => setAcheivements(true)}
-          className="rounded-lg border border-orange-500 bg-orange-300 px-2.5 py-2 text-orange-600 hover:scale-[1.02] hover:bg-orange-200"
-        >
-          <TrophyIcon />
-        </button>
-        <button
-          onClick={() => setFaq(true)}
-          className="rounded-lg border border-orange-500 bg-orange-300 px-2.5 py-2 text-orange-600 hover:scale-[1.02] hover:bg-orange-200"
-        >
-          <MessageCircleQuestionIcon />
-        </button>
-        <a
-          href="https://github.com/TigerAppsOrg/PawPointClicker/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="rounded-lg border border-orange-500 bg-orange-300 px-2.5 py-2 text-gray-700 hover:scale-[1.02] hover:bg-orange-200"
-        >
-          <GithubIcon size={24} />
-        </a>
+        <Tooltip content="Info">
+          <button
+            onClick={() => setWelcome(true)}
+            className="rounded-lg border border-orange-500 bg-orange-300 px-2.5 py-2 text-orange-600 hover:scale-[1.02] hover:bg-orange-200"
+          >
+            <InfoIcon />
+          </button>
+        </Tooltip>
+        <Tooltip content="Achievements">
+          <button
+            onClick={() => setAcheivements(true)}
+            className="rounded-lg border border-orange-500 bg-orange-300 px-2.5 py-2 text-orange-600 hover:scale-[1.02] hover:bg-orange-200"
+          >
+            <TrophyIcon />
+          </button>
+        </Tooltip>
+        <Tooltip content="FAQ">
+          <button
+            onClick={() => setFaq(true)}
+            className="rounded-lg border border-orange-500 bg-orange-300 px-2.5 py-2 text-orange-600 hover:scale-[1.02] hover:bg-orange-200"
+          >
+            <MessageCircleQuestionIcon />
+          </button>
+        </Tooltip>
+        <Tooltip content="GitHub Repository">
+          <a
+            href="https://github.com/TigerAppsOrg/PawPointClicker/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-orange-500 bg-orange-300 px-2.5 py-2 text-gray-700 hover:scale-[1.02] hover:bg-orange-200"
+          >
+            <GithubIcon size={24} />
+          </a>
+        </Tooltip>
       </Flex>
     </div>
   );

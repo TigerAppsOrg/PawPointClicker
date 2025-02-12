@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Box, Flex, Separator, Tooltip } from "@radix-ui/themes";
+import { Box, Flex, Separator, Text, Tooltip } from "@radix-ui/themes";
 
 import useLocalStorage from "../utilities/useLocalStorage";
 import { achievementsData, categoryColors } from "../utilities/achievements";
@@ -16,6 +16,7 @@ import {
   ZapIcon,
   EyeOffIcon,
   HelpCircleIcon,
+  LockKeyholeIcon,
 } from "lucide-react";
 
 type Stats = {
@@ -113,7 +114,7 @@ export default function Achievements({
                     <Flex
                       align="center"
                       justify="center"
-                      className={`relative rounded-xl border p-3 text-center text-sm font-medium hover:scale-105 sm:text-base ${isUnlocked ? `${border} ${bg} ${text}` : "border-gray-400 bg-gray-200 text-gray-600 opacity-50"}`}
+                      className={`relative flex-col rounded-xl border p-3 text-center text-sm font-medium hover:scale-105 sm:text-base ${isUnlocked ? `${border} ${bg} ${text}` : "border-gray-400 bg-gray-200 text-gray-600 opacity-50"}`}
                     >
                       {/* Category Icon in Top Left */}
                       <div
@@ -123,10 +124,16 @@ export default function Achievements({
                           categoryIcons.Default}
                       </div>
 
-                      {isUnlocked && (
+                      {isUnlocked ? (
                         <CheckCircle2Icon className="absolute right-1 top-1 size-4 rotate-6 text-2xl text-green-500 sm:size-6" />
+                      ) : (
+                        <LockKeyholeIcon className="absolute right-1 top-1 size-4 rotate-6 text-2xl text-red-700 sm:size-6" />
                       )}
                       {achievement.name}
+
+                      <Text className="mt-1 text-[0.5rem]">
+                        {achievement.description}
+                      </Text>
                     </Flex>
                   </Tooltip>
                 );

@@ -35,11 +35,24 @@ export default function ProxMenu(props: {
   const [fallingImages, setFallingImages] = useState<
     { id: string; src: string; left: number; delay: number; speed: number }[]
   >([]);
+  const [backgroundImage, setBackgroundImage] = useState(
+    "/images/backgrounds/concretebackground.jpg",
+  );
   const fallingImagesRef = useRef(fallingImages);
 
   useEffect(() => {
     fallingImagesRef.current = fallingImages;
   }, [fallingImages]);
+
+  //reset background image when collectors
+  useEffect(() => {
+    setBackgroundImage(getBackgroundImage()); // Reset background image
+  }, [props.collectors]);
+
+  //reset background image when prestige
+  useEffect(() => {
+    setFallingImages([]); // Remove falling images
+  }, [props.prestige]);
 
   const addFallingImages = (
     type: "latemeal" | "deliveries",
@@ -94,7 +107,7 @@ export default function ProxMenu(props: {
       farms,
     } = props.collectors;
     if (spaceStation > 0) return "/images/backgrounds/station.jpg";
-    if (temple > 0) return "/images/backgrounds/temple.jpg";
+    if (temple > 0) return "/images/backgrounds/temple.gif";
     if (lab > 0) return "/images/backgrounds/lab.webp";
     if (bank > 0) return "/images/backgrounds/bank.jpeg";
     if (factories > 0) return "/images/backgrounds/factories.jpg";
@@ -127,12 +140,31 @@ export default function ProxMenu(props: {
         setTotalEarnings={props.setTotalEarnings}
         passiveIncome={props.passiveIncome}
         prestige={props.prestige}
+        lab={collectors.lab}
       />
       <img
         src={getBackgroundImage()}
         alt="Prox"
         className="absolute z-10 h-full object-cover object-center opacity-20"
       />
+
+      {collectors.farms > 0 && (
+        <img
+          src="/images/tractor.gif"
+          alt="tractor"
+          className="absolute bottom-6 left-32 z-40 h-auto max-h-[4rem] w-auto scale-[5]"
+        />
+      )}
+
+      {collectors.factories > 0 && (
+        <>
+          <img
+            src="/images/robot_arm2.gif"
+            alt="robotarm"
+            className="absolute right-[-15%] top-[-20%] z-30 size-[32rem] -scale-100"
+          />
+        </>
+      )}
 
       {fallingImages.map((image) => (
         <div

@@ -73,14 +73,6 @@ export const achievementsData = [
       state.lifeTimeEarnings >= 1000000000000,
     category: "Wealth",
   },
-  {
-    id: 7,
-    name: "Passive Earner",
-    description: "Earn 100M in lifetime earnings",
-    condition: (state: { lifeTimeEarnings: number }) =>
-      state.lifeTimeEarnings >= 100000000,
-    category: "Wealth",
-  },
 
   // Click Multiplier Achievements (Efficiency)
   ...generateLeveledAchievements(
@@ -107,77 +99,77 @@ export const achievementsData = [
     id: 13,
     name: "Latemeal Investor",
     description: "Own 250 Late Meals",
-    condition: (state: { latemeal: number }) => state.latemeal >= 10,
+    condition: (state: { latemeal: number }) => state.latemeal >= 250,
     category: "Collector",
   },
   {
     id: 14,
     name: "Scanner Master",
     description: "Own 190 Scanners",
-    condition: (state: { scanner: number }) => state.scanner >= 25,
+    condition: (state: { scanner: number }) => state.scanner >= 190,
     category: "Collector",
   },
   {
     id: 15,
     name: "Delivery Mogul",
     description: "Own 150 Delivery Units",
-    condition: (state: { deliveries: number }) => state.deliveries >= 50,
+    condition: (state: { deliveries: number }) => state.deliveries >= 150,
     category: "Collector",
   },
   {
     id: 16,
     name: "Resco Ruler",
     description: "Own 120 Resco Facilities",
-    condition: (state: { resco: number }) => state.resco >= 100,
+    condition: (state: { resco: number }) => state.resco >= 120,
     category: "Collector",
   },
   {
     id: 17,
     name: "Farm Empire",
     description: "Own 100 Farms",
-    condition: (state: { farms: number }) => state.farms >= 150,
+    condition: (state: { farms: number }) => state.farms >= 100,
     category: "Collector",
   },
   {
     id: 18,
     name: "Mine Tycoon",
     description: "Own 90 Mines",
-    condition: (state: { mine: number }) => state.mine >= 200,
+    condition: (state: { mine: number }) => state.mine >= 90,
     category: "Collector",
   },
   {
     id: 19,
     name: "Industrialist",
     description: "Own 75 Factories",
-    condition: (state: { factories: number }) => state.factories >= 250,
+    condition: (state: { factories: number }) => state.factories >= 75,
     category: "Collector",
   },
   {
     id: 20,
     name: "Bankroll King",
     description: "Own 60 Banks",
-    condition: (state: { bank: number }) => state.bank >= 300,
+    condition: (state: { bank: number }) => state.bank >= 60,
     category: "Collector",
   },
   {
     id: 21,
     name: "Scientific Pioneer",
     description: "Own 40 Labs",
-    condition: (state: { lab: number }) => state.lab >= 350,
+    condition: (state: { lab: number }) => state.lab >= 40,
     category: "Collector",
   },
   {
     id: 22,
     name: "Divine Overseer",
     description: "Own 20 Temples",
-    condition: (state: { temple: number }) => state.temple >= 400,
+    condition: (state: { temple: number }) => state.temple >= 20,
     category: "Collector",
   },
   {
     id: 23,
     name: "Galactic Overlord",
     description: "Own 10 Space Stations",
-    condition: (state: { spaceStation: number }) => state.spaceStation >= 500,
+    condition: (state: { spaceStation: number }) => state.spaceStation >= 10,
     category: "Collector",
   },
 
@@ -189,19 +181,37 @@ export const achievementsData = [
     condition: (state: { count: number }) => state.count >= 1000,
     category: "Efficiency",
   },
+  //passiveIncome
   {
     id: 25,
-    name: "Paw Print Collector",
-    description: "Collect 10M total earnings",
-    condition: (state: { totalEarnings: number }) =>
-      state.totalEarnings >= 10000000,
+    name: "Paw Point Producer",
+    description: "Earn 1000 Paw Points per second",
+    condition: (state: { passiveIncome: number }) =>
+      state.passiveIncome >= 1000,
     category: "Wealth",
   },
   {
     id: 26,
+    name: "Paw Point Printer",
+    description: "Earn 1M Paw Points per second",
+    condition: (state: { passiveIncome: number }) =>
+      state.passiveIncome >= 1000000,
+    category: "Wealth",
+  },
+  //totalEfficiencyBoost
+
+  {
+    id: 27,
     name: "Time Traveler",
     description: "Play for 24 hours",
     condition: (state: { playTime: number }) => state.playTime >= 86400000,
+    category: "Hidden",
+  },
+  {
+    id: 28,
+    name: "Weekend Warrior",
+    description: "Play for 7 days",
+    condition: (state: { playTime: number }) => state.playTime >= 604800000,
     category: "Hidden",
   },
   ...generateLeveledAchievements(
@@ -214,7 +224,7 @@ export const achievementsData = [
   ),
 
   {
-    id: 30,
+    id: 33,
     name: "Explorer",
     description: "Unlock a hidden feature",
     condition: (state: { hiddenFeaturesUnlocked: number }) =>
@@ -222,10 +232,11 @@ export const achievementsData = [
     category: "Hidden",
   },
   {
-    id: 31,
+    id: 34,
     name: "Wealth Overflow",
     description: "Earn 1 Quadrillion Paw Points",
-    condition: (state: { count: number }) => state.count >= 1000000000000000,
+    condition: (state: { lifeTimeEarnings: number }) =>
+      state.lifeTimeEarnings >= 1000000000000000,
     category: "Wealth",
   },
 ];

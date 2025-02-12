@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Box, Flex, Text } from "@radix-ui/themes";
+import { Box, Flex, Text, Tooltip } from "@radix-ui/themes";
 import CountUp from "react-countup";
 
 import RenderCards from "./renderCards";
@@ -21,6 +21,7 @@ export default function ProxButton(props: {
   setTotalEarnings: (totalEarnings: number) => void;
   passiveIncome: number;
   prestige: number;
+  lab: number;
 }) {
   const [effect, setEffect] = useState(true);
   const [notifications, setNotifications] = useState<
@@ -178,7 +179,15 @@ export default function ProxButton(props: {
         className="relative z-20 mx-auto h-full w-full select-none"
       >
         <RenderCards clickMultiplier={props.clickMultiplier} />
+
         <Box className="relative">
+          {props.lab > 0 && (
+            <img
+              src="/images/robot_arm.gif"
+              alt="robotarm"
+              className="z--5 absolute left-[-4rem] top-[-4rem]"
+            />
+          )}
           {notifications.map((notification) => (
             <Flex
               justify="center"
@@ -218,15 +227,17 @@ export default function ProxButton(props: {
                   effect && "animate-wiggle"
                 } h-[90%] select-none transition duration-200 ease-in-out hover:scale-105`}
               />
-              <Flex
-                align="center"
-                justify="center"
-                className={`absolute bottom-[-1rem] z-20 h-10 w-10 rounded-full border-4 border-orange-400 font-extrabold text-black transition-colors ${
-                  isFlashing ? "bg-red-400/80" : "bg-green-400/80"
-                }`}
-              >
-                x{trueMultiplier}
-              </Flex>
+              <Tooltip content="Click Multiplier">
+                <Flex
+                  align="center"
+                  justify="center"
+                  className={`absolute bottom-[-1rem] z-20 h-10 w-10 rounded-full border-4 border-orange-400 font-extrabold text-black transition-colors ${
+                    isFlashing ? "bg-red-400/80" : "bg-green-400/80"
+                  }`}
+                >
+                  x{trueMultiplier}
+                </Flex>
+              </Tooltip>
             </Flex>
           </button>
         </Box>
@@ -235,7 +246,7 @@ export default function ProxButton(props: {
       </Flex>
       {/* Prox Scanner */}
       {props.scanner > 0 && (
-        <Flex className="absolute bottom-[-45%] h-[30rem] w-full xs:bottom-[-35%] sm:bottom-[-70%] lg:bottom-[-35%] 2xl:bottom-[-25%]">
+        <Flex className="absolute bottom-[-45%] h-[30rem] w-full xs:bottom-[-35%] sm:bottom-[-70%] lg:bottom-[-35%] 2xl:bottom-[-30%]">
           {Array.from({ length: Math.min(props.scanner, 10) }).map(
             (_, index) => (
               <Flex
