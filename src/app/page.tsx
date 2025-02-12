@@ -300,7 +300,7 @@ export default function HomePage() {
       <Flex
         align="center"
         justify="center"
-        className="fixed top-[calc(100vh-6rem)] z-30 m-4 gap-2 rounded-xl border border-orange-500 bg-orange-400/95 p-2 sm:left-2"
+        className="fixed bottom-[0.5rem] left-[calc(50%-10rem)] z-30 m-4 gap-2 rounded-xl border border-orange-500 bg-orange-400/95 p-2 sm:left-2 sm:top-[calc(100vh-6rem)]"
       >
         <PawPrintIcon
           // src="/images/prox.svg"
