@@ -39,7 +39,7 @@ const StatsItem: React.FC<StatsItemProps> = ({ label, value, tooltip }) => (
       <Text weight="bold" className="select-none text-center text-sm">
         {label}
       </Text>
-      <Text className="text-base font-medium">{value}</Text>
+      <Text className="text-center text-base font-medium">{value}</Text>
     </Flex>
   </Tooltip>
 );

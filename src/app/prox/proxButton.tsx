@@ -120,12 +120,22 @@ export default function ProxButton(props: {
         className="absolute z-50 w-full flex-col font-extrabold"
       >
         {/* Editable Prox Name */}
-        <Flex className="w-full bg-red-300/80">
+        <Flex
+          align="center"
+          justify="center"
+          className="w-full bg-red-300/80 py-3"
+        >
+          <img
+            src="/images/prox.svg"
+            alt="Prox"
+            className="mx-4 h-9 w-9 rounded-full"
+          />
+          {/* <Box className="h-8 border border-r-[0.025rem] border-black" /> */}
           <input
             type="text"
             value={props.proxName}
             onChange={(e) => props.setProxName(e.target.value)}
-            className="mx-8 my-3 w-full rounded-xl border-none bg-gray-800/30 py-0.5 text-center text-xl font-semibold text-white outline-none"
+            className="mr-8 w-full rounded-xl border-none bg-gray-800/30 py-0.5 text-center text-xl font-semibold text-white outline-none"
           />
         </Flex>
         <Flex

@@ -57,6 +57,16 @@ export default {
           },
           to: { opacity: "1", transform: "translate(-50%, -50%) scale(1)" },
         },
+        fallingAnimation: {
+          "0%": {
+            transform: "translateY(-10%)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "translateY(110vh)",
+            opacity: "1",
+          },
+        },
       },
     },
   },

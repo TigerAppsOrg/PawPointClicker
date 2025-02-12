@@ -17,15 +17,15 @@ export default function FAQModal(props: {
     <Dialog.Root open={props.isOpen} onOpenChange={props.setIsOpen}>
       <Dialog.Overlay className="fixed inset-0 z-40 bg-black/50" />
       <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[85vh] w-[90vw] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-orange-300 p-6 shadow-2xl">
-        <Dialog.Title className="flex items-center gap-2 text-2xl font-semibold text-gray-800">
+        <Dialog.Title className="flex items-center gap-2 text-lg font-semibold text-gray-800 sm:text-2xl">
           <HelpCircleIcon className="mr-2 size-8 text-orange-700" />
           FAQ & Game Rules
         </Dialog.Title>
         <Box className="mt-2 text-yellow-900">
           <Separator orientation="horizontal" size="4" className="mb-4" />
-          <Box className="rounded-xl bg-orange-200 p-4 text-lg font-medium">
+          <Box className="rounded-xl bg-orange-200 p-4 text-base font-medium sm:text-lg">
             <Text className="font-semibold">Frequently Asked Questions</Text>
-            <ul className="mt-2 list-disc pl-5 text-sm">
+            <ul className="mt-2 list-disc pl-5 text-xs sm:text-sm">
               <li>
                 <strong>Are these Paw Points real?</strong> No, these are not
                 real Paw Points.
@@ -67,10 +67,14 @@ export default function FAQModal(props: {
               </li>
             </ul>
           </Box>
-          <Separator orientation="horizontal" size="4" className="my-5" />
-          <Box className="rounded-xl bg-orange-200 p-4 text-lg font-medium">
+          <Separator
+            orientation="horizontal"
+            size="4"
+            className="my-3 sm:my-5"
+          />
+          <Box className="rounded-xl bg-orange-200 p-4 text-base font-medium sm:text-lg">
             <Text className="font-semibold">Game Rules</Text>
-            <ul className="mt-2 list-disc pl-5 text-sm">
+            <ul className="mt-2 list-disc pl-5 text-xs sm:text-sm">
               <li>Click the giant prox to earn Paw Points.</li>
               <li>Buy generators to automate your earnings.</li>
               <li>Upgrade your generators for faster production.</li>
@@ -79,7 +83,7 @@ export default function FAQModal(props: {
             </ul>
           </Box>
         </Box>
-        <Flex className="mt-5 items-center">
+        <Flex className="mt-4 items-center sm:mt-5">
           <Dialog.Close asChild>
             <button
               onClick={handleClose}

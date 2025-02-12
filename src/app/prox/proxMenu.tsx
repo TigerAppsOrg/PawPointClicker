@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Flex } from "@radix-ui/themes";
 import ProxButton from "./proxButton";
 
@@ -17,7 +17,95 @@ export default function ProxMenu(props: {
   setTotalEarnings: (totalEarnings: number) => void;
   passiveIncome: number;
   prestige: number;
+  collectors: {
+    latemeal: number;
+    farms: number;
+    deliveries: number;
+    resco: number;
+    factories: number;
+    scanner: number;
+    mine: number;
+    bank: number;
+    lab: number;
+    temple: number;
+    spaceStation: number;
+  };
 }) {
+  const { collectors } = props;
+  const [fallingImages, setFallingImages] = useState<
+    { id: string; src: string; left: number; delay: number; speed: number }[]
+  >([]);
+  const fallingImagesRef = useRef(fallingImages);
+
+  useEffect(() => {
+    fallingImagesRef.current = fallingImages;
+  }, [fallingImages]);
+
+  const addFallingImages = (
+    type: "latemeal" | "deliveries",
+    count: number,
+    src: string,
+  ) => {
+    setFallingImages((prev) => {
+      const existingImages = prev.filter((img) => img.id.startsWith(type));
+      const newImages = [];
+
+      for (let i = existingImages.length; i < Math.min(count, 40); i++) {
+        newImages.push({
+          id: `${type}-${i}`,
+          src,
+          left: Math.random() * 100,
+          delay: Math.random() * 5,
+          speed: 5 + Math.random() * 10, // Speed between 5s and 15s
+        });
+      }
+
+      return [...prev, ...newImages];
+    });
+  };
+
+  useEffect(() => {
+    addFallingImages(
+      "latemeal",
+      collectors.latemeal,
+      "/images/generators/latemeal.png",
+    );
+  }, [collectors.latemeal]);
+
+  useEffect(() => {
+    addFallingImages(
+      "deliveries",
+      collectors.deliveries,
+      "/images/generators/delivery.png",
+    );
+  }, [collectors.deliveries]);
+
+  const getBackgroundImage = () => {
+    const {
+      spaceStation,
+      temple,
+      latemeal,
+      lab,
+      bank,
+      mine,
+      factories,
+      resco,
+      deliveries,
+      farms,
+    } = props.collectors;
+    if (spaceStation > 0) return "/images/backgrounds/station.jpg";
+    if (temple > 0) return "/images/backgrounds/temple.jpg";
+    if (lab > 0) return "/images/backgrounds/lab.webp";
+    if (bank > 0) return "/images/backgrounds/bank.jpeg";
+    if (factories > 0) return "/images/backgrounds/factories.jpg";
+    if (mine > 0) return "/images/backgrounds/mines.jpg";
+    if (farms > 0) return "/images/backgrounds/farm.jpg";
+    if (resco > 0) return "/images/backgrounds/resco.jpg";
+    if (deliveries > 0) return "/images/backgrounds/delivery.jpg";
+    if (latemeal > 0) return "/images/backgrounds/latemeal.jpg";
+    return "/images/backgrounds/concretebackground.jpg"; // Default background
+  };
+
   return (
     <Flex
       align="center"
@@ -40,16 +128,54 @@ export default function ProxMenu(props: {
         passiveIncome={props.passiveIncome}
         prestige={props.prestige}
       />
-      {/* <img
-        src="/images/tiger_jacket.gif"
-        alt="Prox"
-        className="absolute z-10 h-1/2 w-1/2 opacity-5"
-      /> */}
       <img
-        src="/images/concretebackground.jpg"
+        src={getBackgroundImage()}
         alt="Prox"
         className="absolute z-10 h-full object-cover object-center opacity-20"
       />
+
+      {fallingImages.map((image) => (
+        <div
+          key={image.id}
+          className="absolute z-30 h-16 w-16"
+          style={{
+            left: `${image.left}%`,
+            top: "-10%",
+            animation: `falling-animation ${image.speed}s linear ${image.delay}s infinite`,
+          }}
+        >
+          <img
+            src={image.src}
+            alt="falling"
+            className="absolute z-30 h-16 w-16"
+            style={{
+              rotate: `${Math.random() * 60}deg`,
+            }}
+          />
+        </div>
+      ))}
+
+      {collectors.mine > 0 && (
+        <Flex className="absolute bottom-[-25%] left-[5%] h-[30rem] w-full xs:bottom-[-15%] sm:bottom-[-30%] lg:bottom-[-15%]">
+          {Array.from({ length: Math.min(collectors.mine, 5) }).map(
+            (_, index) => (
+              <Flex
+                style={{
+                  width: `${100 / Math.min(collectors.mine, 5)}%`, // Dynamically adjust width to fit all scanners
+                }}
+                className="relative bottom-[-10rem] sm:bottom-[-11rem]"
+              >
+                <img
+                  key={`miner-${index}`}
+                  src="/images/miner.gif"
+                  alt="miner"
+                  className="absolute h-auto max-h-[4rem] w-auto rotate-12 scale-[5]"
+                />{" "}
+              </Flex>
+            ),
+          )}{" "}
+        </Flex>
+      )}
     </Flex>
   );
 }

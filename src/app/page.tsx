@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import ProxMenu from "./prox/proxMenu";
 import PowerUpMenu from "./menu/powerUpMenu";
 import WelcomeModal from "./components/welcomeModal";
@@ -12,6 +12,7 @@ import {
   GithubIcon,
   InfoIcon,
   MessageCircleQuestionIcon,
+  PawPrintIcon,
   TrophyIcon,
 } from "lucide-react";
 
@@ -44,17 +45,21 @@ export default function HomePage() {
   const [lab, setLab] = useLocalStorage("lab", 0);
   const [temple, setTemple] = useLocalStorage("temple", 0);
   const [spaceStation, setSpaceStation] = useLocalStorage("spaceStation", 0);
-
-  //For Modal Accession
-  const [isOpen, setIsOpen] = useState(true);
-  const [acheivements, setAcheivements] = useState(false);
-  const [faq, setFaq] = useState(false);
-
   // For tracking first launch
   const [isFirstLaunch, setIsFirstLaunch] = useLocalStorage(
     "isFirstLaunch",
     true,
   );
+
+  //For Modal Accession
+  const [welcome, setWelcome] = useLocalStorage("welcome", false);
+  const [acheivements, setAcheivements] = useLocalStorage(
+    "achievements",
+    false,
+  );
+  const [faq, setFaq] = useLocalStorage("faw", false);
+
+  // Game start time
   const [gameStartTime, setGameStartTime] = useLocalStorage("time", "");
 
   // Initialize game start time if this is the first launch
@@ -197,7 +202,7 @@ export default function HomePage() {
 
   return (
     <div className="relative grid w-full grid-cols-1 font-sans sm:h-screen sm:grid-cols-2 sm:overflow-hidden">
-      <WelcomeModal isOpen={isOpen} setIsOpen={setIsOpen} />
+      <WelcomeModal isOpen={welcome} setIsOpen={setWelcome} />
       <Achievements
         stats={{
           count: count,
@@ -244,6 +249,19 @@ export default function HomePage() {
         setLifetimeEarnings={setLifetimeEarnings}
         passiveIncome={passiveIncome}
         prestige={prestige}
+        collectors={{
+          latemeal,
+          farms,
+          deliveries,
+          resco,
+          factories,
+          scanner,
+          mine,
+          bank,
+          lab,
+          temple,
+          spaceStation,
+        }}
       />
       <PowerUpMenu
         count={count}
@@ -282,18 +300,18 @@ export default function HomePage() {
       <Flex
         align="center"
         justify="center"
-        className="absolute top-[calc(100vh-5.5rem)] z-50 m-4 gap-2 rounded-xl border border-orange-500 bg-orange-400/95 p-2 sm:left-0"
+        className="fixed top-[calc(100vh-6rem)] z-30 m-4 gap-2 rounded-xl border border-orange-500 bg-orange-400/95 p-2 sm:left-2"
       >
-        <img
-          src="/images/prox.svg"
-          alt="Prox"
-          className="mx-0.5 h-9 w-9 rounded-full"
+        <PawPrintIcon
+          // src="/images/prox.svg"
+          // alt="Prox"
+          className="mx-0.5 h-10 w-auto rounded-full border border-orange-600 bg-orange-500 p-1.5 text-orange-800"
         />
 
         <Box className="h-8 border border-r-[0.025rem] border-black" />
 
         <button
-          onClick={() => setIsOpen(true)}
+          onClick={() => setWelcome(true)}
           className="rounded-lg border border-orange-500 bg-orange-300 px-2.5 py-2 text-orange-600 hover:scale-[1.02] hover:bg-orange-200"
         >
           <InfoIcon />
