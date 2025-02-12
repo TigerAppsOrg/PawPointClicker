@@ -20,7 +20,7 @@ const generateLeveledAchievements = (
 };
 
 const prestigeLevels = [1, 5, 10, 20];
-const clickMultiplierLevels = [5, 10, 20];
+const clickMultiplierLevels = [10, 100, 1000];
 const collectorLevels = [10, 100, 1000, 10000];
 
 export const achievementsData = [
@@ -29,42 +29,48 @@ export const achievementsData = [
     id: 1,
     name: "First Paw Point",
     description: "Earn your first Paw Point 🐾",
-    condition: (state: { count: number }) => state.count >= 1,
+    condition: (state: { lifeTimeEarnings: number }) =>
+      state.lifeTimeEarnings >= 1,
     category: "Wealth",
   },
   {
     id: 2,
     name: "Getting Started",
     description: "Reach 1,000 Paw Points",
-    condition: (state: { count: number }) => state.count >= 1000,
+    condition: (state: { lifeTimeEarnings: number }) =>
+      state.lifeTimeEarnings >= 1000,
     category: "Wealth",
   },
   {
     id: 3,
     name: "On the Grind",
     description: "Reach 10,000 Paw Points",
-    condition: (state: { count: number }) => state.count >= 10000,
+    condition: (state: { lifeTimeEarnings: number }) =>
+      state.lifeTimeEarnings >= 10000,
     category: "Wealth",
   },
   {
     id: 4,
     name: "Millionaire Mindset",
     description: "Earn 1M Paw Points",
-    condition: (state: { count: number }) => state.count >= 1000000,
+    condition: (state: { lifeTimeEarnings: number }) =>
+      state.lifeTimeEarnings >= 1000000,
     category: "Wealth",
   },
   {
     id: 5,
     name: "Billionaire Tycoon",
     description: "Earn 1B Paw Points",
-    condition: (state: { count: number }) => state.count >= 1000000000,
+    condition: (state: { lifeTimeEarnings: number }) =>
+      state.lifeTimeEarnings >= 1000000000,
     category: "Wealth",
   },
   {
     id: 6,
     name: "Trillionaire Legend",
     description: "Earn 1T Paw Points",
-    condition: (state: { count: number }) => state.count >= 1000000000000,
+    condition: (state: { lifeTimeEarnings: number }) =>
+      state.lifeTimeEarnings >= 1000000000000,
     category: "Wealth",
   },
   {
@@ -100,77 +106,77 @@ export const achievementsData = [
   {
     id: 13,
     name: "Latemeal Investor",
-    description: "Own 10 Late Meals",
+    description: "Own 250 Late Meals",
     condition: (state: { latemeal: number }) => state.latemeal >= 10,
     category: "Collector",
   },
   {
     id: 14,
     name: "Scanner Master",
-    description: "Own 25 Scanners",
+    description: "Own 190 Scanners",
     condition: (state: { scanner: number }) => state.scanner >= 25,
     category: "Collector",
   },
   {
     id: 15,
     name: "Delivery Mogul",
-    description: "Own 50 Delivery Units",
+    description: "Own 150 Delivery Units",
     condition: (state: { deliveries: number }) => state.deliveries >= 50,
     category: "Collector",
   },
   {
     id: 16,
     name: "Resco Ruler",
-    description: "Own 100 Resco Facilities",
+    description: "Own 120 Resco Facilities",
     condition: (state: { resco: number }) => state.resco >= 100,
     category: "Collector",
   },
   {
     id: 17,
     name: "Farm Empire",
-    description: "Own 150 Farms",
+    description: "Own 100 Farms",
     condition: (state: { farms: number }) => state.farms >= 150,
     category: "Collector",
   },
   {
     id: 18,
     name: "Mine Tycoon",
-    description: "Own 200 Mines",
+    description: "Own 90 Mines",
     condition: (state: { mine: number }) => state.mine >= 200,
     category: "Collector",
   },
   {
     id: 19,
     name: "Industrialist",
-    description: "Own 250 Factories",
+    description: "Own 75 Factories",
     condition: (state: { factories: number }) => state.factories >= 250,
     category: "Collector",
   },
   {
     id: 20,
     name: "Bankroll King",
-    description: "Own 300 Banks",
+    description: "Own 60 Banks",
     condition: (state: { bank: number }) => state.bank >= 300,
     category: "Collector",
   },
   {
     id: 21,
     name: "Scientific Pioneer",
-    description: "Own 350 Labs",
+    description: "Own 40 Labs",
     condition: (state: { lab: number }) => state.lab >= 350,
     category: "Collector",
   },
   {
     id: 22,
     name: "Divine Overseer",
-    description: "Own 400 Temples",
+    description: "Own 20 Temples",
     condition: (state: { temple: number }) => state.temple >= 400,
     category: "Collector",
   },
   {
     id: 23,
     name: "Galactic Overlord",
-    description: "Own 500 Space Stations",
+    description: "Own 10 Space Stations",
     condition: (state: { spaceStation: number }) => state.spaceStation >= 500,
     category: "Collector",
   },

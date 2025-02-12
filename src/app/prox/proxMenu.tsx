@@ -50,7 +50,7 @@ export default function ProxMenu(props: {
       const existingImages = prev.filter((img) => img.id.startsWith(type));
       const newImages = [];
 
-      for (let i = existingImages.length; i < Math.min(count, 40); i++) {
+      for (let i = existingImages.length; i < Math.min(count, 20); i++) {
         newImages.push({
           id: `${type}-${i}`,
           src,
@@ -156,17 +156,17 @@ export default function ProxMenu(props: {
       ))}
 
       {collectors.mine > 0 && (
-        <Flex className="absolute bottom-[-25%] left-[5%] h-[30rem] w-full xs:bottom-[-15%] sm:bottom-[-30%] lg:bottom-[-15%]">
+        <Flex className="absolute bottom-[-25%] left-[5%] z-10 h-[30rem] w-full xs:bottom-[-15%] sm:bottom-[-30%] lg:bottom-[-15%]">
           {Array.from({ length: Math.min(collectors.mine, 5) }).map(
             (_, index) => (
               <Flex
                 style={{
                   width: `${100 / Math.min(collectors.mine, 5)}%`, // Dynamically adjust width to fit all scanners
                 }}
+                key={`miner-${index}`}
                 className="relative bottom-[-10rem] sm:bottom-[-11rem]"
               >
                 <img
-                  key={`miner-${index}`}
                   src="/images/miner.gif"
                   alt="miner"
                   className="absolute h-auto max-h-[4rem] w-auto rotate-12 scale-[5]"
