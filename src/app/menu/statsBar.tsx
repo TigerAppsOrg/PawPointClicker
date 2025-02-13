@@ -124,8 +124,8 @@ export default function StatsBar({
 
   // Format milliseconds into days, hours, minutes, and seconds
   function formatMilliseconds(milliseconds: number) {
-    // const seconds = Math.floor((milliseconds / 1000) % 60);
-    // const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
+    const seconds = Math.floor((milliseconds / 1000) % 60);
+    const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
     const hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24);
     const days = Math.floor(milliseconds / (1000 * 60 * 60 * 24));
 
@@ -136,13 +136,11 @@ export default function StatsBar({
     }
     if (hours > 0) {
       timeParts.push(`${hours} hour${hours > 1 ? "s" : ""}`);
+    } else if (minutes > 0) {
+      timeParts.push(`${minutes} minute${minutes > 1 ? "s" : ""}`);
+    } else if (seconds > 0) {
+      timeParts.push(`${seconds} second${seconds > 1 ? "s" : ""}`);
     }
-    // if (minutes > 0) {
-    //   timeParts.push(`${minutes} minute${minutes > 1 ? "s" : ""}`);
-    // }
-    // if (seconds > 0) {
-    //   timeParts.push(`${seconds} second${seconds > 1 ? "s" : ""}`);
-    // }
 
     return timeParts.join(", ");
   }
@@ -176,28 +174,27 @@ export default function StatsBar({
         />
         <StatsItem
           label="Points Per Click"
-          value={`+${Math.round(clickMultiplier * Math.pow(1.01, prestige))}`}
-          tooltip="Paw Points generated per click."
+          value={`+${Math.round(clickMultiplier * Math.pow(1.01, prestige))} (Max)`}
+          tooltip="Maximum Paw Points generated per click."
           Icon={MousePointer}
           textColor="hover:text-red-400"
-          formatNumber={true}
-        />
-
-        <StatsItem
-          label="Time Played"
-          value={formatMilliseconds(playTime)}
-          tooltip="Total time spent playing."
-          Icon={HourglassIcon}
-          textColor="hover:text-yellow-400"
           formatNumber={false}
         />
         <StatsItem
           label="Total Clicks"
-          value={userClicks}
+          value={userClicks + " clicks"}
           tooltip="Total times you clicked."
           Icon={TargetIcon}
           textColor="hover:text-teal-400"
-          formatNumber={true}
+          formatNumber={false}
+        />
+        <StatsItem
+          label="Time Played"
+          value={formatMilliseconds(playTime) || "0 seconds"}
+          tooltip="Total time spent playing."
+          Icon={HourglassIcon}
+          textColor="hover:text-yellow-400"
+          formatNumber={false}
         />
       </div>
       <PrestigeButton

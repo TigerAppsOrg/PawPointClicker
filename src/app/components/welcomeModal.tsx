@@ -3,7 +3,13 @@
 import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Box, Flex, Text, Separator } from "@radix-ui/themes";
-import { MouseIcon, MousePointerClickIcon, XIcon } from "lucide-react";
+import {
+  MouseIcon,
+  MousePointerClickIcon,
+  SquareArrowOutUpRightIcon,
+  SquareArrowUpRightIcon,
+  XIcon,
+} from "lucide-react";
 
 export default function WelcomeModal(props: {
   isOpen: boolean;
@@ -76,9 +82,12 @@ export default function WelcomeModal(props: {
         </Box>
         <Separator orientation="horizontal" size="4" className="my-5" />
         <Flex className="flex items-center">
-          <a href="https://www.kevinliu.biz/" className="font-semibold">
-            {" "}
-            By Kevin Liu '28
+          <a
+            href="https://www.kevinliu.biz/"
+            className="flex items-center rounded-lg bg-orange-200 px-4 py-2 font-semibold text-orange-800 transition hover:bg-orange-100 hover:underline"
+          >
+            By Kevin Liu '28{" "}
+            <SquareArrowOutUpRightIcon className="ml-2 inline-block h-5 w-5" />
           </a>
           <Dialog.Close asChild>
             <button
