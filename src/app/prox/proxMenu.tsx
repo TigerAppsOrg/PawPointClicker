@@ -149,14 +149,14 @@ export default function ProxMenu(props: {
       <img
         src={backgroundImage}
         alt="Prox"
-        className="absolute z-10 h-full object-cover object-center opacity-20"
+        className="absolute z-10 h-full select-none object-cover object-center opacity-20"
       />
 
       {collectors.farms > 0 && (
         <img
           src="/images/tractor.gif"
           alt="tractor"
-          className="absolute bottom-6 left-32 z-40 h-auto max-h-[4rem] w-auto scale-[5]"
+          className="absolute bottom-6 left-32 z-40 h-auto max-h-[4rem] w-auto scale-[5] select-none"
         />
       )}
 
@@ -165,7 +165,7 @@ export default function ProxMenu(props: {
           <img
             src="/images/robot_arm2.gif"
             alt="robotarm"
-            className="absolute right-[-15%] top-[-20%] z-[31] size-[32rem] -scale-100"
+            className="absolute right-[-15%] top-[-20%] z-[31] size-[32rem] -scale-100 select-none"
           />
         </>
       )}
@@ -173,7 +173,7 @@ export default function ProxMenu(props: {
       {fallingImages.map((image) => (
         <div
           key={image.id}
-          className="absolute z-30 h-16 w-16"
+          className="absolute z-30 h-16 w-16 select-none"
           style={{
             left: `${image.left}%`,
             top: "-10%",
@@ -192,7 +192,7 @@ export default function ProxMenu(props: {
       ))}
 
       {collectors.mine > 0 && (
-        <Flex className="absolute bottom-[-25%] left-[7%] z-10 h-[30rem] w-full xs:bottom-[-15%] sm:bottom-[-30%] lg:bottom-[-15%]">
+        <Flex className="absolute bottom-[-25%] left-[7%] z-10 h-[30rem] w-full select-none xs:bottom-[-15%] sm:bottom-[-30%] lg:bottom-[-15%]">
           {Array.from({ length: Math.min(collectors.mine, 5) }).map(
             (_, index) => (
               <Flex

@@ -119,13 +119,16 @@ export default function ProxButton(props: {
   };
 
   return (
-    <Flex align="center" className="relative z-40 h-full w-full flex-col">
+    <Flex
+      align="center"
+      className="relative z-40 h-full w-full select-none flex-col"
+    >
       {/* Prox Name Input Section */}
       <Flex className="absolute z-50 w-full flex-col">
         <Flex
           align="center"
           justify="center"
-          className="w-full bg-gradient-to-r from-red-400/80 to-orange-500/80 py-3 shadow-lg"
+          className="w-full bg-gradient-to-br from-red-400/80 to-orange-500/80 py-3 shadow-lg"
         >
           <img
             src="/images/prox.svg"
@@ -144,7 +147,7 @@ export default function ProxButton(props: {
         {/* Paw Points Display */}
         <Flex
           align="center"
-          className="w-full flex-col bg-gradient-to-r from-red-300/90 to-orange-300/90 pb-3 pt-2 text-2xl font-extrabold shadow-md"
+          className="w-full flex-col bg-gradient-to-br from-red-300/90 to-orange-300/90 pb-3 pt-2 text-2xl font-extrabold shadow-md"
         >
           <Text className="font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             Paw Points:
