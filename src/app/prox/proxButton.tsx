@@ -119,10 +119,7 @@ export default function ProxButton(props: {
   };
 
   return (
-    <Flex
-      align="center"
-      className="relative z-40 h-full w-full select-none flex-col"
-    >
+    <Flex align="center" className="relative z-40 h-full w-full flex-col">
       {/* Prox Name Input Section */}
       <Flex className="absolute z-50 w-full flex-col">
         <Flex
@@ -139,7 +136,7 @@ export default function ProxButton(props: {
             type="text"
             value={props.proxName}
             onChange={(e) => props.setProxName(e.target.value)}
-            className="mr-8 w-full rounded-xl border-none bg-white/30 py-0.5 text-center text-xl font-semibold text-white placeholder-gray-300 outline-none backdrop-blur-md"
+            className="mr-8 w-full rounded-xl border-none bg-gray-800/30 py-0.5 text-center text-xl font-semibold text-white placeholder-gray-300 outline-none backdrop-blur-md"
             placeholder="Enter Prox Name..."
           />
         </Flex>
@@ -147,7 +144,7 @@ export default function ProxButton(props: {
         {/* Paw Points Display */}
         <Flex
           align="center"
-          className="w-full flex-col bg-gradient-to-br from-red-300/90 to-orange-300/90 pb-3 pt-2 text-2xl font-extrabold shadow-md"
+          className="w-full flex-col bg-gradient-to-br from-red-300/80 to-orange-300/80 pb-3 pt-2 text-2xl font-extrabold shadow-md"
         >
           <Text className="font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             Paw Points:
