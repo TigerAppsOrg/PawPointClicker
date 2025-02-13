@@ -22,6 +22,8 @@ export default function ProxButton(props: {
   passiveIncome: number;
   prestige: number;
   lab: number;
+  userClicks: number;
+  setUserClicks: (userClicks: number) => void;
 }) {
   const [effect, setEffect] = useState(true);
   const [notifications, setNotifications] = useState<
@@ -103,6 +105,8 @@ export default function ProxButton(props: {
       trueMultiplier * Math.pow(1.01, props.prestige),
     );
 
+    props.setUserClicks(props.userClicks + 1);
+
     props.setCount(props.count + totalAdjustedMultiplier);
     props.setLifetimeEarnings(props.lifeTimeEarnings + totalAdjustedMultiplier);
     props.setTotalEarnings(props.totalEarnings + totalAdjustedMultiplier);
@@ -116,40 +120,41 @@ export default function ProxButton(props: {
 
   return (
     <Flex align="center" className="relative z-40 h-full w-full flex-col">
-      <Flex
-        align="center"
-        className="absolute z-50 w-full flex-col font-extrabold"
-      >
-        {/* Editable Prox Name */}
+      {/* Prox Name Input Section */}
+      <Flex className="absolute z-50 w-full flex-col">
         <Flex
           align="center"
           justify="center"
-          className="w-full bg-red-300/80 py-3"
+          className="w-full bg-gradient-to-r from-red-400/80 to-orange-500/80 py-3 shadow-lg"
         >
           <img
             src="/images/prox.svg"
             alt="Prox"
-            className="mx-4 h-9 w-9 rounded-full"
+            className="mx-4 h-9 w-9 rounded-full shadow-md"
           />
-          {/* <Box className="h-8 border border-r-[0.025rem] border-black" /> */}
           <input
             type="text"
             value={props.proxName}
             onChange={(e) => props.setProxName(e.target.value)}
-            className="mr-8 w-full rounded-xl border-none bg-gray-800/30 py-0.5 text-center text-xl font-semibold text-white outline-none"
+            className="mr-8 w-full rounded-xl border-none bg-white/30 py-0.5 text-center text-xl font-semibold text-white placeholder-gray-300 outline-none backdrop-blur-md"
+            placeholder="Enter Prox Name..."
           />
         </Flex>
+
+        {/* Paw Points Display */}
         <Flex
           align="center"
-          className="w-full flex-col bg-red-100/80 pb-3 pt-2 text-2xl"
+          className="w-full flex-col bg-gradient-to-r from-red-300/90 to-orange-300/90 pb-3 pt-2 text-2xl font-extrabold shadow-md"
         >
-          <Text className="font-bold">Paw Points: </Text>
-          <Flex align="center" justify="center" className="h-[3rem]">
+          <Text className="font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            Paw Points:
+          </Text>
+          <Flex align="center" justify="center" className="h-[3rem] text-white">
             <button
               className={`${
                 effect &&
-                "scale-105 animate-wiggle text-5xl text-orange-900 transition"
-              } absolute mt-[-0.4rem] text-4xl`}
+                "scale-105 animate-wiggle text-5xl text-yellow-200 transition"
+              } absolute mt-[-0.4rem] text-4xl drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]`}
               onClick={() => setNumberStyle(!numberStyle)}
             >
               {numberStyle ? (
@@ -164,11 +169,9 @@ export default function ProxButton(props: {
               )}
             </button>
           </Flex>
-          <Text className="text-sm font-bold">
-            per second:{" "}
-            {props.passiveIncome
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+
+          <Text className="text-sm font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
+            per second: {props.passiveIncome.toLocaleString()}
           </Text>
         </Flex>
       </Flex>

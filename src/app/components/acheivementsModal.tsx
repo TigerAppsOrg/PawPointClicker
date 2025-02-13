@@ -55,12 +55,15 @@ export default function Achievements({
         const newAchievements = [...unlockedAchievements, achievement.id];
         setUnlockedAchievements(newAchievements);
         toast.success(
-          <div className="flex items-center gap-3 font-sans">
-            <TrophyIcon className="size-6 text-yellow-400" />
+          <Flex
+            onClick={() => setAchievements(true)}
+            className="flex items-center gap-3 font-sans"
+          >
+            <TrophyIcon className="size-8 text-yellow-400" />
             <span className="font-semibold text-orange-400">
               Achievement Unlocked: {achievement.name} 🎉
             </span>
-          </div>,
+          </Flex>,
           {
             position: "top-right",
             autoClose: 4000,

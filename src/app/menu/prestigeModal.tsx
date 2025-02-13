@@ -26,7 +26,7 @@ export default function PrestigeModal({
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <button className="text-nowrap rounded-xl bg-red-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-red-600">
+        <button className="text-nowrap rounded-xl bg-gradient-to-r from-red-500 to-red-600 px-3 py-2 text-sm font-semibold text-white transition hover:scale-[1.02] hover:bg-red-600">
           PRESTIGE {arabToRoman(prestige)}
         </button>
       </AlertDialog.Trigger>

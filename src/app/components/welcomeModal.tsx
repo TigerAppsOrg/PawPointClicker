@@ -76,7 +76,10 @@ export default function WelcomeModal(props: {
         </Box>
         <Separator orientation="horizontal" size="4" className="my-5" />
         <Flex className="flex items-center">
-          <Text className="font-semibold"> By Kevin Liu '28</Text>
+          <a href="https://www.kevinliu.biz/" className="font-semibold">
+            {" "}
+            By Kevin Liu '28
+          </a>
           <Dialog.Close asChild>
             <button
               onClick={handleClose}

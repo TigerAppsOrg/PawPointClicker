@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Text } from "@radix-ui/themes";
+import { Flex } from "@radix-ui/themes";
 import PowerUpButton from "./powerUpButton";
 import StatsBar from "./statsBar";
 
@@ -36,6 +36,8 @@ interface PowerUpMenuProps {
   handlePrestige: () => void;
   prestigeThreshold: number;
   passiveIncome: number;
+  userClicks: number;
+  playTime: number;
 }
 
 export default function PowerUpMenu({
@@ -71,6 +73,8 @@ export default function PowerUpMenu({
   handlePrestige,
   prestigeThreshold,
   passiveIncome,
+  userClicks,
+  playTime,
 }: PowerUpMenuProps) {
   // Calculate total power-ups
   const totalPowerUps =
@@ -144,52 +148,41 @@ export default function PowerUpMenu({
         lifeTimeEarnings={lifeTimeEarnings}
         totalEarnings={totalEarnings}
         clickMultiplier={clickMultiplier}
-        // scanner={scanner}
-        // farms={farms}
-        // mine={mine}
-        // factories={factories}
-        // bank={bank}
-        // lab={lab}
-        // temple={temple}
-        // spaceStation={spaceStation}
         prestige={prestige}
         handlePrestige={handlePrestige}
         prestigeThreshold={prestigeThreshold}
         passiveIncome={passiveIncome}
+        userClicks={userClicks}
+        playTime={playTime}
       />
 
       <Flex
         align="center"
         direction="column"
-        className="relative m-3 h-full overflow-hidden rounded-2xl bg-blue-300 shadow-inner"
+        className="relative m-3 h-full w-auto max-w-4xl overflow-hidden rounded-2xl bg-blue-300/90 backdrop-blur-md"
       >
-        <div className="bg-blue-250 flex w-full flex-col gap-4 border-b border-blue-500/40 bg-blue-400/60 p-4 drop-shadow-sm sm:flex-row">
-          <Text weight="bold" className="z-10 text-2xl">
+        <Flex className="flex w-full flex-col gap-3 border border-b border-white/20 border-b-blue-500/30 bg-blue-400 p-3 text-white sm:flex-row">
+          <Flex
+            align="center"
+            className="ml-1 text-xl font-bold text-white drop-shadow-lg"
+          >
             Paw Point Generators
-          </Text>
-          <Flex className="gap-2 font-semibold sm:ml-auto sm:mt-0 sm:h-full sm:gap-4">
-            <Flex
-              align="center"
-              justify="center"
-              className="z-10 h-full w-full rounded-lg bg-blue-100 p-2 text-center text-sm shadow-sm sm:w-auto"
-            >
-              Owned: {totalPowerUps}
-            </Flex>
-            <Flex
-              align="center"
-              justify="center"
-              className="z-10 h-full w-full rounded-lg bg-blue-100 p-2 text-center text-sm shadow-sm sm:w-auto"
-            >
-              Unlocked: {unlocked}/12
-            </Flex>
           </Flex>
-        </div>
+          <Flex className="gap-2 font-semibold sm:ml-auto sm:mt-0 sm:h-full sm:gap-4">
+            <div className="rounded-lg bg-blue-500/70 p-2 text-center text-sm text-white shadow-inner sm:w-auto">
+              Owned: {totalPowerUps}
+            </div>
+            <div className="rounded-lg bg-blue-500/70 p-2 text-center text-sm text-white shadow-inner sm:w-auto">
+              Unlocked: {unlocked}/12
+            </div>
+          </Flex>
+        </Flex>
 
         <Flex
           direction="row"
           wrap="wrap"
           justify="center"
-          className="z-10 h-full w-full gap-4 overflow-y-auto p-4"
+          className="z-10 h-full w-full gap-3 overflow-y-auto p-3 shadow-inner"
         >
           <PowerUpButton
             label="Click Multiplier"

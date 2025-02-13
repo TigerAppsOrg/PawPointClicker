@@ -34,6 +34,9 @@ export default function HomePage() {
     1000000,
   ); // Set a Prestige threshold (e.g., 1,000,000 lifetime earnings)
 
+  // Counting clicks
+  const [userClicks, setUserClicks] = useLocalStorage("userClicks", 0);
+
   const [latemeal, setLatemeal] = useLocalStorage("latemeal", 0);
   const [scanner, setScanner] = useLocalStorage("scanner", 0);
   const [deliveries, setDeliveries] = useLocalStorage("frist", 0);
@@ -228,6 +231,7 @@ export default function HomePage() {
           upgradesUnlocked: unlocked,
           collectors: totalPowerUps,
           playTime: calculatePlayTime(),
+          userClicks: userClicks,
           hiddenFeaturesUnlocked: 0,
         }}
         achievements={acheivements}
@@ -262,6 +266,8 @@ export default function HomePage() {
           temple,
           spaceStation,
         }}
+        userClicks={userClicks}
+        setUserClicks={setUserClicks}
       />
       <PowerUpMenu
         count={count}
@@ -296,6 +302,8 @@ export default function HomePage() {
         handlePrestige={handlePrestige} // Pass Prestige
         prestigeThreshold={prestigeThreshold} // Pass Prestige threshold
         passiveIncome={passiveIncome}
+        userClicks={userClicks}
+        playTime={calculatePlayTime()}
       />
       <Flex
         align="center"

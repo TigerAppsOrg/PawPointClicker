@@ -27,6 +27,8 @@ export default function PowerUpButton({
   prestige,
   tooltip,
 }: PowerUpButtonProps) {
+  const individualRate = rate * Math.pow(1.01, prestige);
+
   const totalRate = Math.round(amount * rate * Math.pow(1.01, prestige))
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Calculate total Paw Points/sec
@@ -35,7 +37,7 @@ export default function PowerUpButton({
     <Tooltip content={tooltip}>
       <Flex
         justify="between"
-        className="w-full flex-col gap-3 rounded-[0.85rem] border-b border-gray-300 bg-white p-3 shadow-lg sm:h-32 sm:flex-row sm:items-center"
+        className="w-full flex-col gap-3 rounded-[0.85rem] border border-blue-400/70 bg-white/95 p-3 shadow-lg sm:h-32 sm:flex-row sm:items-center"
       >
         {/* Power-Up Info Section */}
         <Flex
@@ -46,11 +48,20 @@ export default function PowerUpButton({
           <Text className="font-2xl" weight="bold">
             {label}
           </Text>
+
           <Text className="text-sm">
             Cost: {formatNumberGenerators(cost)} Points
           </Text>
           <Text className="text-sm">Owned: {amount}</Text>
-          <Text className="text-sm font-semibold">{totalRate} Points/sec</Text>
+          <Text className="text-sm font-semibold">
+            {formatNumberGenerators(
+              Number(totalRate.toString().replace(/[^0-9]/g, "")),
+            )}{" "}
+            Points/sec{" "}
+          </Text>
+          <Text className="text-[0.6rem] text-gray-500">
+            {formatNumberGenerators(individualRate)} Points/collector
+          </Text>
         </Flex>
 
         {/* <Separator size="4" orientation="vertical" /> */}
@@ -86,7 +97,7 @@ export default function PowerUpButton({
         <button
           onClick={onClick}
           disabled={count < cost}
-          className={`h-auto w-full text-balance rounded-lg bg-orange-400 p-2 font-bold shadow-sm duration-150 hover:bg-orange-500 sm:h-full sm:w-auto sm:p-4 ${count < cost ? "opacity-50" : "opacity-100"}`}
+          className={`h-auto w-full text-balance rounded-lg bg-orange-400 p-2 font-bold text-orange-950 shadow-sm duration-150 hover:bg-orange-500 sm:h-full sm:w-auto sm:p-4 ${count < cost ? "opacity-50" : "opacity-100"}`}
         >
           Buy
         </button>

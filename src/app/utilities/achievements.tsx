@@ -176,14 +176,21 @@ export const achievementsData = [
   // Special Achievements
   {
     id: 24,
+    name: "Click Craze",
+    description: "Click 100 times",
+    condition: (state: { userClicks: number }) => state.userClicks >= 100,
+    category: "Efficiency",
+  },
+  {
+    id: 25,
     name: "Click Frenzy",
-    description: "Click 1,000 times",
-    condition: (state: { count: number }) => state.count >= 1000,
+    description: "Click 1000 times",
+    condition: (state: { userClicks: number }) => state.userClicks >= 1000,
     category: "Efficiency",
   },
   //passiveIncome
   {
-    id: 25,
+    id: 26,
     name: "Paw Point Producer",
     description: "Earn 1000 Paw Points per second",
     condition: (state: { passiveIncome: number }) =>
@@ -191,7 +198,7 @@ export const achievementsData = [
     category: "Wealth",
   },
   {
-    id: 26,
+    id: 27,
     name: "Paw Point Printer",
     description: "Earn 1M Paw Points per second",
     condition: (state: { passiveIncome: number }) =>
@@ -201,14 +208,14 @@ export const achievementsData = [
   //totalEfficiencyBoost
 
   {
-    id: 27,
+    id: 28,
     name: "Time Traveler",
     description: "Play for 24 hours",
     condition: (state: { playTime: number }) => state.playTime >= 86400000,
     category: "Hidden",
   },
   {
-    id: 28,
+    id: 29,
     name: "Weekend Warrior",
     description: "Play for 7 days",
     condition: (state: { playTime: number }) => state.playTime >= 604800000,
@@ -222,17 +229,25 @@ export const achievementsData = [
     collectorLevels,
     "Collector",
   ),
-
-  {
-    id: 33,
-    name: "Explorer",
-    description: "Unlock a hidden feature",
-    condition: (state: { hiddenFeaturesUnlocked: number }) =>
-      state.hiddenFeaturesUnlocked >= 1,
-    category: "Hidden",
-  },
   {
     id: 34,
+    name: "Monetary Mastermind",
+    description: "Earn 1B Paw Points at Prestige 0",
+    condition: (state: { lifeTimeEarnings: number; prestige: number }) =>
+      state.lifeTimeEarnings >= 1000000000 && state.prestige === 0,
+    category: "Prestige",
+  },
+
+  // {
+  //   id: 35,
+  //   name: "Explorer",
+  //   description: "Unlock a hidden feature",
+  //   condition: (state: { hiddenFeaturesUnlocked: number }) =>
+  //     state.hiddenFeaturesUnlocked >= 1,
+  //   category: "Hidden",
+  // },
+  {
+    id: 35,
     name: "Wealth Overflow",
     description: "Earn 1 Quadrillion Paw Points",
     condition: (state: { lifeTimeEarnings: number }) =>
