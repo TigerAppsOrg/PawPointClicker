@@ -164,17 +164,24 @@ export default function PowerUpMenu({
         <Flex className="flex w-full flex-col gap-3 border border-b border-white/20 border-b-blue-500/30 bg-blue-400 p-3 text-white sm:flex-row">
           <Flex
             align="center"
-            className="ml-1 text-xl font-bold text-white drop-shadow-lg"
+            justify="center"
+            className="ml-1 text-center text-xl font-bold text-white drop-shadow-lg"
           >
             Paw Point Generators
           </Flex>
           <Flex className="gap-2 font-semibold sm:ml-auto sm:mt-0 sm:h-full sm:gap-4">
-            <div className="rounded-lg bg-blue-500/70 p-2 text-center text-sm text-white shadow-inner sm:w-auto">
+            <Flex
+              justify="center"
+              className="w-full rounded-lg bg-blue-500/70 p-2 text-center text-sm text-white shadow-inner sm:w-auto"
+            >
               Owned: {totalPowerUps}
-            </div>
-            <div className="rounded-lg bg-blue-500/70 p-2 text-center text-sm text-white shadow-inner sm:w-auto">
+            </Flex>
+            <Flex
+              justify="center"
+              className="w-full rounded-lg bg-blue-500/70 p-2 text-center text-sm text-white shadow-inner sm:w-auto"
+            >
               Unlocked: {unlocked}/12
-            </div>
+            </Flex>
           </Flex>
         </Flex>
 
