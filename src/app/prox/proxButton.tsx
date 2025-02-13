@@ -144,7 +144,7 @@ export default function ProxButton(props: {
         {/* Paw Points Display */}
         <Flex
           align="center"
-          className="w-full flex-col bg-gradient-to-br from-red-300/80 to-orange-300/80 pb-3 pt-2 text-2xl font-extrabold shadow-md"
+          className="w-full flex-col bg-gradient-to-br from-red-300/70 to-orange-300/70 pb-3 pt-2 text-2xl font-extrabold shadow-md"
         >
           <Text className="font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             Paw Points:
@@ -249,11 +249,11 @@ export default function ProxButton(props: {
       </Flex>
       {/* Prox Scanner */}
       {props.scanner > 0 && (
-        <Flex className="absolute bottom-[-45%] h-[30rem] w-full xs:bottom-[-35%] sm:bottom-[-70%] lg:bottom-[-35%] 2xl:bottom-[-30%]">
+        <Flex className="absolute bottom-[-55%] mb-[-4rem] h-[30rem] w-full sm:mb-[-2rem]">
           {Array.from({ length: Math.min(props.scanner, 10) }).map(
             (_, index) => (
               <Flex
-                className="relative bottom-[-10rem] sm:bottom-[-11rem]"
+                className="relative"
                 key={"bottomscanner" + index}
                 style={{
                   width: `${100 / Math.min(props.scanner, 10)}%`, // Dynamically adjust width to fit all scanners

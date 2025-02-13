@@ -149,7 +149,7 @@ export default function ProxMenu(props: {
       <img
         src={backgroundImage}
         alt="Prox"
-        className="absolute z-10 h-full select-none object-cover object-center opacity-20"
+        className="absolute z-10 h-full select-none object-cover object-center opacity-30"
       />
 
       {collectors.farms > 0 && (
@@ -205,8 +205,8 @@ export default function ProxMenu(props: {
                 <img
                   src="/images/miner.gif"
                   alt="miner"
-                  className="absolute h-auto max-h-[4rem] w-auto rotate-12 scale-[5]"
-                />{" "}
+                  className="absolute block h-auto max-h-[4rem] w-auto rotate-12 scale-[5]"
+                />
               </Flex>
             ),
           )}{" "}

@@ -55,11 +55,7 @@ const StatsItem: React.FC<StatsItemProps> = ({
           {label}
         </Text>
         <Text className="w-full truncate text-[0.75rem] font-medium text-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-          {formatNumber
-            ? formatNumberGenerators(
-                Number(value.toString().replace(/[^0-9]/g, "")),
-              )
-            : value}
+          {value}
         </Text>
       </Flex>
     </Flex>
@@ -146,11 +142,13 @@ export default function StatsBar({
   }
 
   return (
-    <Flex className="w-full flex-col gap-3 bg-blue-400 p-3 shadow-lg sm:flex-row">
+    <Flex className="w-full flex-col gap-3 bg-gradient-to-tr from-blue-400 to-blue-500 p-3 shadow-lg sm:flex-row">
       <div className="grid w-full grid-cols-2 gap-2 overflow-auto rounded-2xl bg-gray-800 p-2 text-white shadow-md xl:grid-cols-3">
         <StatsItem
           label="Current Earnings"
-          value={totalEarnings.toLocaleString()}
+          value={formatNumberGenerators(
+            Number(totalEarnings.toString().replace(/[^0-9]/g, "")),
+          )}
           tooltip="Total cookies earned for the current prestige level."
           Icon={DollarSign}
           textColor="hover:text-green-500"
@@ -158,7 +156,9 @@ export default function StatsBar({
         />
         <StatsItem
           label="Total Earnings"
-          value={lifeTimeEarnings.toLocaleString()}
+          value={formatNumberGenerators(
+            Number(lifeTimeEarnings.toString().replace(/[^0-9]/g, "")),
+          )}
           tooltip="Total cookies earned over all prestiges."
           Icon={Star}
           textColor="hover:text-purple-400"
@@ -166,7 +166,9 @@ export default function StatsBar({
         />
         <StatsItem
           label="Passive Income"
-          value={`${passiveIncome.toLocaleString()} / sec`}
+          value={`${formatNumberGenerators(
+            Number(passiveIncome.toString().replace(/[^0-9]/g, "")),
+          )} / sec`}
           tooltip="Paw Points earned per second from all generators."
           Icon={Clock}
           textColor="hover:text-blue-400"
@@ -182,7 +184,11 @@ export default function StatsBar({
         />
         <StatsItem
           label="Total Clicks"
-          value={userClicks + " clicks"}
+          value={
+            formatNumberGenerators(
+              Number(userClicks.toString().replace(/[^0-9]/g, "")),
+            ) + " clicks"
+          }
           tooltip="Total times you clicked."
           Icon={TargetIcon}
           textColor="hover:text-teal-400"

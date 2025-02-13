@@ -35,7 +35,7 @@ export default function RenderCards({
               transform: `rotate(${angle}deg) translate(${currentRadius}px)`,
               transformOrigin: "center",
             }}
-            className="h-12 w-auto rounded-lg border border-orange-500 bg-orange-400 drop-shadow-lg"
+            className="h-12 w-auto rounded-lg border border-orange-500 bg-orange-400 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
           />,
         );
       }

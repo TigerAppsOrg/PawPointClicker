@@ -1,6 +1,15 @@
 import React from "react";
-import { Flex, Text, Box, Tooltip } from "@radix-ui/themes";
+import { Flex, Text, Box, Tooltip, Separator } from "@radix-ui/themes";
 import formatNumberGenerators from "../utilities/formatNumberGenerators";
+import {
+  BoxIcon,
+  DollarSignIcon,
+  LockKeyholeIcon,
+  PawPrintIcon,
+  PlusCircleIcon,
+  ShoppingBagIcon,
+  ShoppingCartIcon,
+} from "lucide-react";
 
 interface PowerUpButtonProps {
   label: string;
@@ -43,25 +52,37 @@ export default function PowerUpButton({
         <Flex
           direction="column"
           className="sm:w-flex-shrink-0"
-          style={{ minWidth: "190px" }} // Ensures constant size
+          style={{ minWidth: "180px" }} // Ensures constant size
         >
-          <Text className="font-2xl" weight="bold">
-            {label}
-          </Text>
-
-          <Text className="text-sm">
-            Cost: {formatNumberGenerators(cost)} Points
-          </Text>
-          <Text className="text-sm">Owned: {amount}</Text>
-          <Text className="text-sm font-semibold">
+          <Text className="text-[0.95rem] font-bold">{label}</Text>
+          <Flex
+            align="center"
+            className="my-0.5 justify-start text-[0.77rem] font-semibold"
+          >
+            <img
+              src="/images/prox.svg"
+              alt="Prox"
+              className="mr-1 size-4 rounded-full border-[0.5px] border-orange-800"
+            />{" "}
             {formatNumberGenerators(
               Number(totalRate.toString().replace(/[^0-9]/g, "")),
             )}{" "}
             Points/sec{" "}
-          </Text>
+          </Flex>
+
           <Text className="text-[0.6rem] text-gray-500">
-            {formatNumberGenerators(individualRate)} Points/collector
+            *Each produces {formatNumberGenerators(individualRate)} Points/sec
           </Text>
+
+          <Flex align="center" className="mt-1 text-[0.7rem]">
+            <ShoppingCartIcon className="mr-2 size-3" />
+            <Text className="font-semibold">Cost</Text>:{" "}
+            {formatNumberGenerators(cost)} Points
+          </Flex>
+          <Flex align="center" className="text-[0.7rem]">
+            <BoxIcon className="mr-2 size-3" />
+            <Text className="font-semibold">Owned</Text>: {amount}
+          </Flex>
         </Flex>
 
         {/* <Separator size="4" orientation="vertical" /> */}
@@ -84,7 +105,7 @@ export default function PowerUpButton({
             {Array.from({ length: amount }).map((_, index) => (
               <span
                 key={index}
-                className="z-20 h-min rotate-6 animate-wiggle rounded-full bg-white/30 p-[0.1rem] text-black duration-150 hover:rotate-12 hover:scale-105"
+                className="z-20 h-min rotate-3 animate-wiggle rounded-full bg-white/30 p-[0.1rem] text-black duration-150 hover:rotate-6 hover:scale-105"
               >
                 <img src={icon} className="h-9 w-auto" />
               </span>
@@ -97,8 +118,13 @@ export default function PowerUpButton({
         <button
           onClick={onClick}
           disabled={count < cost}
-          className={`h-auto w-full text-balance rounded-lg bg-orange-400 p-2 font-bold text-orange-950 shadow-sm duration-150 hover:bg-orange-500 sm:h-full sm:w-auto sm:p-4 ${count < cost ? "opacity-50" : "opacity-100"}`}
+          className={`flex h-auto w-full flex-row items-center justify-center gap-1 text-balance rounded-lg bg-orange-400 p-2 font-bold text-orange-950 shadow-sm duration-150 hover:bg-orange-500 hover:text-orange-900 sm:h-full sm:w-auto sm:flex-col sm:p-4 ${count < cost ? "opacity-50" : "opacity-100"}`}
         >
+          {count < cost ? (
+            <LockKeyholeIcon className="size-4 sm:mx-auto" />
+          ) : (
+            <PlusCircleIcon className="size-4 sm:mx-auto" />
+          )}
           Buy
         </button>
       </Flex>
