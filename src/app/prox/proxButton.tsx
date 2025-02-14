@@ -31,6 +31,18 @@ export default function ProxButton(props: {
   >([]);
   const [numberStyle, setNumberStyle] = useState(false);
   const [isFlashing, setIsFlashing] = useState(false);
+  const [clickTimestamps, setClickTimestamps] = useState<number[]>([]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = Date.now();
+      setClickTimestamps(
+        (timestamps) => timestamps.filter((t) => now - t <= 1000), // Keep only clicks within the last second
+      );
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
 
   //return time interval based on count
   function timeInterval() {
@@ -90,6 +102,8 @@ export default function ProxButton(props: {
   // Handle main prox button click
   const handleButtonClick = () => {
     const newId = Date.now();
+    setClickTimestamps((prev) => [...prev, newId]); // Track click times
+
     const offset = Math.random() * 20 - 10;
 
     setClickQueue((prevQueue) => {
@@ -171,7 +185,11 @@ export default function ProxButton(props: {
           </Flex>
 
           <Text className="text-sm font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
-            per second: {props.passiveIncome.toLocaleString()}
+            per second:{" "}
+            {props.passiveIncome +
+              clickTimestamps.length *
+                trueMultiplier *
+                Math.pow(1.01, props.prestige).toFixed(1)}
           </Text>
         </Flex>
       </Flex>
