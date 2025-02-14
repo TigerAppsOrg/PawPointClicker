@@ -57,7 +57,7 @@ export default function PowerUpButton({
           <Text className="text-[0.95rem] font-bold">{label}</Text>
           <Flex
             align="center"
-            className="my-0.5 justify-start text-[0.77rem] font-semibold"
+            className="my-0.5 justify-start truncate text-[0.77rem] font-semibold"
           >
             <img
               src="/images/prox.svg"
@@ -70,11 +70,11 @@ export default function PowerUpButton({
             Points/sec{" "}
           </Flex>
 
-          <Text className="text-[0.6rem] text-gray-500">
+          <Text className="truncate text-[0.6rem] text-gray-500">
             *Each produces {formatNumberGenerators(individualRate)} Points/sec
           </Text>
 
-          <Flex align="center" className="mt-1 text-[0.7rem]">
+          <Flex align="center" className="mt-1 truncate text-[0.7rem]">
             <ShoppingCartIcon className="mr-2 size-3" />
             <Text className="font-semibold">Cost</Text>:{" "}
             {formatNumberGenerators(cost)} Points

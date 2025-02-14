@@ -189,7 +189,7 @@ export default function ProxButton(props: {
             {props.passiveIncome +
               clickTimestamps.length *
                 trueMultiplier *
-                Math.pow(1.01, props.prestige).toFixed(1)}
+                Number(Math.pow(1.01, props.prestige).toFixed(1))}
           </Text>
         </Flex>
       </Flex>
@@ -262,32 +262,7 @@ export default function ProxButton(props: {
             </Flex>
           </button>
         </Box>
-
-        {/* Render multiple prox scanners */}
       </Flex>
-      {/* Prox Scanner */}
-      {props.scanner > 0 && (
-        <Flex className="absolute bottom-[-55%] mb-[-4rem] h-[30rem] w-full sm:mb-[-2rem]">
-          {Array.from({ length: Math.min(props.scanner, 10) }).map(
-            (_, index) => (
-              <Flex
-                className="relative"
-                key={"bottomscanner" + index}
-                style={{
-                  width: `${100 / Math.min(props.scanner, 10)}%`, // Dynamically adjust width to fit all scanners
-                }}
-              >
-                <img
-                  key={index}
-                  src="/images/generators/prox_scanner.gif"
-                  alt={`Scanner ${index + 1}`}
-                  className="absolute h-auto max-h-[4rem] w-auto rotate-12 scale-[5]"
-                />
-              </Flex>
-            ),
-          )}
-        </Flex>
-      )}
     </Flex>
   );
 }

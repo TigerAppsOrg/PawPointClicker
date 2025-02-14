@@ -65,7 +65,7 @@ export default function ProxMenu(props: {
       const existingImages = prev.filter((img) => img.id.startsWith(type));
       const newImages = [];
 
-      for (let i = existingImages.length; i < Math.min(count, 20); i++) {
+      for (let i = existingImages.length; i < Math.min(count, 30); i++) {
         newImages.push({
           id: `${type}-${i}`,
           src,
@@ -173,7 +173,7 @@ export default function ProxMenu(props: {
       {fallingImages.map((image) => (
         <div
           key={image.id}
-          className="absolute z-30 h-16 w-16 select-none"
+          className="absolute z-[24] h-16 w-16 select-none"
           style={{
             left: `${image.left}%`,
             top: "-10%",
@@ -191,21 +191,45 @@ export default function ProxMenu(props: {
         </div>
       ))}
 
+      {/* Prox Scanners */}
+      {collectors.scanner > 0 && (
+        <Flex className="absolute bottom-[-2rem] z-30 w-max select-none">
+          {Array.from({ length: Math.min(props.scanner, 30) }).map(
+            (_, index) => (
+              <Flex
+                className="relative w-full"
+                key={"bottomscanner" + index}
+                style={{
+                  width: `${100 / Math.min(props.scanner, 10)}%`, // Dynamically adjust width to fit all scanners
+                }}
+              >
+                <img
+                  key={index}
+                  src="/images/generators/prox_scanner.gif"
+                  alt={`Scanner ${index + 1}`}
+                  className="h-[4rem] w-auto rotate-12 scale-[5]"
+                />
+              </Flex>
+            ),
+          )}
+        </Flex>
+      )}
+
       {collectors.mine > 0 && (
-        <Flex className="absolute bottom-[-25%] left-[7%] z-10 h-[30rem] w-full select-none xs:bottom-[-15%] sm:bottom-[-30%] lg:bottom-[-15%]">
-          {Array.from({ length: Math.min(collectors.mine, 5) }).map(
+        <Flex className="absolute bottom-[7rem] z-[25] w-max select-none">
+          {Array.from({ length: Math.min(collectors.mine, 8) }).map(
             (_, index) => (
               <Flex
                 style={{
-                  width: `${100 / Math.min(collectors.mine, 5)}%`, // Dynamically adjust width to fit all scanners
+                  width: `${100 / Math.min(collectors.mine, 8)}%`, // Dynamically adjust width to fit all scanners
                 }}
                 key={`miner-${index}`}
-                className="relative bottom-[-10rem] sm:bottom-[-11rem]"
+                className="relative mx-8 w-full"
               >
                 <img
                   src="/images/miner.gif"
                   alt="miner"
-                  className="absolute block h-auto max-h-[4rem] w-auto rotate-12 scale-[5]"
+                  className="h-[4rem] w-auto rotate-12 scale-[5]"
                 />
               </Flex>
             ),

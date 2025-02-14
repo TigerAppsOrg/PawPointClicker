@@ -159,7 +159,7 @@ export default function PowerUpMenu({
       <Flex
         align="center"
         direction="column"
-        className="relative m-3 h-full w-auto max-w-4xl overflow-hidden rounded-2xl border border-blue-500/30 bg-blue-300/90 backdrop-blur-md"
+        className="relative m-3 h-full w-auto overflow-hidden rounded-2xl border border-blue-500/30 bg-blue-300/90 backdrop-blur-md"
       >
         <Flex className="flex w-full flex-col gap-3 border-b border-white/20 border-b-blue-500/30 bg-blue-400 p-3 text-white sm:flex-row">
           <Flex
@@ -207,7 +207,7 @@ export default function PowerUpMenu({
             rate={1}
             iconBackground="./images/banners/pointers.jpg"
             prestige={prestige}
-            tooltip="Multiplies Paw Points generated per click AND swipes extra proxes for you!"
+            tooltip="Adds a multiplier to Paw Points generated per click AND swipes extra proxes for you!"
           />
           <PowerUpButton
             label="Late Meal Swipe"
