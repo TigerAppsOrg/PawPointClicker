@@ -36,11 +36,13 @@ export default function PowerUpButton({
   prestige,
   tooltip,
 }: PowerUpButtonProps) {
-  const individualRate = rate * Math.pow(1.01, prestige);
-
   const totalRate = Math.round(amount * rate * Math.pow(1.01, prestige))
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Calculate total Paw Points/sec
+
+  const individualRate = Math.round(
+    Number(totalRate.replace(/[^0-9]/g, "")) / (amount ? amount : 1),
+  ); // Calculate individual Paw Points/sec
 
   return (
     <Tooltip content={tooltip}>
