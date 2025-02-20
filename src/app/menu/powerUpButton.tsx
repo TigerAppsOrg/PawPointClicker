@@ -65,7 +65,7 @@ export default function PowerUpButton({
             {formatNumberGenerators(Number(totalRate))} Points/sec{" "}
           </Flex>
           <Tooltip
-            content={`Each ${label} has a base paw point production rate of ${rate.toFixed(2)} Points/sec, which is being multiplied by ${Math.pow(1.01, prestige).toFixed(2)} from your Prestige ${prestige} boost.`}
+            content={`Each ${label} has a base paw point production rate of ${rate} Points/sec, which is being multiplied by ${Math.pow(1.01, prestige).toFixed(2)} from your Prestige ${prestige} boost.`}
           >
             <Text className="cursor-pointer truncate text-[0.6rem] text-gray-500">
               *Each produces {formatNumberGenerators(Number(individualRate))}{" "}
