@@ -118,7 +118,7 @@ export default function StatsBar({
   userClicks,
   playTime,
 }: StatsBarProps) {
-  const prestigeBoost = (Math.pow(1.01, prestige) * 100).toFixed(1);
+  const prestigeBoost = ((Math.pow(1.05, prestige) - 1) * 100).toFixed(1);
 
   // Format milliseconds into days, hours, minutes, and seconds
   function formatMilliseconds(milliseconds: number) {
@@ -174,7 +174,7 @@ export default function StatsBar({
         <StatsItem
           label="Points Per Click"
           value={`+${formatNumberGenerators(
-            Number(Math.round(clickMultiplier * Math.pow(1.01, prestige))),
+            Number(Math.round(clickMultiplier * Math.pow(1.05, prestige))),
           )} (Max)`}
           tooltip="Maximum Paw Points generated per click."
           Icon={MousePointer}

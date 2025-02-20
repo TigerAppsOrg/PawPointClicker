@@ -37,28 +37,26 @@ export default function PrestigeModal({
             <AlertDialog.Title className="text-2xl font-semibold text-gray-800">
               Prestige System
             </AlertDialog.Title>
-            <AlertDialog.Description className="mt-2 text-orange-900">
-              <Box>
-                <Separator orientation="horizontal" size="4" className="mb-4" />
-                <Box className="rounded-xl bg-orange-200 p-4 text-lg font-medium">
-                  Current Prestige Level:{" "}
-                  <span className="text-red-600">
-                    {prestige != 0 ? arabToRoman(prestige) : "No Prestige"}{" "}
-                    <Text className="text-sm">({prestige})</Text>
-                  </span>
-                  <Flex align="center" className="mt-2 text-sm text-orange-700">
-                    <GemIcon className="mr-2 inline-block h-5 w-5" />
-                    Bonus: {(Math.pow(1.01, prestige) * 100).toFixed(2)}%
-                    Increase to Paw Point Generators
-                  </Flex>
-                </Box>
-                <Box className="mt-3 text-sm sm:mt-4">
-                  Prestiging will reset all your Paw Points and upgrades.
-                  However, each prestige increases overall point generation by{" "}
-                  <span className="font-semibold text-blue-600">
-                    1% per level.
-                  </span>
-                </Box>
+            <Box className="mt-2 text-orange-900">
+              <Separator orientation="horizontal" size="4" className="mb-4" />
+              <Box className="rounded-xl bg-orange-200 p-4 text-lg font-medium">
+                Current Prestige Level:{" "}
+                <span className="text-red-600">
+                  {prestige != 0 ? arabToRoman(prestige) : "No Prestige"}{" "}
+                  <Text className="text-sm">({prestige})</Text>
+                </span>
+                <Flex align="center" className="mt-2 text-sm text-orange-700">
+                  <GemIcon className="mr-2 inline-block h-5 w-5" />
+                  Bonus: {((Math.pow(1.05, prestige) - 1) * 100).toFixed(2)}%
+                  Increase to Paw Point Generators
+                </Flex>
+              </Box>
+              <Box className="mt-3 text-sm sm:mt-4">
+                Prestiging will reset all your Paw Points and upgrades. However,
+                each prestige increases overall point generation by{" "}
+                <span className="font-semibold text-blue-600">
+                  5% per level.
+                </span>
               </Box>
               <Box className="mt-3 rounded-xl bg-orange-200 p-4 font-medium sm:mt-4">
                 <Box className="text-lg">
@@ -70,11 +68,11 @@ export default function PrestigeModal({
                 </Box>
                 <Flex align="center" className="mt-2 flex">
                   <span className="font-semibold text-red-600">
-                    {(Math.pow(1.01, prestige) * 100).toFixed(2)}%
+                    {((Math.pow(1.05, prestige) - 1) * 100).toFixed(2)}%
                   </span>
                   <MoveRightIcon className="mx-2 text-gray-600" />
                   <span className="font-semibold text-green-600">
-                    {(Math.pow(1.01, prestige + 1) * 100).toFixed(2)}%
+                    {((Math.pow(1.05, prestige + 1) - 1) * 100).toFixed(2)}%
                   </span>
                 </Flex>
                 <Flex align="center" className="mt-2 text-sm text-orange-700">
@@ -115,7 +113,7 @@ export default function PrestigeModal({
                   </Flex>
                 )}
               </Box>
-            </AlertDialog.Description>
+            </Box>
             <Separator orientation="horizontal" size="4" className="my-5" />
             <div className="flex justify-end gap-2">
               <AlertDialog.Cancel asChild>

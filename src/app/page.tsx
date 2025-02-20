@@ -113,7 +113,7 @@ export default function HomePage() {
   // Calculations:
   // Helper function to calculate individual income
   const calculateIncome = (amount: number, rate: number, prestige: number) =>
-    Math.round(amount * rate * Math.pow(1.01, prestige));
+    Math.round(amount * rate * Math.pow(1.05, prestige));
 
   // Modularized calculation
   const components = [
@@ -224,7 +224,7 @@ export default function HomePage() {
           temple,
           spaceStation,
           totalEarnings,
-          totalEfficiencyBoost: Math.round(Math.pow(1.01, prestige) * 100),
+          totalEfficiencyBoost: Math.round(Math.pow(1.05, prestige) * 100),
           passiveIncome: passiveIncome,
           upgradesUnlocked: unlocked,
           collectors: totalPowerUps,

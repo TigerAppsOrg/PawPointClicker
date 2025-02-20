@@ -114,7 +114,7 @@ export default function ProxButton(props: {
     setNotifications((prev) => [...prev, { id: newId, offset }]);
 
     let totalAdjustedMultiplier = Math.round(
-      trueMultiplier * Math.pow(1.01, props.prestige),
+      trueMultiplier * Math.pow(1.05, props.prestige),
     );
 
     props.setUserClicks(props.userClicks + 1);
@@ -188,7 +188,7 @@ export default function ProxButton(props: {
               props.passiveIncome +
               clickTimestamps.length *
                 trueMultiplier *
-                Number(Math.pow(1.01, props.prestige))
+                Number(Math.pow(1.05, props.prestige))
             ).toFixed(1)}
           </Text>
         </Flex>
@@ -222,7 +222,7 @@ export default function ProxButton(props: {
             >
               +
               {(
-                trueMultiplier * Number(Math.pow(1.01, props.prestige))
+                trueMultiplier * Number(Math.pow(1.05, props.prestige))
               ).toFixed(0)}
             </Flex>
           ))}
