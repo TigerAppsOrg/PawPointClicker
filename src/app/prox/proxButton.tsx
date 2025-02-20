@@ -186,10 +186,12 @@ export default function ProxButton(props: {
 
           <Text className="text-sm font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             per second:{" "}
-            {props.passiveIncome +
+            {(
+              props.passiveIncome +
               clickTimestamps.length *
                 trueMultiplier *
-                Number(Math.pow(1.01, props.prestige).toFixed(1))}
+                Number(Math.pow(1.01, props.prestige))
+            ).toFixed(1)}
           </Text>
         </Flex>
       </Flex>

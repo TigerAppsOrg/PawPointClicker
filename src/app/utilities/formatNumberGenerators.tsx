@@ -1,7 +1,6 @@
 export default function formatNumberGenerators(count: number): string {
   if (count < 1_000_000) {
-    return count
-      .toFixed(0)
+    return parseFloat(count.toFixed(1))
       .toString()
       .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }

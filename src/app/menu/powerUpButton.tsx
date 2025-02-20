@@ -36,13 +36,9 @@ export default function PowerUpButton({
   prestige,
   tooltip,
 }: PowerUpButtonProps) {
-  const totalRate = Math.round(amount * rate * Math.pow(1.01, prestige))
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Calculate total Paw Points/sec
+  const totalRate = amount * rate * Math.pow(1.01, prestige); // Calculate total Paw Points/sec
 
-  const individualRate = Math.round(
-    Number(totalRate.replace(/[^0-9]/g, "")) / (amount ? amount : 1),
-  ); // Calculate individual Paw Points/sec
+  const individualRate = rate * Math.pow(1.01, prestige);
 
   return (
     <Tooltip content={tooltip}>
@@ -66,16 +62,16 @@ export default function PowerUpButton({
               alt="Prox"
               className="mr-1 size-4 rounded-full border-[0.5px] border-orange-800"
             />{" "}
-            {formatNumberGenerators(
-              Number(totalRate.toString().replace(/[^0-9]/g, "")),
-            )}{" "}
-            Points/sec{" "}
+            {formatNumberGenerators(Number(totalRate))} Points/sec{" "}
           </Flex>
-
-          <Text className="truncate text-[0.6rem] text-gray-500">
-            *Each produces {formatNumberGenerators(individualRate)} Points/sec
-          </Text>
-
+          <Tooltip
+            content={`Each ${label} has a base paw point production rate of ${rate.toFixed(1)} Points/sec, which is being multiplied by ${Math.pow(1.01, prestige).toFixed(1)} from your Prestige ${prestige} boost.`}
+          >
+            <Text className="cursor-pointer truncate text-[0.6rem] text-gray-500">
+              *Each produces {formatNumberGenerators(Number(individualRate))}{" "}
+              Points/sec
+            </Text>
+          </Tooltip>
           <Flex align="center" className="mt-1 truncate text-[0.7rem]">
             <ShoppingCartIcon className="mr-2 size-3" />
             <Text className="font-semibold">Cost</Text>:{" "}

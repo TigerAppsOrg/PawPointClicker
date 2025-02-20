@@ -224,9 +224,7 @@ export default function HomePage() {
           temple,
           spaceStation,
           totalEarnings,
-          totalEfficiencyBoost: Math.round(
-            (Math.pow(1.01, prestige) - 1) * 100,
-          ),
+          totalEfficiencyBoost: Math.round(Math.pow(1.01, prestige) * 100),
           passiveIncome: passiveIncome,
           upgradesUnlocked: unlocked,
           collectors: totalPowerUps,

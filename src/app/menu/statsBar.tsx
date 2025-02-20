@@ -118,7 +118,7 @@ export default function StatsBar({
   userClicks,
   playTime,
 }: StatsBarProps) {
-  const prestigeBoost = ((Math.pow(1.01, prestige) - 1) * 100).toFixed(1);
+  const prestigeBoost = (Math.pow(1.01, prestige) * 100).toFixed(1);
 
   // Format milliseconds into days, hours, minutes, and seconds
   function formatMilliseconds(milliseconds: number) {
@@ -166,9 +166,7 @@ export default function StatsBar({
         />
         <StatsItem
           label="Passive Income"
-          value={`${formatNumberGenerators(
-            Number(passiveIncome.toString().replace(/[^0-9]/g, "")),
-          )} / sec`}
+          value={`${formatNumberGenerators(Number(passiveIncome))} / sec`}
           tooltip="Paw Points earned per second from all generators."
           Icon={Clock}
           textColor="hover:text-blue-400"
