@@ -48,7 +48,7 @@ export default function PrestigeModal({
                   </span>
                   <Flex align="center" className="mt-2 text-sm text-orange-700">
                     <GemIcon className="mr-2 inline-block h-5 w-5" />
-                    Bonus: {((Math.pow(1.01, prestige) - 1) * 100).toFixed(2)}%
+                    Bonus: {(Math.pow(1.01, prestige) * 100).toFixed(2)}%
                     Increase to Paw Point Generators
                   </Flex>
                 </Box>
@@ -70,11 +70,11 @@ export default function PrestigeModal({
                 </Box>
                 <Flex align="center" className="mt-2 flex">
                   <span className="font-semibold text-red-600">
-                    {((Math.pow(1.01, prestige) - 1) * 100).toFixed(2)}%
+                    {(Math.pow(1.01, prestige) * 100).toFixed(2)}%
                   </span>
                   <MoveRightIcon className="mx-2 text-gray-600" />
                   <span className="font-semibold text-green-600">
-                    {((Math.pow(1.01, prestige + 1) - 1) * 100).toFixed(2)}%
+                    {(Math.pow(1.01, prestige + 1) * 100).toFixed(2)}%
                   </span>
                 </Flex>
                 <Flex align="center" className="mt-2 text-sm text-orange-700">

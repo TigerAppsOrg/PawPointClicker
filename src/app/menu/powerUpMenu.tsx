@@ -207,7 +207,7 @@ export default function PowerUpMenu({
             rate={1}
             iconBackground="./images/banners/pointers.jpg"
             prestige={prestige}
-            tooltip="Adds a multiplier to Paw Points generated per click AND swipes extra proxes for you!"
+            tooltip="Adds a streak multiplier to Paw Points generated per click AND swipes extra proxes for you!"
           />
           <PowerUpButton
             label="Late Meal Swipe"

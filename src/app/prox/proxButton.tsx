@@ -69,9 +69,7 @@ export default function ProxButton(props: {
   const [trueMultiplier, setTrueMultiplier] = useState(1);
   const [clickQueue, setClickQueue] = useState<number[]>([]);
 
-  const MAX_MULTIPLIER = Math.round(
-    props.clickMultiplier * Math.pow(1.01, props.prestige),
-  ); // Maximum multiplier value
+  const MAX_MULTIPLIER = props.clickMultiplier; // Maximum multiplier value
   const RESET_DELAY = 1000 + 150 * MAX_MULTIPLIER; // Start at 1000ms but scale with more multipliers purchased. Delay in milliseconds to reset the queue
 
   // Handle multiplier logic - increases as user spam clicks, resets after a delay. Max multiplier is the amount of click multipliers purchased
@@ -222,7 +220,10 @@ export default function ProxButton(props: {
               }}
               className={`absolute right-0 top--5 z-50 h-16 w-16 animate-shake select-none rounded-full border-2 border-orange-400 bg-orange-100 text-2xl font-bold text-red-600`}
             >
-              +{trueMultiplier}
+              +
+              {(
+                trueMultiplier * Number(Math.pow(1.01, props.prestige))
+              ).toFixed(0)}
             </Flex>
           ))}
           <button
@@ -250,7 +251,9 @@ export default function ProxButton(props: {
                   effect && "animate-wiggle"
                 } h-[90%] select-none transition duration-200 ease-in-out hover:scale-105`}
               />
-              <Tooltip content="Click Multiplier">
+              <Tooltip
+                content={`Your maximum Click Multiplier is ${props.clickMultiplier}x.`}
+              >
                 <Flex
                   align="center"
                   justify="center"
