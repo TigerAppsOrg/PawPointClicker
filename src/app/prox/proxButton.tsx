@@ -5,6 +5,7 @@ import CountUp from "react-countup";
 
 import RenderCards from "./renderCards";
 import formatNumberExtended from "../utilities/formatNumberExtended";
+import formatNumberGenerators from "../utilities/formatNumberGenerators";
 
 export default function ProxButton(props: {
   proxName: string;
@@ -132,6 +133,10 @@ export default function ProxButton(props: {
 
   return (
     <Flex align="center" className="relative z-40 h-full w-full flex-col">
+      {/* filter that makes whole background look red */}
+      {/* <div className="absolute z-10 h-full w-full bg-red-500/20"></div>
+       */}
+
       {/* Prox Name Input Section */}
       <Flex className="absolute z-50 w-full flex-col">
         <Flex
@@ -184,12 +189,12 @@ export default function ProxButton(props: {
 
           <Text className="text-sm font-bold text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]">
             per second:{" "}
-            {(
+            {formatNumberGenerators(
               props.passiveIncome +
-              clickTimestamps.length *
-                trueMultiplier *
-                Number(Math.pow(1.05, props.prestige))
-            ).toFixed(1)}
+                clickTimestamps.length *
+                  trueMultiplier *
+                  Number(Math.pow(1.05, props.prestige)),
+            )}
           </Text>
         </Flex>
       </Flex>

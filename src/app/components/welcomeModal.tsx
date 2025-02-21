@@ -85,7 +85,8 @@ export default function WelcomeModal(props: {
             href="https://www.kevinliu.biz/"
             className="flex items-center rounded-lg bg-orange-200 px-3 py-2 text-sm font-semibold text-orange-800 transition hover:bg-orange-100 hover:underline sm:px-4 sm:text-base"
           >
-            <span className="hidden sm:flex">By </span> Kevin Liu '28
+            <span className="mr-1 hidden xs:flex">By </span>{" "}
+            <span> Kevin Liu '28</span>
             <SquareArrowOutUpRightIcon className="ml-1 inline-block h-5 w-5 sm:ml-2" />
           </a>
           <Dialog.Close asChild>
