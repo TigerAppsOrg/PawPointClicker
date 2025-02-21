@@ -7,7 +7,6 @@ import {
   MouseIcon,
   MousePointerClickIcon,
   SquareArrowOutUpRightIcon,
-  SquareArrowUpRightIcon,
   XIcon,
 } from "lucide-react";
 
@@ -30,8 +29,8 @@ export default function WelcomeModal(props: {
   return (
     <Dialog.Root open={props.isOpen} onOpenChange={props.setIsOpen}>
       <Dialog.Overlay className="fixed inset-0 z-40 bg-black/50" />
-      <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[85vh] w-[90vw] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-orange-300 p-6 shadow-2xl">
-        <Dialog.Title className="flex items-center gap-2 text-base font-semibold text-gray-800 sm:text-2xl">
+      <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[85vh] w-[90vw] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-orange-300 p-4 shadow-2xl sm:p-6">
+        <Dialog.Title className="flex items-center gap-2 text-sm font-semibold text-gray-800 sm:text-2xl sm:text-base">
           <img
             src="/images/prox.svg"
             alt="Prox"
@@ -41,12 +40,12 @@ export default function WelcomeModal(props: {
         </Dialog.Title>
         <Box className="mt-2 text-yellow-900">
           <Separator orientation="horizontal" size="4" className="mb-4" />
-          <Box className="rounded-xl bg-orange-200 p-4 text-sm font-medium sm:text-lg">
+          <Box className="rounded-xl bg-orange-200 p-4 text-xs font-medium sm:text-sm md:text-lg">
             <Text className="font-semibold">Cookie Clicker for Princeton!</Text>{" "}
             PawPointClicker is a fun and engaging idle game where you collect
             Paw Points by clicking and purchasing powerful collectors. Click
             your way to greatness!
-            <Flex className="mt-3 rounded-lg border-2 border-blue-400/50 bg-blue-300/70 p-3 text-sm font-semibold text-blue-700">
+            <Flex className="mt-3 rounded-lg border-2 border-blue-400/50 bg-blue-300/70 p-3 text-xs font-semibold text-blue-700 sm:text-sm">
               <MousePointerClickIcon className="my-auto mr-4 size-5 text-blue-600" />
               <Box className="my-auto">
                 PawPointClicker {">>>"} iClicker !!!{" "}
@@ -75,24 +74,24 @@ export default function WelcomeModal(props: {
           </Box> */}
           <Flex className="mt-3 rounded-lg border-2 border-orange-500/50 bg-orange-400/50 p-4 font-semibold text-orange-800 sm:mt-4">
             <MouseIcon className="my-auto mr-4 size-8 text-orange-700 sm:size-6" />
-            <Box className="my-auto text-sm sm:text-base">
+            <Box className="my-auto text-xs sm:text-sm md:text-base">
               Click away and start earning those Paw Points!
             </Box>
           </Flex>
         </Box>
         <Separator orientation="horizontal" size="4" className="my-5" />
-        <Flex className="flex items-center">
+        <Flex className="flex items-center gap-4">
           <a
             href="https://www.kevinliu.biz/"
-            className="flex items-center rounded-lg bg-orange-200 px-4 py-2 font-semibold text-orange-800 transition hover:bg-orange-100 hover:underline"
+            className="flex items-center rounded-lg bg-orange-200 px-3 py-2 text-sm font-semibold text-orange-800 transition hover:bg-orange-100 hover:underline sm:px-4 sm:text-base"
           >
-            By Kevin Liu '28{" "}
-            <SquareArrowOutUpRightIcon className="ml-2 inline-block h-5 w-5" />
+            <span className="hidden sm:flex">By </span> Kevin Liu '28
+            <SquareArrowOutUpRightIcon className="ml-1 inline-block h-5 w-5 sm:ml-2" />
           </a>
           <Dialog.Close asChild>
             <button
               onClick={handleClose}
-              className="ml-auto rounded-lg border-2 border-orange-500/50 bg-orange-400 px-4 py-2 font-medium text-orange-100 transition hover:bg-orange-600"
+              className="ml-auto rounded-lg border-2 border-orange-500/50 bg-orange-400 px-3 py-2 text-sm font-medium text-orange-100 transition hover:bg-orange-600 sm:px-4 sm:text-base"
             >
               Start Clicking!
             </button>

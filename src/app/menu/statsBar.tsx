@@ -75,7 +75,7 @@ const PrestigeButton: React.FC<PrestigeButtonProps> = ({
   prestigeThreshold,
   prestigeBoost,
 }) => (
-  <Flex className="relative max-w-[9rem] flex-col gap-2 rounded-2xl border border-yellow-400 bg-yellow-400 p-2 transition-transform hover:scale-[1.02]">
+  <Flex className="relative flex-col gap-2 rounded-2xl border border-yellow-400 bg-yellow-400 p-2 transition-transform hover:scale-[1.02] sm:max-w-[9rem]">
     <Flex
       justify="center"
       align="center"
