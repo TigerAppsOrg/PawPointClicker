@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Flex } from "@radix-ui/themes";
 import ProxButton from "./proxButton";
+import GoldenProx from "../components/goldenprox";
 
 export default function ProxMenu(props: {
   proxName: string;
@@ -185,7 +186,7 @@ export default function ProxMenu(props: {
             alt="falling"
             className="absolute z-30 h-16 w-16"
             style={{
-              rotate: `${Math.random() * 60}deg`,
+              rotate: `${Math.random() * 180 - 90}deg`,
             }}
           />
         </div>
@@ -236,6 +237,11 @@ export default function ProxMenu(props: {
           )}{" "}
         </Flex>
       )}
+      <GoldenProx
+        passiveIncome={props.passiveIncome}
+        count={props.count}
+        setCount={props.setCount}
+      />
     </Flex>
   );
 }

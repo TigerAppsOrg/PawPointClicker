@@ -1,11 +1,11 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import ProxMenu from "./prox/proxMenu";
 import PowerUpMenu from "./menu/powerUpMenu";
 import WelcomeModal from "./components/welcomeModal";
 import Achievements from "./components/acheivementsModal";
 import FAQ from "./components/faqModal";
-import BonusModal from "./components/bonusModal";
+// import BonusModal from "./components/bonusModal";
 
 import useLocalStorage from "./utilities/useLocalStorage";
 import { Box, Flex, Tooltip } from "@radix-ui/themes";
@@ -62,11 +62,6 @@ export default function HomePage() {
     false,
   );
   const [faq, setFaq] = useLocalStorage("faq", false);
-  const [isFirstTimeBonus, setIsFirstTimeBonus] = useLocalStorage(
-    "isFirstTimeBonus",
-    true,
-  );
-  const [showBonusModal, setShowBonusModal] = useState(isFirstTimeBonus);
 
   // Game start time
   const [gameStartTime, setGameStartTime] = useLocalStorage("time", "");
@@ -79,13 +74,6 @@ export default function HomePage() {
       setIsFirstLaunch(false); // Update isFirstLaunch to false after setting the time
     }
   }, [isFirstLaunch, gameStartTime, setGameStartTime, setIsFirstLaunch]);
-
-  // First time
-  useEffect(() => {
-    if (isFirstTimeBonus) {
-      setIsFirstTimeBonus(false);
-    }
-  }, [isFirstTimeBonus, setCount, setIsFirstTimeBonus]);
 
   // Function to calculate play time
   const calculatePlayTime = () => {
@@ -218,14 +206,7 @@ export default function HomePage() {
 
   return (
     <div className="relative grid w-full grid-cols-1 font-sans sm:h-screen sm:grid-cols-2 sm:overflow-hidden">
-      {showBonusModal && (
-        <BonusModal
-          isOpen={showBonusModal}
-          setIsOpen={setShowBonusModal}
-          count={count}
-          setCount={setCount}
-        />
-      )}
+      {/* <BonusModal count={count} setCount={setCount} /> */}
       <WelcomeModal isOpen={welcome} setIsOpen={setWelcome} />
       <Achievements
         stats={{
