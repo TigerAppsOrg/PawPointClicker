@@ -6,12 +6,20 @@ interface GoldenProxProps {
   passiveIncome: number;
   count: number;
   setCount: (count: number) => void;
+  totalEarnings: number;
+  lifeTimeEarnings: number;
+  setTotalEarnings: (totalEarnings: number) => void;
+  setLifetimeEarnings: (lifetimeEarnings: number) => void;
 }
 
 export default function GoldenProx({
   passiveIncome,
   count,
   setCount,
+  totalEarnings,
+  lifeTimeEarnings,
+  setTotalEarnings,
+  setLifetimeEarnings,
 }: GoldenProxProps) {
   const [goldenProx, setGoldenProx] = useState<{
     left: number;
@@ -43,6 +51,8 @@ export default function GoldenProx({
     if (goldenProx) {
       const pointsEarned = passiveIncome * 100;
       setCount(count + pointsEarned);
+      setTotalEarnings(totalEarnings + pointsEarned);
+      setLifetimeEarnings(lifeTimeEarnings + pointsEarned);
 
       // Set floating text exactly where the Golden Prox was
       setFloatingText({
@@ -84,7 +94,7 @@ export default function GoldenProx({
         <Flex
           align="center"
           justify="center"
-          className="animate-fadeUp absolute z-50 ml-[1.5rem] mt-[2rem] truncate text-xl font-bold text-orange-950 transition-all duration-1000 ease-out"
+          className="absolute z-50 ml-[1.5rem] mt-[2rem] animate-fadeUp truncate text-xl font-bold text-orange-950 transition-all duration-1000 ease-out"
           style={{
             left: `${floatingText.left}%`,
             top: `${floatingText.top}%`,

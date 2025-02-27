@@ -129,6 +129,8 @@ export default function ProxButton(props: {
         prev.filter((notification) => notification.id !== newId),
       );
     }, 500);
+    //Fix animation cancel error
+    setTimeout(() => setEffect(false), 500); // Adjust timing to match animation duration
   };
 
   return (
@@ -234,13 +236,13 @@ export default function ProxButton(props: {
           <button
             onClick={handleButtonClick}
             className={`${
-              effect && "bg-green-300"
-            } h-48 w-48 select-none rounded-full bg-orange-400 text-white drop-shadow-lg transition ease-in-out hover:animate-wiggle`}
+              effect && "bg-orange-400"
+            } h-48 w-48 select-none rounded-full text-white drop-shadow-lg transition ease-in-out hover:animate-wiggle`}
           >
             <Flex
               justify="center"
               className={`${
-                effect && "animate-wiggle"
+                effect && "animate-wiggle opacity-[0.82]"
               } select-none transition duration-200 ease-in-out hover:scale-105`}
             >
               <Image

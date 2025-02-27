@@ -241,6 +241,10 @@ export default function ProxMenu(props: {
         passiveIncome={props.passiveIncome}
         count={props.count}
         setCount={props.setCount}
+        totalEarnings={props.totalEarnings}
+        lifeTimeEarnings={props.lifeTimeEarnings}
+        setTotalEarnings={props.setTotalEarnings}
+        setLifetimeEarnings={props.setLifetimeEarnings}
       />
     </Flex>
   );
