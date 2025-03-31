@@ -39,7 +39,7 @@ export default function GoldenProx({
           top: Math.random() * 80 + 10, // Y% position
         });
 
-        setTimeout(() => setGoldenProx(null), 5000); // Auto-remove after 5s
+        setTimeout(() => setGoldenProx(null), 13000); // Auto-remove after 13s
       }
     };
 
@@ -49,7 +49,7 @@ export default function GoldenProx({
 
   const handleClick = () => {
     if (goldenProx) {
-      const pointsEarned = passiveIncome * 100;
+      const pointsEarned = passiveIncome * 1000;
       setCount(count + pointsEarned);
       setTotalEarnings(totalEarnings + pointsEarned);
       setLifetimeEarnings(lifeTimeEarnings + pointsEarned);
