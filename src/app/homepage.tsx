@@ -141,7 +141,7 @@ export default function HomePage({ session }: any) {
         "playTime", // migrate play time as well
       ];
       keysToMigrate.forEach((key) => {
-        const guestKey = `guest_${key}`;
+        const guestKey = `${key}`;
         const userKey = `user_${session.user.email}_${key}`;
         const guestValue = localStorage.getItem(guestKey);
         if (guestValue !== null) {
