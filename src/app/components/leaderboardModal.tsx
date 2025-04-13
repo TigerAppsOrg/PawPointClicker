@@ -10,6 +10,7 @@ import {
 import { Box, Flex, Separator, Text } from "@radix-ui/themes";
 import formatNumberGenerators from "../utilities/formatNumberGenerators";
 const { arabToRoman } = require("roman-numbers");
+import { profanity, CensorType } from "@2toad/profanity";
 
 // LeaderboardModal component.
 // open: controls modal visibility, setOpen: toggles modal visibility.
@@ -121,7 +122,8 @@ export default function LeaderboardModal({
                         className="h-[80%] w-[80%]"
                       />
                       <Text className="absolute bottom-0 z-20 truncate rounded-md border border-orange-200 bg-orange-500 px-2 text-center text-[0.5rem] font-semibold text-orange-50 sm:text-xs">
-                        {player.session?.user?.name || "Anonymous"}{" "}
+                        {profanity.censor(player.session?.user?.name) ||
+                          "Anonymous"}{" "}
                       </Text>
                     </Flex>
                     {index < 5 && (
@@ -135,7 +137,7 @@ export default function LeaderboardModal({
                   <Flex className="ml-5 flex-col sm:ml-6">
                     <Text>
                       <Text className="text-xs font-extrabold sm:text-xl">
-                        {player.proxName || "Random Prox"}
+                        {profanity.censor(player.proxName || "Random Prox")}
                       </Text>
                     </Text>
                     <Flex className="text-sm font-extrabold text-white sm:text-3xl">
