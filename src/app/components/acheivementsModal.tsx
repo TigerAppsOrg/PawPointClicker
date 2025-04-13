@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect } from "react";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,7 +9,7 @@ import useLocalStorage from "../utilities/useLocalStorage";
 import { achievementsData, categoryColors } from "../utilities/achievements";
 import {
   CheckCircle2Icon,
-  TrophyIcon,
+  AwardIcon,
   XIcon,
   DollarSignIcon,
   StarIcon,
@@ -17,6 +18,7 @@ import {
   EyeOffIcon,
   HelpCircleIcon,
   LockKeyholeIcon,
+  TrophyIcon,
 } from "lucide-react";
 
 type Stats = {
@@ -94,7 +96,7 @@ export default function Achievements({
         <Dialog.Overlay className="fixed inset-0 z-40 bg-black/50" />
         <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[85vh] w-[90vw] max-w-3xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-orange-300 p-4 shadow-lg sm:p-6">
           <Dialog.Title className="flex items-center gap-2 text-lg font-semibold text-gray-800 sm:text-2xl">
-            <TrophyIcon className="mr-2 size-8 text-orange-700" />
+            <AwardIcon className="mr-2 size-8 text-orange-700" />
             Hall of Achievements
           </Dialog.Title>
           <Box className="mt-2">

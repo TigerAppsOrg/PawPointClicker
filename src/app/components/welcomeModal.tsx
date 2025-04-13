@@ -30,7 +30,7 @@ export default function WelcomeModal(props: {
     <Dialog.Root open={props.isOpen} onOpenChange={props.setIsOpen}>
       <Dialog.Overlay className="fixed inset-0 z-40 bg-black/50" />
       <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[85vh] w-[90vw] max-w-lg -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl bg-orange-300 p-4 shadow-2xl sm:p-6">
-        <Dialog.Title className="flex items-center gap-2 text-sm font-semibold text-gray-800 sm:text-2xl sm:text-base">
+        <Dialog.Title className="flex items-center gap-2 text-sm font-semibold text-gray-800 sm:text-base md:text-2xl">
           <img
             src="/images/prox.svg"
             alt="Prox"

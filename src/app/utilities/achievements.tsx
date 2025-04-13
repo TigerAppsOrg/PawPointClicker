@@ -211,14 +211,14 @@ export const achievementsData = [
     id: 28,
     name: "Time Traveler",
     description: "Play for 24 hours",
-    condition: (state: { playTime: number }) => state.playTime >= 86400000,
+    condition: (state: { playTime: number }) => state.playTime >= 86400,
     category: "Hidden",
   },
   {
     id: 29,
     name: "Weekend Warrior",
     description: "Play for 7 days",
-    condition: (state: { playTime: number }) => state.playTime >= 604800000,
+    condition: (state: { playTime: number }) => state.playTime >= 604800,
     category: "Hidden",
   },
   ...generateLeveledAchievements(

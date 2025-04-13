@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import { Flex } from "@radix-ui/themes";
 import ProxButton from "./proxButton";

@@ -121,26 +121,41 @@ export default function StatsBar({
   const prestigeBoost = ((Math.pow(1.05, prestige) - 1) * 100).toFixed(1);
 
   // Format milliseconds into days, hours, minutes, and seconds
-  function formatMilliseconds(milliseconds: number) {
-    const seconds = Math.floor((milliseconds / 1000) % 60);
-    const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
-    const hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24);
-    const days = Math.floor(milliseconds / (1000 * 60 * 60 * 24));
-
-    const timeParts = [];
+  function formatSeconds(totalSeconds: number) {
+    const days = Math.floor(totalSeconds / (3600 * 24));
+    const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
 
     if (days > 0) {
-      timeParts.push(`${days} day${days > 1 ? "s" : ""}`);
-    }
-    if (hours > 0) {
-      timeParts.push(`${hours} hour${hours > 1 ? "s" : ""}`);
+      // If there are days, then show days and the next significant unit:
+      if (hours > 0) {
+        return `${days} day${days > 1 ? "s" : ""}, ${hours} hour${hours > 1 ? "s" : ""}`;
+      } else if (minutes > 0) {
+        return `${days} day${days > 1 ? "s" : ""}, ${minutes} minute${minutes > 1 ? "s" : ""}`;
+      } else {
+        return `${days} day${days > 1 ? "s" : ""}`;
+      }
+    } else if (hours > 0) {
+      // No days, so use hours and the next significant unit:
+      if (minutes > 0) {
+        return `${hours} hour${hours > 1 ? "s" : ""}, ${minutes} minute${minutes > 1 ? "s" : ""}`;
+      } else if (seconds > 0) {
+        return `${hours} hour${hours > 1 ? "s" : ""}, ${seconds} second${seconds !== 1 ? "s" : ""}`;
+      } else {
+        return `${hours} hour${hours > 1 ? "s" : ""}`;
+      }
     } else if (minutes > 0) {
-      timeParts.push(`${minutes} minute${minutes > 1 ? "s" : ""}`);
-    } else if (seconds > 0) {
-      timeParts.push(`${seconds} second${seconds > 1 ? "s" : ""}`);
+      // Only minutes (and possibly seconds) exist:
+      if (seconds > 0) {
+        return `${minutes} minute${minutes > 1 ? "s" : ""}, ${seconds} second${seconds !== 1 ? "s" : ""}`;
+      } else {
+        return `${minutes} minute${minutes > 1 ? "s" : ""}`;
+      }
+    } else {
+      // Only seconds available.
+      return `${seconds} second${seconds !== 1 ? "s" : ""}`;
     }
-
-    return timeParts.join(", ");
   }
 
   return (
@@ -193,7 +208,7 @@ export default function StatsBar({
         />
         <StatsItem
           label="Time Played"
-          value={formatMilliseconds(playTime) || "0 seconds"}
+          value={formatSeconds(playTime) || "0 seconds"}
           tooltip="Total time spent playing."
           Icon={HourglassIcon}
           textColor="hover:text-yellow-400"

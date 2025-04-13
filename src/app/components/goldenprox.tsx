@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import formatNumberGenerators from "../utilities/formatNumberGenerators";
 import { Flex } from "@radix-ui/themes";
@@ -33,7 +34,7 @@ export default function GoldenProx({
 
   useEffect(() => {
     const spawnGoldenProx = () => {
-      if (!goldenProx && Math.random() < 0.05) {
+      if (!goldenProx && Math.random() < 0.03) {
         setGoldenProx({
           left: Math.random() * 80 + 10, // X% position
           top: Math.random() * 80 + 10, // Y% position

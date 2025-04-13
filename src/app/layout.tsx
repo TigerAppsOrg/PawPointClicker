@@ -4,6 +4,9 @@ import "@radix-ui/themes/styles.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
+import { type Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
+
 // import { Roboto } from "next/font/google";
 
 // const roboto = Roboto({
@@ -23,7 +26,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+  session,
+}: Readonly<{ children: React.ReactNode; session: Session | null }>) {
   return (
     <html
       lang="en"
@@ -31,7 +35,9 @@ export default function RootLayout({
       // className={roboto.className}
     >
       <body>
-        <Theme>{children} </Theme>
+        <Theme>
+          <SessionProvider session={session}>{children}</SessionProvider>
+        </Theme>
       </body>
     </html>
   );
