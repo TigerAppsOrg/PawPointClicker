@@ -236,7 +236,7 @@ export default function HomePage({ session }: any) {
         if (guestValue !== null) {
           switch (key) {
             case "proxName":
-              setProxName(guestValue);
+              setProxName(JSON.parse(guestValue));
               break;
             case "count":
               setCount(Number(guestValue));
@@ -540,7 +540,9 @@ export default function HomePage({ session }: any) {
             return;
           }
           if (data) {
-            setProxName(data.proxName ?? "Random Prox");
+            setProxName(
+              data.proxName ? JSON.parse(data.proxName) : "Random Prox",
+            );
             setCount(data.count ?? 0);
             setLatemeal(data.latemeal ?? 0);
             setLifetimeEarnings(data.lifeTimeEarnings ?? 0);
