@@ -97,7 +97,7 @@ export default function LeaderboardModal({
             className="mb-4 border-gray-700"
           />
           <div className="space-y-2 sm:space-y-3">
-            {players ? (
+            {players.length != 0 ? (
               players.map((player, index) => (
                 <Flex
                   align="center"
