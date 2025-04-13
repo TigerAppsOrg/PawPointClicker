@@ -4,8 +4,6 @@ import { NextResponse } from "next/server";
 import firestore from "../../utilities/firestore";
 
 export async function POST(request: Request) {
-  console.log("Received request to save game data");
-
   try {
     const body = await request.json();
     const { userId, gameData } = body;

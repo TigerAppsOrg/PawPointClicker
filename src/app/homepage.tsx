@@ -110,7 +110,7 @@ export default function HomePage({ session }: any) {
   // A flag to ensure that remote data is imported before further saving occurs.
   const [hasImportedUserData, setHasImportedUserData] = useState(false);
 
-  // ─── MIGRATE GUEST PROGRESS ON LOGIN ────────────────────────────────────────────
+  // ─── 1. Always Migrate Raw Guest Keys to Guest Namespace ───────────────
   useEffect(() => {
     const keysToMigrate = [
       "proxName",
@@ -136,15 +136,132 @@ export default function HomePage({ session }: any) {
       "welcome",
       "achievements",
       "faq",
-      "playTime", // migrate play time as well
+      "playTime",
     ];
 
-    //convert all normal keys to guest_keys
+    // For each key, check if the non-namespaced key is present.
     keysToMigrate.forEach((key) => {
-      const guestKey = `${key}`;
-      const userKey = `guest_${key}`;
+      const rawValue = localStorage.getItem(key);
+      if (rawValue !== null) {
+        // Set state accordingly
+        switch (key) {
+          case "proxName":
+            setProxName(rawValue);
+            break;
+          case "count":
+            setCount(Number(rawValue));
+            break;
+          case "lifeTimeEarnings":
+            setLifetimeEarnings(Number(rawValue));
+            break;
+          case "clickMultiplier":
+            setClickMultiplier(Number(rawValue));
+            break;
+          case "totalEarnings":
+            setTotalEarnings(Number(rawValue));
+            break;
+          case "prestige":
+            setPrestige(Number(rawValue));
+            break;
+          case "prestigeThreshold":
+            setPrestigeThreshold(Number(rawValue));
+            break;
+          case "userClicks":
+            setUserClicks(Number(rawValue));
+            break;
+          case "latemeal":
+            setLatemeal(Number(rawValue));
+            break;
+          case "scanner":
+            setScanner(Number(rawValue));
+            break;
+          case "frist":
+            setDeliveries(Number(rawValue));
+            break;
+          case "resco":
+            setResco(Number(rawValue));
+            break;
+          case "farms":
+            setFarms(Number(rawValue));
+            break;
+          case "mine":
+            setMine(Number(rawValue));
+            break;
+          case "factories":
+            setFactories(Number(rawValue));
+            break;
+          case "bank":
+            setBank(Number(rawValue));
+            break;
+          case "lab":
+            setLab(Number(rawValue));
+            break;
+          case "temple":
+            setTemple(Number(rawValue));
+            break;
+          case "spaceStation":
+            setSpaceStation(Number(rawValue));
+            break;
+          case "time":
+            setGameStartTime(rawValue);
+            break;
+          case "welcome":
+            setWelcome(rawValue === "true");
+            break;
+          case "achievements":
+            setAcheivements(rawValue === "true");
+            break;
+          case "faq":
+            setFaq(rawValue === "true");
+            break;
+          case "playTime":
+            setPlayTime(Number(rawValue));
+            break;
+          default:
+            break;
+        }
+        // Now move the raw key value into the guest namespace.
+        localStorage.removeItem(key);
+        localStorage.setItem(`guest_${key}`, rawValue);
+      }
+    });
+  }, []); // Run once on mount regardless of login status
+
+  // ─── 2. Function to Migrate Guest Namespace Keys to a User Namespace ─────────
+  const migrateGuestKeysToUser = () => {
+    const keysToMigrate = [
+      "proxName",
+      "count",
+      "lifeTimeEarnings",
+      "clickMultiplier",
+      "totalEarnings",
+      "prestige",
+      "prestigeThreshold",
+      "userClicks",
+      "latemeal",
+      "scanner",
+      "frist", // deliveries stored under "frist"
+      "resco",
+      "farms",
+      "mine",
+      "factories",
+      "bank",
+      "lab",
+      "temple",
+      "spaceStation",
+      "time",
+      "welcome",
+      "achievements",
+      "faq",
+      "playTime",
+    ];
+
+    keysToMigrate.forEach((key) => {
+      const guestKey = `guest_${key}`;
+      const userKey = `user_${session.user.email}_${key}`;
       const guestValue = localStorage.getItem(guestKey);
       if (guestValue !== null) {
+        // Update state with the guest value
         switch (key) {
           case "proxName":
             setProxName(guestValue);
@@ -221,113 +338,87 @@ export default function HomePage({ session }: any) {
           default:
             break;
         }
+        // Remove from guest namespace and copy into user namespace
         localStorage.removeItem(guestKey);
         localStorage.setItem(userKey, guestValue);
       }
     });
+  };
 
-    //upon first sign in, all guest_keys are converted into user_keys
+  // ─── 3. Initialize or Import User Data Based on Backend Existence ─────────────
+  useEffect(() => {
     if (session && session.user && session.user.email) {
-      // List all keys that represent game progress.
-      keysToMigrate.forEach((key) => {
-        const guestKey = `guest_${key}`;
-        const userKey = `user_${session.user.email}_${key}`;
-        const guestValue = localStorage.getItem(guestKey);
-        if (guestValue !== null) {
-          switch (key) {
-            case "proxName":
-              setProxName(JSON.parse(guestValue));
-              break;
-            case "count":
-              setCount(Number(guestValue));
-              break;
-            case "lifeTimeEarnings":
-              setLifetimeEarnings(Number(guestValue));
-              break;
-            case "clickMultiplier":
-              setClickMultiplier(Number(guestValue));
-              break;
-            case "totalEarnings":
-              setTotalEarnings(Number(guestValue));
-              break;
-            case "prestige":
-              setPrestige(Number(guestValue));
-              break;
-            case "prestigeThreshold":
-              setPrestigeThreshold(Number(guestValue));
-              break;
-            case "userClicks":
-              setUserClicks(Number(guestValue));
-              break;
-            case "latemeal":
-              setLatemeal(Number(guestValue));
-              break;
-            case "scanner":
-              setScanner(Number(guestValue));
-              break;
-            case "frist":
-              setDeliveries(Number(guestValue));
-              break;
-            case "resco":
-              setResco(Number(guestValue));
-              break;
-            case "farms":
-              setFarms(Number(guestValue));
-              break;
-            case "mine":
-              setMine(Number(guestValue));
-              break;
-            case "factories":
-              setFactories(Number(guestValue));
-              break;
-            case "bank":
-              setBank(Number(guestValue));
-              break;
-            case "lab":
-              setLab(Number(guestValue));
-              break;
-            case "temple":
-              setTemple(Number(guestValue));
-              break;
-            case "spaceStation":
-              setSpaceStation(Number(guestValue));
-              break;
-            case "time":
-              setGameStartTime(guestValue);
-              break;
-            case "welcome":
-              setWelcome(guestValue === "true");
-              break;
-            case "achievements":
-              setAcheivements(guestValue === "true");
-              break;
-            case "faq":
-              setFaq(guestValue === "true");
-              break;
-            case "playTime":
-              setPlayTime(Number(guestValue));
-              break;
-            default:
-              break;
+      async function initializeUser() {
+        try {
+          const userEmail = encodeURIComponent(session.user.email);
+          const res = await fetch(`/api/getUserData?userId=${userEmail}`);
+          const { data, error } = await res.json();
+          if (error) {
+            console.error("Error from API:", error);
+            // Even in error, we attempt migration from guest namespace.
+            migrateGuestKeysToUser();
+          } else if (data) {
+            // If backend data exists, import it and do not migrate guest data.
+            // This ensures any local guest progress is ignored in favor of the saved account data.
+            setProxName(data.proxName ? data.proxName : "Random Prox");
+            setCount(data.count ?? 0);
+            setLatemeal(data.latemeal ?? 0);
+            setLifetimeEarnings(data.lifeTimeEarnings ?? 0);
+            setClickMultiplier(data.clickMultiplier ?? 1);
+            setDeliveries(data.deliveries ?? 0);
+            setFactories(data.factories ?? 0);
+            setFarms(data.farms ?? 0);
+            setResco(data.resco ?? 0);
+            setScanner(data.scanner ?? 0);
+            setMine(data.mine ?? 0);
+            setBank(data.bank ?? 0);
+            setLab(data.lab ?? 0);
+            setTemple(data.temple ?? 0);
+            setSpaceStation(data.spaceStation ?? 0);
+            setTotalEarnings(data.totalEarnings ?? 0);
+            setPrestige(data.prestige ?? 0);
+            setUserClicks(data.userClicks ?? 0);
+            setPrestigeThreshold(data.prestigeThreshold ?? 1000000);
+            if (data.gameStartTime) {
+              setGameStartTime(data.gameStartTime);
+            } else {
+              const now = new Date().toISOString();
+              setGameStartTime(now);
+            }
+            if (typeof data.playTimeSeconds === "number") {
+              setPlayTime(data.playTimeSeconds);
+            }
+          } else {
+            // If no backend data exists, this is the first login.
+            // Migrate guest data into user namespaced keys and
+            // the game will later save the migrated progress.
+            migrateGuestKeysToUser();
           }
-          localStorage.removeItem(guestKey);
-          localStorage.setItem(userKey, guestValue);
+        } catch (err) {
+          console.error("Error fetching user data:", err);
+          // On fetch error, still try migrating the guest data
+          migrateGuestKeysToUser();
+        } finally {
+          setHasImportedUserData(true);
         }
-      });
+      }
+      initializeUser();
+    } else {
+      // When not logged in, simply mark import as complete.
+      setHasImportedUserData(true);
     }
   }, [session]);
 
-  // ─── INITIALIZE GAME START TIME (OPTIONAL) ─────────────────────────────────────
+  // ─── 4. INITIALIZE GAME START TIME (OPTIONAL) ─────────────────────────────
   useEffect(() => {
     if (!gameStartTime) {
       const startTime = new Date().toISOString();
       setGameStartTime(startTime);
     }
-  }, []); // Run once on mount
+  }, []);
 
-  // ─── TRACK PLAY TIME ONLY WHILE ACTIVE ────────────────────────────────────────
+  // ─── 5. TRACK PLAY TIME ONLY WHILE ACTIVE ─────────────────────────────
   const [isPlaying, setIsPlaying] = useState(true);
-
   useEffect(() => {
     const handleFocus = () => setIsPlaying(true);
     const handleBlur = () => setIsPlaying(false);
@@ -343,16 +434,16 @@ export default function HomePage({ session }: any) {
   useEffect(() => {
     const interval = setInterval(() => {
       if (isPlaying) {
-        setPlayTime((prev: number) => prev + 1);
+        setPlayTime((prev) => prev + 1);
       }
     }, 1000);
     return () => clearInterval(interval);
   }, [isPlaying, setPlayTime]);
 
-  // ─── PRESTIGE FUNCTION ─────────────────────────────────────────────────────────
+  // ─── PRESTIGE FUNCTION ─────────────────────────────────────────────
   const handlePrestige = () => {
     if (lifeTimeEarnings >= prestigeThreshold) {
-      setPrestige((prev: number) => prev + 1);
+      setPrestige((prev) => prev + 1);
       setPrestigeThreshold(Math.round(Math.pow(prestigeThreshold, 1.15)));
       setCount(0);
       setTotalEarnings(0);
@@ -377,7 +468,7 @@ export default function HomePage({ session }: any) {
     }
   };
 
-  // ─── PASSIVE INCOME CALCULATION ──────────────────────────────────────────────
+  // ─── PASSIVE INCOME CALCULATION ─────────────────────────────────────────────
   const calculateIncome = (amount: number, rate: number, prestige: number) =>
     Math.round(amount * rate * Math.pow(1.05, prestige));
 
@@ -405,9 +496,9 @@ export default function HomePage({ session }: any) {
   // ─── INCREASE COUNTS EVERY SECOND ─────────────────────────────────────────────
   useEffect(() => {
     const interval = setInterval(() => {
-      setCount((prev: number) => prev + passiveIncome);
-      setLifetimeEarnings((prev: number) => prev + passiveIncome);
-      setTotalEarnings((prev: number) => prev + passiveIncome);
+      setCount((prev) => prev + passiveIncome);
+      setLifetimeEarnings((prev) => prev + passiveIncome);
+      setTotalEarnings((prev) => prev + passiveIncome);
     }, 1000);
     return () => clearInterval(interval);
   }, [
@@ -424,11 +515,9 @@ export default function HomePage({ session }: any) {
     temple,
     spaceStation,
     prestige,
-    setCount,
-    setLifetimeEarnings,
   ]);
 
-  // ─── TRACK PREVIOUS COUNT ──────────────────────────────────────────────────────
+  // ─── TRACK PREVIOUS COUNT ─────────────────────────────────────────────
   const oldCountRef = useRef(count);
   useEffect(() => {
     oldCountRef.current = count;
@@ -493,7 +582,6 @@ export default function HomePage({ session }: any) {
   useEffect(() => {
     if (!session || !hasImportedUserData) return;
     const gameData = gatherGameData();
-    // console.log("Saving game data: ", gameData);
     fetch("/api/saveGameData", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -540,9 +628,8 @@ export default function HomePage({ session }: any) {
             return;
           }
           if (data) {
-            setProxName(
-              data.proxName ? JSON.parse(data.proxName) : "Random Prox",
-            );
+            // Import the saved data
+            setProxName(data.proxName ? data.proxName : "Random Prox");
             setCount(data.count ?? 0);
             setLatemeal(data.latemeal ?? 0);
             setLifetimeEarnings(data.lifeTimeEarnings ?? 0);
@@ -571,6 +658,7 @@ export default function HomePage({ session }: any) {
               setPlayTime(data.playTimeSeconds);
             }
           }
+          // If backend data exists, we leave any remaining guest data alone.
           setHasImportedUserData(true);
         } catch (err) {
           console.error("Error fetching user data:", err);
@@ -579,22 +667,10 @@ export default function HomePage({ session }: any) {
       }
       fetchUserData();
     } else {
-      // For guest users, immediately mark import as complete.
+      // For guest users, import is already complete.
       setHasImportedUserData(true);
     }
-  }, [
-    session,
-    setProxName,
-    setCount,
-    setLifetimeEarnings,
-    setClickMultiplier,
-    setDeliveries,
-    setFactories,
-    setFarms,
-    setGameStartTime,
-    setUserClicks,
-    setPlayTime,
-  ]);
+  }, [session]);
 
   return (
     <div className="relative grid w-full grid-cols-1 font-sans sm:h-screen sm:grid-cols-2 sm:overflow-hidden">
@@ -628,7 +704,6 @@ export default function HomePage({ session }: any) {
           passiveIncome,
           upgradesUnlocked: unlocked,
           collectors: totalPowerUps,
-          // Pass formatted play time to ProxMenu.
           playTime: playTime,
           userClicks,
           hiddenFeaturesUnlocked: 0,
