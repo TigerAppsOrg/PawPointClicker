@@ -1,7 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { XIcon, TrophyIcon } from "lucide-react";
+import {
+  XIcon,
+  TrophyIcon,
+  LoaderPinwheelIcon,
+  Loader2Icon,
+} from "lucide-react";
 import { Box, Flex, Separator, Text } from "@radix-ui/themes";
 import formatNumberGenerators from "../utilities/formatNumberGenerators";
 const { arabToRoman } = require("roman-numbers");
@@ -91,78 +96,87 @@ export default function LeaderboardModal({
             size="4"
             className="mb-4 border-gray-700"
           />
-          <div className="space-y-3">
-            {players.map((player, index) => (
-              <Flex
-                align="center"
-                key={player.id}
-                className="relative overflow-hidden rounded-xl bg-gradient-to-l from-orange-400 to-orange-500 p-2 shadow-sm transition-all duration-150 hover:scale-[1.01] hover:to-orange-400"
-              >
-                <div className="relative flex-shrink-0">
-                  <Flex
-                    justify="center"
-                    align="center"
-                    className="z-10 size-16 sm:size-32"
-                  >
-                    <img
-                      src={getBorderImage(index + 1)}
-                      alt={player.session?.user?.name || "Anonymous"}
-                      className="absolute h-full w-full"
-                    />
-                    <img
-                      src={player.session?.user?.image || "/images/guest.png"}
-                      alt={player.session?.user?.name || "Anonymous"}
-                      className="h-[80%] w-[80%]"
-                    />
-                    <Text className="absolute bottom-0 z-20 truncate rounded-md border border-orange-200 bg-orange-500 px-2 text-center text-[0.5rem] font-semibold text-orange-50 sm:text-xs">
-                      {player.session?.user?.name || "Anonymous"}{" "}
-                    </Text>
-                  </Flex>
-                  {index < 5 && (
-                    <div className="absolute right-[-0.5rem] top-[0.25rem]">
-                      <Text className="rotate-12 rounded-full border-2 border-orange-600 bg-orange-500 p-1 text-xs font-bold text-gray-100 sm:p-2 sm:text-xl">
-                        #{index + 1}
+          <div className="space-y-2 sm:space-y-3">
+            {players ? (
+              players.map((player, index) => (
+                <Flex
+                  align="center"
+                  key={player.id}
+                  className="relative overflow-hidden rounded-xl bg-gradient-to-l from-orange-400 to-orange-500 p-2 shadow-sm transition-all duration-150 hover:scale-[1.01] hover:to-orange-400"
+                >
+                  <div className="relative flex-shrink-0">
+                    <Flex
+                      justify="center"
+                      align="center"
+                      className="z-10 size-16 sm:size-32"
+                    >
+                      <img
+                        src={getBorderImage(index + 1)}
+                        alt={player.session?.user?.name || "Anonymous"}
+                        className="absolute h-full w-full"
+                      />
+                      <img
+                        src={player.session?.user?.image || "/images/guest.png"}
+                        alt={player.session?.user?.name || "Anonymous"}
+                        className="h-[80%] w-[80%]"
+                      />
+                      <Text className="absolute bottom-0 z-20 truncate rounded-md border border-orange-200 bg-orange-500 px-2 text-center text-[0.5rem] font-semibold text-orange-50 sm:text-xs">
+                        {player.session?.user?.name || "Anonymous"}{" "}
                       </Text>
-                    </div>
-                  )}
-                </div>
-                <Flex className="ml-5 flex-col sm:ml-6">
-                  <Text>
-                    <Text className="text-xs font-extrabold sm:text-xl">
-                      {player.proxName || "Random Prox"}
+                    </Flex>
+                    {index < 5 && (
+                      <div className="absolute right-[-0.5rem] top-[0.25rem]">
+                        <Text className="rotate-12 rounded-full border-2 border-orange-600 bg-orange-500 p-1 text-xs font-bold text-gray-100 sm:p-2 sm:text-xl">
+                          #{index + 1}
+                        </Text>
+                      </div>
+                    )}
+                  </div>
+                  <Flex className="ml-5 flex-col sm:ml-6">
+                    <Text>
+                      <Text className="text-xs font-extrabold sm:text-xl">
+                        {player.proxName || "Random Prox"}
+                      </Text>
                     </Text>
-                  </Text>
-                  <Flex className="text-sm font-extrabold text-white sm:text-3xl">
-                    <Text className="max-w-full animate-pulse truncate">
-                      {formatNumberGenerators(player.lifeTimeEarnings)}{" "}
-                    </Text>
-                    <img
-                      src="/images/prox.svg"
-                      alt="Prox"
-                      className="ml-2 size-5 rounded-full sm:size-10"
-                    />
-                  </Flex>
+                    <Flex className="text-sm font-extrabold text-white sm:text-3xl">
+                      <Text className="max-w-full animate-pulse truncate">
+                        {formatNumberGenerators(player.lifeTimeEarnings)}{" "}
+                      </Text>
+                      <img
+                        src="/images/prox.svg"
+                        alt="Prox"
+                        className="ml-2 size-5 rounded-full sm:size-10"
+                      />
+                    </Flex>
 
-                  {/* <span className="text-lg font-semibold">
+                    {/* <span className="text-lg font-semibold">
                       Prestige: {player.prestige || 0}
                     </span>
                     <span className="text-lg font-semibold">
                       Collectors: {sumCollectors(player)}
                     </span> */}
-                  <Flex align="center" className="mt-1 gap-2 sm:gap-4">
-                    <Flex className="z-20 w-min truncate rounded-md border-2 border-yellow-400 bg-red-600 px-2 text-center text-xs font-semibold text-yellow-300 sm:text-lg">
-                      {"PRESTIGE " + (arabToRoman(player.prestige) || 0)}
+                    <Flex align="center" className="mt-1 gap-2 sm:gap-4">
+                      <Flex className="z-20 w-min truncate rounded-md border-2 border-yellow-400 bg-red-600 px-2 text-center text-xs font-semibold text-yellow-300 sm:text-lg">
+                        {"PRESTIGE " + (arabToRoman(player.prestige) || 0)}
+                      </Flex>
+                      <Text className="text-xs font-semibold sm:text-lg">
+                        Collectors: {sumCollectors(player)}
+                      </Text>
                     </Flex>
-                    <Text className="text-xs font-semibold sm:text-lg">
-                      Collectors: {sumCollectors(player)}
+                    <Text className="absolute right-4 top-[0rem] animate-pulse text-[4rem] font-extrabold text-orange-800/20 sm:top-[-1.4rem] sm:text-[8rem] sm:text-orange-800/30">
+                      #{index + 1}
                     </Text>
                   </Flex>
-                  <Text className="absolute right-4 top-[0rem] animate-pulse text-[4rem] font-extrabold text-orange-800/20 sm:top-[-1.4rem] sm:text-[8rem] sm:text-orange-800/30">
-                    #{index + 1}
-                  </Text>
                 </Flex>
+              ))
+            ) : (
+              <Flex justify="center" align="center" className="flex-row">
+                <Loader2Icon className="h-8 w-8 animate-spin text-orange-500" />
+                <Text className="ml-2 animate-pulse text-sm font-semibold text-gray-800 sm:text-xl">
+                  Loading...
+                </Text>
               </Flex>
-            ))}
+            )}
           </div>
         </Box>
         <Dialog.Close asChild>
