@@ -112,118 +112,120 @@ export default function HomePage({ session }: any) {
 
   // ─── MIGRATE GUEST PROGRESS ON LOGIN ────────────────────────────────────────────
   useEffect(() => {
-    // List all keys that represent game progress.
-    const keysToMigrate = [
-      "proxName",
-      "count",
-      "lifeTimeEarnings",
-      "clickMultiplier",
-      "totalEarnings",
-      "prestige",
-      "prestigeThreshold",
-      "userClicks",
-      "latemeal",
-      "scanner",
-      "frist", // deliveries stored under "frist"
-      "resco",
-      "farms",
-      "mine",
-      "factories",
-      "bank",
-      "lab",
-      "temple",
-      "spaceStation",
-      "time",
-      "welcome",
-      "achievements",
-      "faq",
-      "playTime", // migrate play time as well
-    ];
-    keysToMigrate.forEach((key) => {
-      const guestKey = `${key}`;
-      const userKey = `guest_${key}`;
-      const guestValue = localStorage.getItem(guestKey);
-      if (guestValue !== null) {
-        switch (key) {
-          case "proxName":
-            setProxName(guestValue);
-            break;
-          case "count":
-            setCount(Number(guestValue));
-            break;
-          case "lifeTimeEarnings":
-            setLifetimeEarnings(Number(guestValue));
-            break;
-          case "clickMultiplier":
-            setClickMultiplier(Number(guestValue));
-            break;
-          case "totalEarnings":
-            setTotalEarnings(Number(guestValue));
-            break;
-          case "prestige":
-            setPrestige(Number(guestValue));
-            break;
-          case "prestigeThreshold":
-            setPrestigeThreshold(Number(guestValue));
-            break;
-          case "userClicks":
-            setUserClicks(Number(guestValue));
-            break;
-          case "latemeal":
-            setLatemeal(Number(guestValue));
-            break;
-          case "scanner":
-            setScanner(Number(guestValue));
-            break;
-          case "frist":
-            setDeliveries(Number(guestValue));
-            break;
-          case "resco":
-            setResco(Number(guestValue));
-            break;
-          case "farms":
-            setFarms(Number(guestValue));
-            break;
-          case "mine":
-            setMine(Number(guestValue));
-            break;
-          case "factories":
-            setFactories(Number(guestValue));
-            break;
-          case "bank":
-            setBank(Number(guestValue));
-            break;
-          case "lab":
-            setLab(Number(guestValue));
-            break;
-          case "temple":
-            setTemple(Number(guestValue));
-            break;
-          case "spaceStation":
-            setSpaceStation(Number(guestValue));
-            break;
-          case "time":
-            setGameStartTime(guestValue);
-            break;
-          case "welcome":
-            setWelcome(guestValue === "true");
-            break;
-          case "achievements":
-            setAcheivements(guestValue === "true");
-            break;
-          case "faq":
-            setFaq(guestValue === "true");
-            break;
-          case "playTime":
-            setPlayTime(Number(guestValue));
-            break;
-          default:
-            break;
+    if (session && session.user && session.user.email) {
+      // List all keys that represent game progress.
+      const keysToMigrate = [
+        "proxName",
+        "count",
+        "lifeTimeEarnings",
+        "clickMultiplier",
+        "totalEarnings",
+        "prestige",
+        "prestigeThreshold",
+        "userClicks",
+        "latemeal",
+        "scanner",
+        "frist", // deliveries stored under "frist"
+        "resco",
+        "farms",
+        "mine",
+        "factories",
+        "bank",
+        "lab",
+        "temple",
+        "spaceStation",
+        "time",
+        "welcome",
+        "achievements",
+        "faq",
+        "playTime", // migrate play time as well
+      ];
+      keysToMigrate.forEach((key) => {
+        const guestKey = `${key}`;
+        const userKey = `user_${session.user.email}_${key}`;
+        const guestValue = localStorage.getItem(guestKey);
+        if (guestValue !== null) {
+          switch (key) {
+            case "proxName":
+              setProxName(guestValue);
+              break;
+            case "count":
+              setCount(Number(guestValue));
+              break;
+            case "lifeTimeEarnings":
+              setLifetimeEarnings(Number(guestValue));
+              break;
+            case "clickMultiplier":
+              setClickMultiplier(Number(guestValue));
+              break;
+            case "totalEarnings":
+              setTotalEarnings(Number(guestValue));
+              break;
+            case "prestige":
+              setPrestige(Number(guestValue));
+              break;
+            case "prestigeThreshold":
+              setPrestigeThreshold(Number(guestValue));
+              break;
+            case "userClicks":
+              setUserClicks(Number(guestValue));
+              break;
+            case "latemeal":
+              setLatemeal(Number(guestValue));
+              break;
+            case "scanner":
+              setScanner(Number(guestValue));
+              break;
+            case "frist":
+              setDeliveries(Number(guestValue));
+              break;
+            case "resco":
+              setResco(Number(guestValue));
+              break;
+            case "farms":
+              setFarms(Number(guestValue));
+              break;
+            case "mine":
+              setMine(Number(guestValue));
+              break;
+            case "factories":
+              setFactories(Number(guestValue));
+              break;
+            case "bank":
+              setBank(Number(guestValue));
+              break;
+            case "lab":
+              setLab(Number(guestValue));
+              break;
+            case "temple":
+              setTemple(Number(guestValue));
+              break;
+            case "spaceStation":
+              setSpaceStation(Number(guestValue));
+              break;
+            case "time":
+              setGameStartTime(guestValue);
+              break;
+            case "welcome":
+              setWelcome(guestValue === "true");
+              break;
+            case "achievements":
+              setAcheivements(guestValue === "true");
+              break;
+            case "faq":
+              setFaq(guestValue === "true");
+              break;
+            case "playTime":
+              setPlayTime(Number(guestValue));
+              break;
+            default:
+              break;
+          }
+          localStorage.removeItem(guestKey);
+          localStorage.setItem(userKey, guestValue);
         }
-        localStorage.removeItem(guestKey);
-        localStorage.setItem(userKey, guestValue);
-      }
-    });
+      });
+    }
   }, [session]);
 
   // ─── INITIALIZE GAME START TIME (OPTIONAL) ─────────────────────────────────────
