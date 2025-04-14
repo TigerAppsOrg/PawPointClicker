@@ -1,13 +1,10 @@
 import React from "react";
-import { Flex, Text, Box, Tooltip, Separator } from "@radix-ui/themes";
+import { Flex, Text, Box, Tooltip } from "@radix-ui/themes";
 import formatNumberGenerators from "../utilities/formatNumberGenerators";
 import {
   BoxIcon,
-  DollarSignIcon,
   LockKeyholeIcon,
-  PawPrintIcon,
   PlusCircleIcon,
-  ShoppingBagIcon,
   ShoppingCartIcon,
 } from "lucide-react";
 

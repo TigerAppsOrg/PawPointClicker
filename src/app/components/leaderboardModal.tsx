@@ -1,16 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import {
-  XIcon,
-  TrophyIcon,
-  LoaderPinwheelIcon,
-  Loader2Icon,
-} from "lucide-react";
+import { XIcon, TrophyIcon, Loader2Icon } from "lucide-react";
 import { Box, Flex, Separator, Text } from "@radix-ui/themes";
-import formatNumberGenerators from "../utilities/formatNumberGenerators";
+import formatNumberExtended from "../utilities/formatNumberExtended";
 const { arabToRoman } = require("roman-numbers");
-import { profanity, CensorType } from "@2toad/profanity";
+import { profanity } from "@2toad/profanity";
 
 // LeaderboardModal component.
 // open: controls modal visibility, setOpen: toggles modal visibility.
@@ -51,17 +46,27 @@ export default function LeaderboardModal({
   function getBorderImage(rank: number) {
     switch (rank) {
       case 1:
-        return "/images/avatarborders/bluegem.webp";
+        return "/images/avatarborders/scales.webp";
       case 2:
-        return "/images/avatarborders/redgem.webp";
+        return "/images/avatarborders/fire.webp";
       case 3:
-        return "/images/avatarborders/dragon.webp";
+        return "/images/avatarborders/regal.webp";
       case 4:
-        return "/images/avatarborders/rank1.webp";
+        return "/images/avatarborders/galaxy.webp";
       case 5:
-        return "/images/avatarborders/rank2.webp";
+        return "/images/avatarborders/bluegem.webp";
+      case 6:
+        return "/images/avatarborders/redgem.webp";
+      case 7:
+        return "/images/avatarborders/star.webp";
+      case 8:
+        return "/images/avatarborders/royal.webp";
+      case 9:
+        return "/images/avatarborders/diamond.webp";
+      case 10:
+        return "/images/avatarborders/gemstone.webp";
       default:
-        return "/images/avatarborders/default.webp";
+        return "/images/avatarborders/circle.webp";
     }
   }
 
@@ -71,7 +76,7 @@ export default function LeaderboardModal({
       (player.clickMultiplier || 0) +
       (player.latemeal || 0) +
       (player.scanner || 0) +
-      (player.deliveries || 0) + // deliveries stored under "frist"
+      (player.deliveries || 0) +
       (player.resco || 0) +
       (player.farms || 0) +
       (player.mine || 0) +
@@ -103,13 +108,13 @@ export default function LeaderboardModal({
                 <Flex
                   align="center"
                   key={player.id}
-                  className="relative overflow-hidden rounded-xl bg-gradient-to-l from-orange-400 to-orange-500 p-2 shadow-sm transition-all duration-150 hover:scale-[1.01] hover:to-orange-400"
+                  className="relative rounded-xl bg-gradient-to-l from-orange-400 to-orange-500 p-2 shadow-sm transition-all duration-150 hover:scale-[1.01] hover:to-orange-400"
                 >
                   <div className="relative flex-shrink-0">
                     <Flex
                       justify="center"
                       align="center"
-                      className="z-10 size-16 sm:size-32"
+                      className="z-10 size-16 text-center sm:size-32"
                     >
                       <img
                         src={getBorderImage(index + 1)}
@@ -119,8 +124,9 @@ export default function LeaderboardModal({
                       <img
                         src={player.session?.user?.image || "/images/guest.png"}
                         alt={player.session?.user?.name || "Anonymous"}
-                        className="h-[80%] w-[80%]"
+                        className="h-[80%] w-[80%] bg-orange-700"
                       />
+
                       <Text className="absolute bottom-0 z-20 truncate rounded-md border border-orange-200 bg-orange-500 px-2 text-center text-[0.5rem] font-semibold text-orange-50 sm:text-xs">
                         {profanity.censor(player.session?.user?.name) ||
                           "Anonymous"}{" "}
@@ -128,7 +134,12 @@ export default function LeaderboardModal({
                     </Flex>
                     {index < 5 && (
                       <div className="absolute right-[-0.5rem] top-[0.25rem]">
-                        <Text className="rotate-12 rounded-full border-2 border-orange-600 bg-orange-500 p-1 text-xs font-bold text-gray-100 sm:p-2 sm:text-xl">
+                        <img
+                          src={"/images/fire.gif"}
+                          alt="fire"
+                          className="z-5 absolute left-[0.4rem] top-[-2.5rem] z-10 h-[3rem] w-auto rotate-6 opacity-80"
+                        />
+                        <Text className="relative z-10 rounded-full border-2 border-orange-600 bg-orange-500 p-1 text-xs font-bold text-yellow-100 sm:p-2 sm:text-xl">
                           #{index + 1}
                         </Text>
                       </div>
@@ -142,7 +153,7 @@ export default function LeaderboardModal({
                     </Text>
                     <Flex className="text-sm font-extrabold text-white sm:text-3xl">
                       <Text className="max-w-full animate-pulse truncate">
-                        {formatNumberGenerators(player.lifeTimeEarnings)}{" "}
+                        {formatNumberExtended(player.lifeTimeEarnings, 0)}
                       </Text>
                       <img
                         src="/images/prox.svg"
@@ -162,10 +173,13 @@ export default function LeaderboardModal({
                         {"PRESTIGE " + (arabToRoman(player.prestige) || 0)}
                       </Flex>
                       <Text className="text-xs font-semibold sm:text-lg">
-                        Collectors: {sumCollectors(player)}
+                        Collectors:{" "}
+                        {formatNumberExtended(sumCollectors(player), 0)}
                       </Text>
                     </Flex>
-                    <Text className="absolute right-4 top-[0rem] animate-pulse text-[4rem] font-extrabold text-orange-800/20 sm:top-[-1.4rem] sm:text-[8rem] sm:text-orange-800/30">
+                    <Text
+                      className={`absolute right-4 top-[0rem] animate-pulse text-[4rem] font-extrabold sm:top-[-1.4rem] sm:text-[8rem] ${index >= 5 ? "text-orange-800/20 sm:text-orange-800/30" : "text-white/30"}`}
+                    >
                       #{index + 1}
                     </Text>
                   </Flex>
