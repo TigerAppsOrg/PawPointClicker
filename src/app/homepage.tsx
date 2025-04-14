@@ -578,18 +578,13 @@ export default function HomePage({ session }: any) {
     lastSaved: new Date().toISOString(),
   });
 
-  // ─── SAVE GAME DATA EVERY 5 SECONDS (ONLY FOR LOGGED IN USERS AFTER DATA IMPORT) ─────
+  // ─── SETUP A REF TO HOLD THE LATEST GAME DATA ─────────────────────────────
+  const gameDataRef = useRef(gatherGameData());
+
+  // Update the gameDataRef whenever any of the game-related state changes.
   useEffect(() => {
-    if (!session || !hasImportedUserData) return;
-    const gameData = gatherGameData();
-    fetch("/api/saveGameData", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId: session.user.email, gameData }),
-    }).catch((err) => console.error("Error saving game data: ", err));
+    gameDataRef.current = gatherGameData();
   }, [
-    session,
-    hasImportedUserData,
     proxName,
     count,
     lifeTimeEarnings,
@@ -612,6 +607,24 @@ export default function HomePage({ session }: any) {
     gameStartTime,
     playTime,
   ]);
+
+  // ─── SAVE GAME DATA EVERY 5 SECONDS (ONLY FOR LOGGED IN USERS AFTER DATA IMPORT) ─────
+  useEffect(() => {
+    if (!session || !hasImportedUserData) return;
+
+    const interval = setInterval(() => {
+      // Always use the latest game data from the ref.
+      console.log("Saving game data to backend...");
+      const gameData = gameDataRef.current;
+      fetch("/api/saveGameData", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: session.user.email, gameData }),
+      }).catch((err) => console.error("Error saving game data: ", err));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [session, hasImportedUserData]);
 
   // ─── FETCH USER DATA FROM BACKEND ─────────────────────────────────────────────
   useEffect(() => {
