@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { XIcon, TrophyIcon, Loader2Icon } from "lucide-react";
 import { Box, Flex, Separator, Text } from "@radix-ui/themes";
@@ -10,37 +10,38 @@ import { profanity } from "@2toad/profanity";
 // LeaderboardModal component.
 // open: controls modal visibility, setOpen: toggles modal visibility.
 export default function LeaderboardModal({
+  players,
   isOpen,
   setIsOpen,
 }: {
+  players: any[];
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }) {
-  const [players, setPlayers] = useState<any[]>([]);
-
-  // Fetch leaderboard data from API when modal is opened.
-  useEffect(() => {
-    async function fetchLeaderboard() {
-      try {
-        const res = await fetch("/api/getAllUserData");
-        const { data, error } = await res.json();
-        if (error) {
-          console.error("Error fetching leaderboard data:", error);
-          return;
-        }
-        // Sort players by total earnings (descending) -- adjust as needed.
-        const sortedPlayers = data.sort(
-          (a: any, b: any) => b.lifeTimeEarnings - a.lifeTimeEarnings,
-        );
-        setPlayers(sortedPlayers);
-      } catch (err) {
-        console.error("Error fetching leaderboard data:", err);
-      }
-    }
-    if (isOpen) {
-      fetchLeaderboard();
-    }
-  }, [isOpen]);
+  //DEPRECATED: now imported from toolbar
+  // Fetch leaderboard data from API when modal is opened
+  // useEffect(() => {
+  //   async function fetchLeaderboard() {
+  //     try {
+  //       const res = await fetch("/api/getAllUserData");
+  //       const { data, error } = await res.json();
+  //       if (error) {
+  //         console.error("Error fetching leaderboard data:", error);
+  //         return;
+  //       }
+  //       // Sort players by total earnings (descending) -- adjust as needed.
+  //       const sortedPlayers = data.sort(
+  //         (a: any, b: any) => b.lifeTimeEarnings - a.lifeTimeEarnings,
+  //       );
+  //       setPlayers(sortedPlayers);
+  //     } catch (err) {
+  //       console.error("Error fetching leaderboard data:", err);
+  //     }
+  //   }
+  //   if (isOpen) {
+  //     fetchLeaderboard();
+  //   }
+  // }, [isOpen]);
 
   // Determine border image for each rank.
   function getBorderImage(rank: number) {
@@ -88,6 +89,11 @@ export default function LeaderboardModal({
     );
   }
 
+  // Calculate total pawpoints collected from all players.
+  const totalPawPoints =
+    players?.reduce((acc, player) => acc + (player.lifeTimeEarnings || 0), 0) ||
+    0;
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Overlay className="fixed inset-0 z-40 bg-black/60" />
@@ -102,9 +108,54 @@ export default function LeaderboardModal({
             size="4"
             className="mb-4 border-gray-700"
           />
+          {/* Statbar dashboard replacing "Top Players" */}
+          <Flex className="mb-4 gap-4">
+            <Flex
+              align="center"
+              justify="center"
+              className="w-full rounded-xl bg-orange-100 p-2"
+            >
+              {players?.length !== 0 ? (
+                <>
+                  <div className="mr-2 h-3 w-3 animate-pulse rounded-full bg-green-500" />
+                  <Text className="text-sm font-semibold text-gray-800">
+                    Updating LIVE
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Loader2Icon className="mr-2 h-4 w-4 animate-spin text-orange-500" />
+
+                  <Text className="text-sm font-semibold text-gray-800">
+                    Connecting...
+                  </Text>
+                </>
+              )}
+            </Flex>
+            <Flex
+              align="center"
+              justify="center"
+              className="w-full rounded-xl bg-orange-100 p-2"
+            >
+              <Text className="text-sm font-semibold text-gray-800">
+                Total Players: {players?.length || 0}
+              </Text>
+            </Flex>
+            <Flex
+              align="center"
+              justify="center"
+              className="w-full rounded-xl bg-orange-100 p-2"
+            >
+              <Text className="text-sm font-semibold text-gray-800">
+                Total Paw Points: {formatNumberExtended(totalPawPoints, 0)}
+              </Text>
+            </Flex>
+          </Flex>
+
+          {/* Leaderboard Players List */}
           <div className="space-y-2 sm:space-y-3">
-            {players.length != 0 ? (
-              players.map((player, index) => (
+            {players?.length != 0 ? (
+              players?.map((player, index) => (
                 <Flex
                   align="center"
                   key={player.id}

@@ -3,10 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Toolbar from "./components/toolbar";
 import ProxMenu from "./prox/proxMenu";
 import PowerUpMenu from "./menu/powerUpMenu";
-import WelcomeModal from "./components/welcomeModal";
 import Achievements from "./components/acheivementsModal";
-import Leaderboard from "./components/leaderboardModal";
-import FAQ from "./components/faqModal";
 import useLocalStorage from "./utilities/useLocalStorage";
 
 // A helper that returns a namespaced storage key.
@@ -86,14 +83,11 @@ export default function HomePage({ session }: any) {
     0,
   );
 
-  // Modal Controls
-  const [welcome, setWelcome] = useLocalStorage("welcome", false);
+  // Achievement Modal Control
   const [acheivements, setAcheivements] = useLocalStorage(
     "achievements",
     false,
   );
-  const [leaderboard, setLeaderboard] = useLocalStorage("leaderboard", false);
-  const [faq, setFaq] = useLocalStorage("faq", false);
 
   // (Optional) Keep game start time if you need a fixed timestamp reference.
   const [gameStartTime, setGameStartTime] = useLocalStorage(
@@ -205,15 +199,7 @@ export default function HomePage({ session }: any) {
           case "time":
             setGameStartTime(rawValue);
             break;
-          case "welcome":
-            setWelcome(rawValue === "true");
-            break;
-          case "achievements":
-            setAcheivements(rawValue === "true");
-            break;
-          case "faq":
-            setFaq(rawValue === "true");
-            break;
+
           case "playTime":
             setPlayTime(Number(rawValue));
             break;
@@ -323,15 +309,7 @@ export default function HomePage({ session }: any) {
           case "time":
             setGameStartTime(guestValue);
             break;
-          case "welcome":
-            setWelcome(guestValue === "true");
-            break;
-          case "achievements":
-            setAcheivements(guestValue === "true");
-            break;
-          case "faq":
-            setFaq(guestValue === "true");
-            break;
+
           case "playTime":
             setPlayTime(Number(guestValue));
             break;
@@ -687,14 +665,7 @@ export default function HomePage({ session }: any) {
 
   return (
     <div className="relative grid w-full grid-cols-1 font-sans sm:h-screen sm:grid-cols-2 sm:overflow-hidden">
-      <Toolbar
-        session={session}
-        setWelcome={setWelcome}
-        setAcheivements={setAcheivements}
-        setFaq={setFaq}
-        setLeaderboard={setLeaderboard}
-      />
-      <WelcomeModal isOpen={welcome} setIsOpen={setWelcome} />
+      <Toolbar session={session} setAcheivements={setAcheivements} />
       <Achievements
         stats={{
           count,
@@ -724,8 +695,6 @@ export default function HomePage({ session }: any) {
         achievements={acheivements}
         setAchievements={setAcheivements}
       />
-      <Leaderboard isOpen={leaderboard} setIsOpen={setLeaderboard} />
-      <FAQ isOpen={faq} setIsOpen={setFaq} />
       <ProxMenu
         proxName={proxName}
         setProxName={setProxName}

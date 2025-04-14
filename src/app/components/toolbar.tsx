@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 import { Box, Flex, Tooltip } from "@radix-ui/themes";
 import {
   TrophyIcon,
@@ -10,25 +11,65 @@ import {
   LogInIcon,
 } from "lucide-react";
 import Link from "next/link";
+import useLocalStorage from "../utilities/useLocalStorage";
+import Leaderboard from "./leaderboardModal";
+import WelcomeModal from "./welcomeModal";
+import FAQ from "./faqModal";
 
 export default function Toolbar({
   session,
-  setWelcome,
   setAcheivements,
-  setFaq,
-  setLeaderboard,
 }: {
   session: any;
   setWelcome: (welcome: boolean) => void;
   setAcheivements: (achievements: boolean) => void;
   setFaq: (faq: boolean) => void;
-  setLeaderboard: (leaderboard: boolean) => void;
 }) {
-  //function that gets users from firebase
+  const [players, setPlayers] = useState<any[]>([]);
+  const [leaderboard, setLeaderboard] = useLocalStorage("leaderboard", false);
+  const [welcome, setWelcome] = useLocalStorage("welcome", true);
+  const [faq, setFaq] = useLocalStorage("faq", false);
 
-  //
+  useEffect(() => {
+    async function fetchLeaderboard() {
+      try {
+        const res = await fetch("/api/getAllUserData");
+        const { data, error } = await res.json();
+        if (error) {
+          console.error("Error fetching leaderboard data:", error);
+          return;
+        }
+        // Sort players by total lifetime earnings (descending)
+        const sortedPlayers = data.sort(
+          (a: { lifeTimeEarnings: number }, b: { lifeTimeEarnings: number }) =>
+            b.lifeTimeEarnings - a.lifeTimeEarnings,
+        );
+        setPlayers(sortedPlayers);
+      } catch (err) {
+        console.error("Error fetching leaderboard data:", err);
+      }
+    }
+
+    // Fetch immediately then set up a recurring interval every 5 seconds.
+    fetchLeaderboard();
+    const interval = setInterval(fetchLeaderboard, 5000);
+
+    // Clean up on unmount.
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
+      {/* Modals */}
+      <Leaderboard
+        isOpen={leaderboard}
+        setIsOpen={setLeaderboard}
+        players={players}
+      />
+      <WelcomeModal isOpen={welcome} setIsOpen={setWelcome} />
+      <FAQ isOpen={faq} setIsOpen={setFaq} />
+
+      {/* Toolbar */}
       <Flex
         align="center"
         justify="center"
