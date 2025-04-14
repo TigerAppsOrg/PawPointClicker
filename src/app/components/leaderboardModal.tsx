@@ -59,7 +59,7 @@ export default function LeaderboardModal({
       case 6:
         return "/images/avatarborders/redgem.webp";
       case 7:
-        return "/images/avatarborders/star.webp";
+        return "/images/avatarborders/crown.webp";
       case 8:
         return "/images/avatarborders/royal.webp";
       case 9:

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Box, Flex, Tooltip } from "@radix-ui/themes";
+import { Box, Flex, Text, Tooltip } from "@radix-ui/themes";
 import {
   TrophyIcon,
   AwardIcon,
@@ -21,14 +21,16 @@ export default function Toolbar({
   setAcheivements,
 }: {
   session: any;
-  setWelcome: (welcome: boolean) => void;
   setAcheivements: (achievements: boolean) => void;
-  setFaq: (faq: boolean) => void;
 }) {
   const [players, setPlayers] = useState<any[]>([]);
   const [leaderboard, setLeaderboard] = useLocalStorage("leaderboard", false);
   const [welcome, setWelcome] = useLocalStorage("welcome", true);
   const [faq, setFaq] = useLocalStorage("faq", false);
+  const [avatarBorder, setAvatarBorder] = useState(
+    "/images/avatarborders/circle.webp",
+  ); // default border for signed in user
+  const [userPosition, setUserPosition] = useState(0); // default position for signed in user
 
   useEffect(() => {
     async function fetchLeaderboard() {
@@ -57,6 +59,56 @@ export default function Toolbar({
     // Clean up on unmount.
     return () => clearInterval(interval);
   }, []);
+
+  function getBorderImage(rank: number) {
+    switch (rank) {
+      case 1:
+        return "/images/avatarborders/scales.webp";
+      case 2:
+        return "/images/avatarborders/fire.webp";
+      case 3:
+        return "/images/avatarborders/regal.webp";
+      case 4:
+        return "/images/avatarborders/galaxy.webp";
+      case 5:
+        return "/images/avatarborders/bluegem.webp";
+      case 6:
+        return "/images/avatarborders/redgem.webp";
+      case 7:
+        return "/images/avatarborders/crown.webp";
+      case 8:
+        return "/images/avatarborders/royal.webp";
+      case 9:
+        return "/images/avatarborders/diamond.webp";
+      case 10:
+        return "/images/avatarborders/gemstone.webp";
+      default:
+        return "/images/avatarborders/circle.webp";
+    }
+  }
+
+  // Look for the current session's user in the leaderboard players.
+  useEffect(() => {
+    if (session && session.user && players.length > 0) {
+      const userEmail = session.user.email;
+      // Find the index by comparing emails (adjust the path if your data structure is different).
+      const userIndex = players.findIndex(
+        (player) => player.session?.user?.email === userEmail,
+      );
+      if (userIndex !== -1) {
+        // userIndex is zero-based so rank is userIndex + 1.
+        const rank = userIndex + 1;
+        setUserPosition(rank);
+        setAvatarBorder(getBorderImage(rank));
+      } else {
+        // If not found in leaderboard, use the default.
+        setAvatarBorder("/images/avatarborders/crown.webp");
+      }
+    } else {
+      // If no user session, use guest border.
+      setAvatarBorder("/images/avatarborders/guest.webp");
+    }
+  }, [session, players]);
 
   return (
     <>
@@ -95,9 +147,7 @@ export default function Toolbar({
             >
               <img
                 src={
-                  session
-                    ? "/images/avatarborders/crown.webp"
-                    : "/images/avatarborders/guest.webp"
+                  session ? avatarBorder : "/images/avatarborders/guest.webp"
                 }
                 alt="avatarborder"
                 className="absolute z-10 min-h-[6rem] min-w-[6rem]"
@@ -108,6 +158,11 @@ export default function Toolbar({
               alt={session && session.user?.name}
               className="z-5 absolute mt-[0.1rem] h-20 w-20"
             />
+            <div className="absolute right-[-0.9rem] top-[-0.5rem]">
+              <Text className="relative z-10 rounded-full border-2 border-orange-600 bg-orange-500 p-[0.25rem] text-xs font-bold text-yellow-100 sm:text-sm">
+                #{userPosition}
+              </Text>
+            </div>
             <p className="absolute bottom-0 z-20 rounded-md border border-white bg-orange-500 px-2 text-center text-xs text-white">
               {session ? (
                 <span className="truncate">{session.user?.name}</span>
