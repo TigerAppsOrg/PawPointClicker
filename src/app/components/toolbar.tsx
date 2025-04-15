@@ -158,11 +158,20 @@ export default function Toolbar({
               alt={session && session.user?.name}
               className="z-5 absolute mt-[0.1rem] h-20 w-20"
             />
-            <div className="absolute right-[-0.9rem] top-[-0.5rem]">
-              <Text className="relative z-10 rounded-full border-2 border-orange-600 bg-orange-500 p-[0.25rem] text-xs font-bold text-yellow-100 sm:text-sm">
-                #{userPosition}
-              </Text>
-            </div>
+            {session && (
+              <Tooltip
+                content={`You are ranked #${userPosition} among all users globally!`}
+              >
+                <div
+                  onClick={() => setLeaderboard(true)}
+                  className="absolute right-[-0.9rem] top-[-0.5rem] cursor-pointer"
+                >
+                  <Text className="relative z-10 rounded-full border-2 border-orange-600 bg-orange-500 p-[0.25rem] text-xs font-bold text-yellow-100 sm:text-sm">
+                    #{userPosition}
+                  </Text>
+                </div>
+              </Tooltip>
+            )}
             <p className="absolute bottom-0 z-20 rounded-md border border-white bg-orange-500 px-2 text-center text-xs text-white">
               {session ? (
                 <span className="truncate">{session.user?.name}</span>

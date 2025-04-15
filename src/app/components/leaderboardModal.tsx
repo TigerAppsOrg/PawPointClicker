@@ -109,16 +109,16 @@ export default function LeaderboardModal({
             className="mb-4 border-gray-700"
           />
           {/* Statbar dashboard replacing "Top Players" */}
-          <Flex className="mb-4 gap-4">
+          <Flex className="mb-4 flex-col gap-2 text-xs sm:flex-row sm:gap-4 sm:text-sm">
             <Flex
               align="center"
               justify="center"
-              className="w-full rounded-xl bg-orange-100 p-2"
+              className="w-full rounded-xl bg-orange-100 p-1 sm:p-2"
             >
               {players?.length !== 0 ? (
                 <>
                   <div className="mr-2 h-3 w-3 animate-pulse rounded-full bg-green-500" />
-                  <Text className="text-sm font-semibold text-gray-800">
+                  <Text className="font-semibold text-gray-800">
                     Updating LIVE
                   </Text>
                 </>
@@ -126,7 +126,7 @@ export default function LeaderboardModal({
                 <>
                   <Loader2Icon className="mr-2 h-4 w-4 animate-spin text-orange-500" />
 
-                  <Text className="text-sm font-semibold text-gray-800">
+                  <Text className="font-semibold text-gray-800">
                     Connecting...
                   </Text>
                 </>
@@ -135,18 +135,18 @@ export default function LeaderboardModal({
             <Flex
               align="center"
               justify="center"
-              className="w-full rounded-xl bg-orange-100 p-2"
+              className="w-full rounded-xl bg-orange-100 p-1 sm:p-2"
             >
-              <Text className="text-sm font-semibold text-gray-800">
+              <Text className="font-semibold text-gray-800">
                 Total Players: {players?.length || 0}
               </Text>
             </Flex>
             <Flex
               align="center"
               justify="center"
-              className="w-full rounded-xl bg-orange-100 p-2"
+              className="w-full rounded-xl bg-orange-100 p-1 sm:p-2"
             >
-              <Text className="text-sm font-semibold text-gray-800">
+              <Text className="font-semibold text-gray-800">
                 Total Paw Points: {formatNumberExtended(totalPawPoints, 0)}
               </Text>
             </Flex>
@@ -188,7 +188,7 @@ export default function LeaderboardModal({
                         <img
                           src={"/images/fire.gif"}
                           alt="fire"
-                          className="z-5 absolute left-[0.4rem] top-[-2.5rem] z-10 h-[3rem] w-auto rotate-6 opacity-80"
+                          className="z-5 absolute left-[0.5rem] top-[-2rem] z-10 h-[2rem] w-auto rotate-6 opacity-80"
                         />
                         <Text className="relative z-10 rounded-full border-2 border-orange-600 bg-orange-500 p-1 text-xs font-bold text-yellow-100 sm:p-2 sm:text-xl">
                           #{index + 1}
