@@ -104,6 +104,18 @@ export default function HomePage({ session }: any) {
   // A flag to ensure that remote data is imported before further saving occurs.
   const [hasImportedUserData, setHasImportedUserData] = useState(false);
 
+  // Helper to clean up stored values
+  function parseStoredValue(key: string, value: string) {
+    // Only adjust for proxName because that’s where the issue is
+    if (key === "proxName") {
+      // Remove extra quotes if present
+      if (value.startsWith('"') && value.endsWith('"')) {
+        return value.slice(1, -1);
+      }
+    }
+    return value;
+  }
+
   // ─── 1. Always Migrate Raw Guest Keys to Guest Namespace ───────────────
   useEffect(() => {
     const keysToMigrate = [
@@ -140,7 +152,8 @@ export default function HomePage({ session }: any) {
         // Set state accordingly
         switch (key) {
           case "proxName":
-            setProxName(rawValue);
+            const cleanedValue = parseStoredValue(key, rawValue);
+            setProxName(cleanedValue);
             break;
           case "count":
             setCount(Number(rawValue));
@@ -250,7 +263,8 @@ export default function HomePage({ session }: any) {
         // Update state with the guest value
         switch (key) {
           case "proxName":
-            setProxName(guestValue);
+            const cleanedValue = parseStoredValue(key, guestValue);
+            setProxName(cleanedValue);
             break;
           case "count":
             setCount(Number(guestValue));
