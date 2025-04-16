@@ -113,7 +113,7 @@ export default function LeaderboardModal({
             <Flex
               align="center"
               justify="center"
-              className="w-full rounded-xl bg-orange-100 p-1 sm:p-2"
+              className="w-full rounded-xl bg-orange-100 p-1 text-center sm:p-2"
             >
               {players?.length !== 0 ? (
                 <>
@@ -135,7 +135,7 @@ export default function LeaderboardModal({
             <Flex
               align="center"
               justify="center"
-              className="w-full rounded-xl bg-orange-100 p-1 sm:p-2"
+              className="w-full rounded-xl bg-orange-100 p-1 text-center sm:p-2"
             >
               <Text className="font-semibold text-gray-800">
                 Total Players: {players?.length || 0}
@@ -144,7 +144,7 @@ export default function LeaderboardModal({
             <Flex
               align="center"
               justify="center"
-              className="w-full rounded-xl bg-orange-100 p-1 sm:p-2"
+              className="w-full rounded-xl bg-orange-100 p-1 text-center sm:p-2"
             >
               <Text className="font-semibold text-gray-800">
                 Total Paw Points: {formatNumberExtended(totalPawPoints, 0)}
@@ -188,7 +188,7 @@ export default function LeaderboardModal({
                         <img
                           src={"/images/fire.gif"}
                           alt="fire"
-                          className="z-5 absolute left-[0.5rem] top-[-2rem] z-10 h-[2rem] w-auto rotate-6 opacity-80"
+                          className="z-5 absolute left-[0.25rem] top-[-1.5rem] z-10 h-[2rem] w-auto rotate-6 opacity-80 sm:left-[0.5rem] sm:top-[-2rem]"
                         />
                         <Text className="relative z-10 rounded-full border-2 border-orange-600 bg-orange-500 p-1 text-xs font-bold text-yellow-100 sm:p-2 sm:text-xl">
                           #{index + 1}
