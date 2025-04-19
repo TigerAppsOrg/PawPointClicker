@@ -34,6 +34,7 @@ export default function Toolbar({
 
   useEffect(() => {
     async function fetchLeaderboard() {
+      console.log("Fetching leaderboard data...");
       try {
         const res = await fetch("/api/getAllUserData");
         const { data, error } = await res.json();
@@ -52,9 +53,9 @@ export default function Toolbar({
       }
     }
 
-    // Fetch immediately then set up a recurring interval every 5 seconds.
+    // Fetch immediately then set up a recurring interval every 15 seconds.
     fetchLeaderboard();
-    const interval = setInterval(fetchLeaderboard, 5000);
+    const interval = setInterval(fetchLeaderboard, 15000);
 
     // Clean up on unmount.
     return () => clearInterval(interval);
