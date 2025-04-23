@@ -23,14 +23,27 @@ export default function Toolbar({
   session: any;
   setAcheivements: (achievements: boolean) => void;
 }) {
-  const [players, setPlayers] = useState<any[]>([]);
+  // Modal States
   const [leaderboard, setLeaderboard] = useLocalStorage("leaderboard", false);
-  const [welcome, setWelcome] = useLocalStorage("welcome", true);
+  const [welcome, setWelcome] = useLocalStorage("welcome", false);
   const [faq, setFaq] = useLocalStorage("faq", false);
+  const [isFirstVisit, setIsFirstVisit] = useState(true);
+
+  // Player Data
+  const [players, setPlayers] = useState<any[]>([]);
   const [avatarBorder, setAvatarBorder] = useState(
     "/images/avatarborders/circle.webp",
   ); // default border for signed in user
   const [userPosition, setUserPosition] = useState(0); // default position for signed in user
+
+  // Check if the user has seen the welcome modal before (the first time they visit the site)
+  useEffect(() => {
+    const hasSeenModal = localStorage.getItem("hasSeenWelcomeModal");
+    if (!hasSeenModal && isFirstVisit) {
+      setWelcome(true);
+      setIsFirstVisit(false);
+    }
+  }, [isFirstVisit]);
 
   useEffect(() => {
     async function fetchLeaderboard() {
