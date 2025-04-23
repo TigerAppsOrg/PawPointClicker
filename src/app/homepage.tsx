@@ -139,9 +139,7 @@ export default function HomePage({ session }: any) {
       "temple",
       "spaceStation",
       "time",
-      "welcome",
       "achievements",
-      "faq",
       "playTime",
     ];
 
@@ -249,9 +247,7 @@ export default function HomePage({ session }: any) {
       "temple",
       "spaceStation",
       "time",
-      "welcome",
       "achievements",
-      "faq",
       "playTime",
     ];
 
@@ -600,7 +596,7 @@ export default function HomePage({ session }: any) {
     playTime,
   ]);
 
-  // ─── SAVE GAME DATA EVERY 10 SECONDS (ONLY FOR LOGGED IN USERS AFTER DATA IMPORT) ─────
+  // ─── SAVE GAME DATA EVERY 30 SECONDS (ONLY FOR LOGGED IN USERS AFTER DATA IMPORT) ─────
   useEffect(() => {
     if (!session || !hasImportedUserData) return;
 
@@ -613,7 +609,7 @@ export default function HomePage({ session }: any) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: session.user.email, gameData }),
       }).catch((err) => console.error("Error saving game data: ", err));
-    }, 10000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, [session, hasImportedUserData]);

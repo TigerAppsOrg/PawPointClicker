@@ -124,10 +124,10 @@ export default function LeaderboardModal({
                 </>
               ) : (
                 <>
-                  <Loader2Icon className="mr-2 h-4 w-4 animate-spin text-orange-500" />
+                  <div className="mr-2 h-3 w-3 animate-pulse rounded-full bg-red-500" />
 
                   <Text className="font-semibold text-gray-800">
-                    Connecting...
+                    Unable to connect...
                   </Text>
                 </>
               )}

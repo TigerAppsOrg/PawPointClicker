@@ -53,9 +53,9 @@ export default function Toolbar({
       }
     }
 
-    // Fetch immediately then set up a recurring interval every 15 seconds.
+    // Fetch immediately then set up a recurring interval every 2 minutes.
     fetchLeaderboard();
-    const interval = setInterval(fetchLeaderboard, 15000);
+    const interval = setInterval(fetchLeaderboard, 120000);
 
     // Clean up on unmount.
     return () => clearInterval(interval);
