@@ -27,7 +27,7 @@ export default function Toolbar({
   const [leaderboard, setLeaderboard] = useLocalStorage("leaderboard", false);
   const [welcome, setWelcome] = useLocalStorage("welcome", false);
   const [faq, setFaq] = useLocalStorage("faq", false);
-  const [isFirstVisit, setIsFirstVisit] = useState(true);
+  const [isFirstVisit, setIsFirstVisit] = useLocalStorage("isFirstVisit", true);
 
   // Player Data
   const [players, setPlayers] = useState<any[]>([]);
